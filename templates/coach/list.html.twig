@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Coachs{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #6A455D;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #8A5D78;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .btn-success {
+        background-color: #27ae60;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn-success:hover {
+        background-color: #8c424f;
+    }
+</style>
+
+<h1>Liste des Coachs</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Spécialité</th>
+            <th>Téléphone</th>
+            <th>Email</th>
+            <th>Photo</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for coach in coaches %}
+            <tr>
+                <td>{{ coach.name }}</td>
+                <td>
+                    {% if coach.speciality == 'Personal Trainer' %}
+                        Pilates
+                    {% elseif coach.speciality == 'Nutritionist' %}
+                        Fitness
+                    {% else %}
+                        {{ coach.speciality }}
+                    {% endif %}
+                </td>
+                <td>{{ coach.phone }}</td>
+                <td>{{ coach.email }}</td>
+                <td>
+                    {% set imageName = '' %}
+                    {% if coach.name == 'Sonia Salleti' %}
+                        {% set imageName = 'sonia.jpg' %}
+                    {% elseif coach.name == 'John Doe' %}
+                        {% set imageName = 'john_doe.jpg' %}
+                    {% elseif coach.name == 'Amine Ben Ali' %}
+                        {% set imageName = 'amine_ben_ali.jpg' %}
+                    {% else %}
+                        {% set imageName = 'default_photo.jpg' %}
+                    {% endif %}
+
+                    <img src="{{ asset('images/' ~ imageName) }}" alt="{{ coach.name }}">
+                </td>
+                <td>
+                    <a href="{{ path('app_reserve_coach', {'id': coach.id}) }}" class="btn btn-sm btn-success">Réserver</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+<?php
+// src/Service/PdfGenerator.php
+
+namespace App\Service;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+
+class PdfGenerator
+{
+    private Environment $twig;
+
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
+
+    public function generateCommandePdf($commande): Response
+    {
+        // Configuration de Dompdf
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultFont', 'Arial');
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+
+        // Initialisation de Dompdf
+        $dompdf = new Dompdf($options);
+
+        // Génération du HTML depuis le template Twig
+        $html = $this->twig->render('commande/pdf.html.twig', [
+            'commande' => $commande
+        ]);
+
+        // Chargement et rendu du PDF
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Envoi de la réponse PDF
+        return new Response(
+            $dompdf->stream(
+                'commande_'.$commande->getId().'.pdf', 
+                [
+                    "Attachment" => true,
+                    "compress" => true
+                ]
+            ),
+            Response::HTTP_OK,
+            [
+                'Content-Type' => 'application/pdf',
+                'Cache-Control' => 'public, max-age=0'
+            ]
+        );
+    }
+}

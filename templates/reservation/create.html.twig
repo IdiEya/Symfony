@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une réservation{% endblock %}
+
+{% block body %}
+<h1>Réservation en privé</h1>
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">{{ message }}</div>
+{% endfor %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+
+<div class="reservation-form">
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.tel) }}
+        {{ form_row(form.date_reservation) }}
+        {{ form_row(form.adresse) }}
+
+        <button type="submit" class="btn-submit">
+            {{ button_label|default('Réserver') }}
+        </button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+{% block stylesheets %}
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to right, #BFA1B8, #8A5D78, #61374E); /* violet clair -> 8A5D78 -> plus foncé */
+        color: #fff;
+        padding: 40px 20px;
+        margin: 0;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #fff;
+    }
+
+    .reservation-form {
+        background: #fff;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        margin: 0 auto;
+        color: #8A5D78;
+    }
+
+    label {
+        font-weight: bold;
+        font-size: 14px;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"],
+    textarea {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #8A5D78;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        transition: border 0.3s ease;
+    }
+
+    input:focus {
+        border-color: #61374E;
+        outline: none;
+    }
+
+    .btn-submit {
+        background: linear-gradient(to right, #8A5D78, #61374E);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .btn-submit:hover {
+        background: linear-gradient(to right, #A3738F, #4D2D3E); /* plus sombre */
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}

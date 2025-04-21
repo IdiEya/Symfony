@@ -1,0 +1,58 @@
+{# templates/participation/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Participation Details{% endblock %}
+
+{% block body %}
+    <h1>Participation Details</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ participation.id }}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ participation.utilisateur.prenom }} {{ participation.utilisateur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Event</th>
+                <td>{{ participation.evenement.nom }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ participation.statutP }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ participation.commentaire|default('No comment') }}</td>
+            </tr>
+            <tr>
+                <th>Reserved Places</th>
+               <td>
+                    {% if participation.evenement %}
+                        {{ participation.evenement.nombreDePlaces - participation.evenement.placesReservees }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="btn-group">
+        <a href="{{ path('app_participation_index') }}" class="btn btn-secondary">Back to list</a>
+        <a href="{{ path('app_participation_edit', {'id': participation.id}) }}" class="btn btn-primary">Edit</a>
+        
+        {# Only show participate button if we have an event #}
+        {% if participation.evenement %}
+            <a href="{{ path('app_participation_new', {'eventId': participation.evenement.id}) }}" 
+               class="btn btn-success">
+                Participate in this event
+            </a>
+        {% endif %}
+        
+        {{ include('participation/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

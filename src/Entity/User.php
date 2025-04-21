@@ -169,19 +169,7 @@ class User
         return $this;
     }
 
-    #[ORM\OneToOne(targetEntity: Abonnement::class, mappedBy: 'user')]
-    private ?Abonnement $abonnement = null;
-
-    public function getAbonnement(): ?Abonnement
-    {
-        return $this->abonnement;
-    }
-
-    public function setAbonnement(?Abonnement $abonnement): self
-    {
-        $this->abonnement = $abonnement;
-        return $this;
-    }
+   
 
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'user')]
     private Collection $commandes;

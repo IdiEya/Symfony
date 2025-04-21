@@ -1,16 +1,13 @@
 <?php
 
 namespace App\Entity;
-
-use Doctrine\DBAL\Types\Types;
+use App\Entity\Statut;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EvenementRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
-use App\Repository\EvenementRepository;
-
 #[ORM\Entity(repositoryClass: EvenementRepository::class)]
-#[ORM\Table(name: 'evenement')]
 class Evenement
 {
     #[ORM\Id]
@@ -18,19 +15,93 @@ class Evenement
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[Assert\NotBlank(message: "Le nom de l'événement est obligatoire")]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: "Le nom doit contenir au moins {{ limit }} caractères",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères"
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-Z0-9\s\p{P}éèàçùêîôûäëïöüÿâãñõæœçÉÈÀÇÙÊÎÔÛÄËÏÖÜŸÂÃÑÕÆŒÇ]+$/u",
+        message: "Le nom ne doit contenir que des lettres et espaces"
+    )]
+    private ?string $nom = null;
+
+    #[ORM\Column(type: 'text', nullable: false)]
+    #[Assert\NotBlank(message: "La description est obligatoire")]
+    #[Assert\Length(
+        min: 2,
+        minMessage: "La description doit contenir au moins {{ limit }} caractères"
+    )]
+    private ?string $description = null;
+
+    #[ORM\Column(name: 'dateDebut', type: 'date', nullable: false)]
+    #[Assert\NotBlank(message: "La date de début est obligatoire")]
+    #[Assert\GreaterThanOrEqual(
+        "today",
+        message: "La date de début doit être aujourd'hui ou dans le futur"
+    )]
+    private ?\DateTimeInterface $dateDebut = null;
+
+    #[ORM\Column(name: 'dateFin', type: 'date', nullable: false)]
+    #[Assert\NotBlank(message: "La date de fin est obligatoire")]
+    #[Assert\GreaterThanOrEqual(
+        propertyPath: "dateDebut",
+        message: "La date de fin doit être après la date de début"
+    )]
+    private ?\DateTimeInterface $dateFin = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[Assert\NotBlank(message: "La localisation est obligatoire")]
+    private ?string $localisation = null;
+
+    #[ORM\Column(type: 'float', nullable: false)]
+    #[Assert\NotBlank(message: "Les frais sont obligatoires")]
+    #[Assert\PositiveOrZero(message: "Les frais doivent être positifs ou nuls")]
+    private ?float $frais = null;
+    
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $photo = null;
+
+    #[Vich\UploadableField(mapping: 'evenement_images', fileNameProperty: 'photo')]
+   
+    #[Assert\Image(
+        maxSize: '2M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/gif'],
+        mimeTypesMessage: 'Veuillez uploader une image valide (JPEG, PNG ou GIF)'
+    )]
+    private ?File $imageFile = null;
+
+    
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+           
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    #[ORM\Column(name: 'nombreDePlaces', type: 'integer', nullable: true)]
+    #[Assert\NotBlank(message: "Le nombre de places est obligatoire")]
+    #[Assert\PositiveOrZero(message: "Le nombre de places doit être positif")]
+    private ?int $nombreDePlaces = null;
+
+    #[ORM\Column(name: 'statut', type: 'string', length: 50, nullable: false, options: ['default' => 'A_VENIR'])]
+private ?string $statut = 'A_VENIR';
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $nom = null;
 
     public function getNom(): ?string
     {
@@ -43,9 +114,6 @@ class Evenement
         return $this;
     }
 
-    #[ORM\Column(type: 'text', nullable: false)]
-    private ?string $description = null;
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -56,9 +124,6 @@ class Evenement
         $this->description = $description;
         return $this;
     }
-
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $dateDebut = null;
 
     public function getDateDebut(): ?\DateTimeInterface
     {
@@ -71,9 +136,6 @@ class Evenement
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $dateFin = null;
-
     public function getDateFin(): ?\DateTimeInterface
     {
         return $this->dateFin;
@@ -84,9 +146,6 @@ class Evenement
         $this->dateFin = $dateFin;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $localisation = null;
 
     public function getLocalisation(): ?string
     {
@@ -99,9 +158,6 @@ class Evenement
         return $this;
     }
 
-    #[ORM\Column(type: 'decimal', nullable: false)]
-    private ?float $frais = null;
-
     public function getFrais(): ?float
     {
         return $this->frais;
@@ -112,9 +168,6 @@ class Evenement
         $this->frais = $frais;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $photo = null;
 
     public function getPhoto(): ?string
     {
@@ -127,22 +180,17 @@ class Evenement
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $nombreDePlaces = null;
-
     public function getNombreDePlaces(): ?int
     {
         return $this->nombreDePlaces;
     }
 
     public function setNombreDePlaces(?int $nombreDePlaces): self
-    {
-        $this->nombreDePlaces = $nombreDePlaces;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $statut = null;
+{
+    $this->nombreDePlaces = $nombreDePlaces;
+    $this->updateStatut(); // Mettre à jour le statut après changement
+    return $this;
+}
 
     public function getStatut(): ?string
     {
@@ -154,5 +202,81 @@ class Evenement
         $this->statut = $statut;
         return $this;
     }
+    #[ORM\OneToMany(targetEntity: Participation::class, mappedBy: 'evenement', cascade: ['remove'])]
+    private Collection $participations; 
+    
+    public function __construct()
+    {
+        $this->participations = new ArrayCollection(); 
+        $this->statut = Statut::A_VENIR->value;
+    }
+
+
+/**
+ * @return Collection<int, Participation>
+ */
+public function getParticipations(): Collection
+{
+    return $this->participations;
+}
+
+public function addParticipation(Participation $participation): self
+{
+    if (!$this->participations->contains($participation)) {
+        $this->participations->add($participation);
+        $participation->setEvenement($this);
+    }
+    return $this;
+}
+
+public function removeParticipation(Participation $participation): self
+{
+    if ($this->participations->removeElement($participation)) {
+        if ($participation->getEvenement() === $this) {
+            $participation->setEvenement(null);
+        }
+    }
+    return $this;
+}
+
+
+public function getPlacesReservees(): int
+{
+    $total = 0;
+    foreach ($this->participations as $participation) {
+        // Vérifier que la participation est confirmée si vous avez un statut
+        if ($participation->getStatutP() === 'CONFIRME') { // Adaptez selon vos statuts
+            $total += $participation->getNombreDePlacesReservees();
+        }
+    }
+    return $total;
+}
+
+
+public function isComplet(): bool
+{
+    if ($this->nombreDePlaces === null) {
+        return false; // Si pas de limite de places, jamais complet
+    }
+    
+    return $this->getPlacesReservees() >= $this->nombreDePlaces;
+}
+
+public function updateStatut(): void
+{
+    if ($this->nombreDePlaces !== null) {
+        $placesDisponibles = $this->nombreDePlaces - $this->getPlacesReservees();
+        
+        if ($placesDisponibles <= 0) {
+            $this->statut = Statut::COMPLET->value;
+        } elseif ($this->dateFin < new \DateTime()) {
+            $this->statut = Statut::TERMINE->value;
+        } else {
+            $this->statut = Statut::A_VENIR->value;
+        }
+    }
+}
+
+
 
 }

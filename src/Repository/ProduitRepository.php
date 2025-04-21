@@ -40,4 +40,14 @@ class ProduitRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    // src/Repository/ProduitRepository.php
+public function findLowStockProducts(int $threshold): array
+{
+    return $this->createQueryBuilder('p')
+        ->where('p.quantite <= :threshold')
+        ->andWhere('p.quantite > 0')
+        ->setParameter('threshold', $threshold)
+        ->getQuery()
+        ->getResult();
+}
 }

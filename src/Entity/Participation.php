@@ -1,48 +1,79 @@
 <?php
 
 namespace App\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
+use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ParticipationRepository;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ParticipationRepository::class)]
-#[ORM\Table(name: 'participation')]
 class Participation
 {
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'participations')]
-    #[ORM\JoinColumn(name: 'utilisateur_id', referencedColumnName: 'id')]
-    private ?User $user = null;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    public function getUser(): ?User
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'participations', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $utilisateur = null;
+
+    #[ORM\ManyToOne(targetEntity: Evenement::class, inversedBy: 'participations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Evenement $evenement = null;
+
+    #[ORM\Column(name: 'statutP', type: 'string', length: 50)]
+    private string $statutP = 'EN_ATTENTE';
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "Le commentaire ne peut pas dépasser {{ limit }} caractères"
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-Z0-9\s\p{P}éèàçùêîôûäëïöüÿâãñõæœçÉÈÀÇÙÊÎÔÛÄËÏÖÜŸÂÃÑÕÆŒÇ]+$/u",
+        message: "Le commentaire contient des caractères non autorisés"
+    )]
+    private ?string $commentaire = null;
+
+    #[ORM\Column(name: 'nombreDePlacesReservees', type: 'integer', nullable: false)]
+#[Assert\NotNull(message: "Le nombre de places réservées est obligatoire")]
+#[Assert\Type(type: 'integer', message: "La valeur {{ value }} doit être un nombre entier")]
+#[Assert\Positive(message: "Le nombre de places doit être supérieur à 0")]
+private ?int $nombreDePlacesReservees = null; // Changez ici
+    
+    public function getId(): ?int
     {
-        return $this->user;
+        return $this->id;
     }
 
-    public function setUser(?User $user): self
+    public function setId(int $id): self
     {
-        $this->user = $user;
+        $this->id = $id;
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $evenement_id = null;
-
-    public function getEvenement_id(): ?int
+    public function getUtilisateur(): ?User
     {
-        return $this->evenement_id;
+        return $this->utilisateur;
     }
-
-    public function setEvenement_id(int $evenement_id): self
+    
+    public function setUtilisateur(?User $utilisateur): self
     {
-        $this->evenement_id = $evenement_id;
+        $this->utilisateur = $utilisateur;
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $statutP = null;
+    public function getEvenement(): ?Evenement 
+    {
+        return $this->evenement;
+    }
+    
+    public function setEvenement(?Evenement $evenement): self 
+    {
+        $this->evenement = $evenement;
+        return $this;
+    }
 
     public function getStatutP(): ?string
     {
@@ -55,25 +86,6 @@ class Participation
         return $this;
     }
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $commentaire = null;
-
     public function getCommentaire(): ?string
     {
         return $this->commentaire;
@@ -85,30 +97,14 @@ class Participation
         return $this;
     }
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $nombreDePlacesReservees = null;
-
     public function getNombreDePlacesReservees(): ?int
-    {
-        return $this->nombreDePlacesReservees;
-    }
+{
+    return $this->nombreDePlacesReservees;
+}
 
-    public function setNombreDePlacesReservees(?int $nombreDePlacesReservees): self
-    {
-        $this->nombreDePlacesReservees = $nombreDePlacesReservees;
-        return $this;
-    }
-
-    public function getEvenementId(): ?int
-    {
-        return $this->evenement_id;
-    }
-
-    public function setEvenementId(int $evenement_id): static
-    {
-        $this->evenement_id = $evenement_id;
-
-        return $this;
-    }
-
+public function setNombreDePlacesReservees(?int $nombreDePlacesReservees): self
+{
+    $this->nombreDePlacesReservees = $nombreDePlacesReservees;
+    return $this;
+}
 }

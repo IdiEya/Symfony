@@ -1,0 +1,169 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Commande;
+use App\Form\CommandeType;
+use App\Repository\CommandeRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;  // Annotation correcte
+use App\Repository\ProduitRepository;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+#[Route('/commande')]
+final class CommandeController extends AbstractController
+{
+    #[Route('/', name: 'app_commande_index', methods: ['GET'])]
+    public function index(CommandeRepository $commandeRepository): Response
+    {
+        return $this->render('commande/index.html.twig', [
+            'commandes' => $commandeRepository->findAll(),
+        ]);
+    }
+
+    // Route pour créer une nouvelle commande avec le produit spécifique
+    #[Route('/produit/{produitId}/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ProduitRepository $produitRepository,
+        int $produitId
+    ): Response {
+        $produit = $produitRepository->find($produitId);
+        
+        if (!$produit) {
+            throw $this->createNotFoundException('Produit non trouvé');
+        }
+
+        $commande = new Commande();
+        $commande->setDate(new \DateTime());
+
+        // Créer le formulaire pour la commande
+        $form = $this->createForm(CommandeType::class, $commande);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $quantiteCommandee = $commande->getNombre();
+            $ancienneQuantite = $produit->getQuantite();
+
+            // Vérifier la disponibilité du stock
+            if ($quantiteCommandee > $ancienneQuantite) {
+                $this->addFlash('error', 'Quantité insuffisante en stock !');
+                return $this->redirectToRoute('app_produituser_index');
+            }
+
+            // Mise à jour de la quantité du produit
+            $nouvelleQuantite = $ancienneQuantite - $quantiteCommandee;
+            $produit->setQuantite($nouvelleQuantite);
+
+            // Calcul du total de la commande
+            $commande
+                ->setTotal($produit->getPrix() * $quantiteCommandee)
+                ->setPrix($produit->getPrix())
+                ->setNomProduit($produit->getNom());
+
+            // Persister la commande
+            $entityManager->persist($commande);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_commandeuser_index');
+        }
+
+        return $this->render('commande/new.html.twig', [
+            'form' => $form->createView(),
+            'produit' => $produit,
+        ]);
+    }
+
+    // Affichage du modal de commande
+    #[Route('/{id}/show-modal', name: 'commande_modal_show', methods: ['GET'])]
+    public function showModal(Commande $commande): Response
+    {
+        return $this->render('commande/show.html.twig', [
+            'commande' => $commande,
+        ]);
+    }
+
+    // Route de succès après la soumission de la commande
+    #[Route('/success', name: 'commande_success', methods: ['GET'])]
+    public function success(): Response
+    {
+        return $this->redirectToRoute('app_commandeuser_index');
+    }
+
+    // Modifier une commande existante
+    #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(CommandeType::class, $commande);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('commande/edit.html.twig', [
+            'commande' => $commande,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    // Supprimer une commande
+    #[Route('/{id}', name: 'app_commande_delete', methods: ['POST'])]
+    public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($commande);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    // Générer un PDF pour la commande
+    #[Route('/pdf/{id}', name: 'commande_pdf', methods: ['GET'])]
+    public function generatePdf($id, CommandeRepository $commandeRepository): Response
+    {
+        // Récupérer la commande depuis la base de données
+        $commande = $commandeRepository->find($id);
+
+        if (!$commande) {
+            throw $this->createNotFoundException('Commande non trouvée');
+        }
+
+        // Créer le contenu HTML à partir du template Twig
+        $html = $this->renderView('commande/pdf.html.twig', [
+            'commande' => $commande,
+        ]);
+
+        // Initialiser Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $dompdf = new Dompdf($options);
+
+        // Charger le contenu HTML dans Dompdf
+        $dompdf->loadHtml($html);
+
+        // Définir le format de la page (A4 par défaut)
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Rendre le PDF
+        $dompdf->render();
+
+        // Retourner le PDF en tant que réponse HTTP
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="commande_' . $id . '.pdf"',
+            ]
+        );
+    }
+}

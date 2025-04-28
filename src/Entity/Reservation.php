@@ -1,16 +1,12 @@
 <?php
-
+// src/Entity/Reservation.php
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
 use App\Repository\ReservationRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;  // Ajoutez cette ligne pour utiliser les contraintes de validation
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
-#[ORM\Table(name: 'reservation')]
 class Reservation
 {
     #[ORM\Id]
@@ -18,19 +14,29 @@ class Reservation
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'string')]
+    private ?string $nom = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $prenom = null;
+
+    #[ORM\Column(type: 'date')]
+    private ?\DateTimeInterface $date_reservation = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Assert\Regex(
+        pattern: "/^\+?\d+$/",  // Valide un numéro de téléphone international
+        message: "Le numéro de téléphone doit être au format international (ex: +1234567890)"
+    )]
+    private ?string $tel = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $adresse = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $nom = null;
 
     public function getNom(): ?string
     {
@@ -43,9 +49,6 @@ class Reservation
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $prenom = null;
-
     public function getPrenom(): ?string
     {
         return $this->prenom;
@@ -57,8 +60,16 @@ class Reservation
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $tel = null;
+    public function getDateReservation(): ?\DateTimeInterface
+    {
+        return $this->date_reservation;
+    }
+
+    public function setDateReservation(\DateTimeInterface $date): self
+    {
+        $this->date_reservation = $date;
+        return $this;
+    }
 
     public function getTel(): ?string
     {
@@ -71,97 +82,14 @@ class Reservation
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $date_reservation = null;
-
-    public function getDate_reservation(): ?\DateTimeInterface
+    public function getAdresse(): ?string
     {
-        return $this->date_reservation;
+        return $this->adresse;
     }
 
-    public function setDate_reservation(\DateTimeInterface $date_reservation): self
+    public function setAdresse(?string $adresse): self
     {
-        $this->date_reservation = $date_reservation;
+        $this->adresse = $adresse;
         return $this;
     }
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $heure_reservation = null;
-
-    public function getHeure_reservation(): ?string
-    {
-        return $this->heure_reservation;
-    }
-
-    public function setHeure_reservation(?string $heure_reservation): self
-    {
-        $this->heure_reservation = $heure_reservation;
-        return $this;
-    }
-
-    #[ORM\ManyToOne(targetEntity: Salle::class, inversedBy: 'reservations')]
-    #[ORM\JoinColumn(name: 'salle_id', referencedColumnName: 'id')]
-    private ?Salle $salle = null;
-
-    public function getSalle(): ?Salle
-    {
-        return $this->salle;
-    }
-
-    public function setSalle(?Salle $salle): self
-    {
-        $this->salle = $salle;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $salle_nom = null;
-
-    public function getSalle_nom(): ?string
-    {
-        return $this->salle_nom;
-    }
-
-    public function setSalle_nom(?string $salle_nom): self
-    {
-        $this->salle_nom = $salle_nom;
-        return $this;
-    }
-
-    public function getDateReservation(): ?\DateTimeInterface
-    {
-        return $this->date_reservation;
-    }
-
-    public function setDateReservation(\DateTimeInterface $date_reservation): static
-    {
-        $this->date_reservation = $date_reservation;
-
-        return $this;
-    }
-
-    public function getHeureReservation(): ?string
-    {
-        return $this->heure_reservation;
-    }
-
-    public function setHeureReservation(?string $heure_reservation): static
-    {
-        $this->heure_reservation = $heure_reservation;
-
-        return $this;
-    }
-
-    public function getSalleNom(): ?string
-    {
-        return $this->salle_nom;
-    }
-
-    public function setSalleNom(?string $salle_nom): static
-    {
-        $this->salle_nom = $salle_nom;
-
-        return $this;
-    }
-
 }

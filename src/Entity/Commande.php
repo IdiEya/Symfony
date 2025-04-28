@@ -6,8 +6,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
 use App\Repository\CommandeRepository;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 #[ORM\Table(name: 'commande')]
@@ -60,6 +62,7 @@ class Commande
     }
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Assert\Type(\DateTimeInterface::class)]
     private ?\DateTimeInterface $date = null;
 
     public function getDate(): ?\DateTimeInterface
@@ -74,6 +77,8 @@ class Commande
     }
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\NotBlank(message: "La localisation est requise.")]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $localisation = null;
 
     public function getLocalisation(): ?string
@@ -86,8 +91,12 @@ class Commande
         $this->localisation = $localisation;
         return $this;
     }
-
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\NotBlank(message: "Le numéro de téléphone est requis.")]
+    #[Assert\Regex(
+        pattern: "/^\+?[0-9]{8,15}$/",
+        message: "Le numéro de téléphone n'est pas valide."
+    )]
     private ?string $telephone = null;
 
     public function getTelephone(): ?string
@@ -102,6 +111,8 @@ class Commande
     }
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\NotBlank(message: "L'adresse email est requise.")]
+    #[Assert\Email(message: "L'adresse email n'est pas valide.")]
     private ?string $mail = null;
 
     public function getMail(): ?string
@@ -114,8 +125,9 @@ class Commande
         $this->mail = $mail;
         return $this;
     }
-
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Assert\NotNull(message: "Le nombre est requis.")]
+    #[Assert\Positive(message: "Le nombre doit être positif.")]
     private ?int $nombre = null;
 
     public function getNombre(): ?int

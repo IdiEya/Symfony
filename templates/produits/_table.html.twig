@@ -1,0 +1,58 @@
+{% for produit in produits %}
+    <tr class="align-middle" style="border-color: #B19CD9; background-color: rgb(250, 243, 243);">
+        <td style=" border-color: #B19CD9;">{{ produit.nom }}</td>
+        <td style=" border-color: #B19CD9;">{{ produit.prix|number_format(2, ',', ' ') }} DT</td>
+        <td style=" border-color: #B19CD9;">
+            <span class="badge {{ produit.quantite > 0 ? 'bg-success' : 'bg-danger' }}">
+                {{ produit.quantite }}
+            </span>
+        </td>
+        <td style=" border-color: #B19CD9;">{{ produit.ref }}</td>
+        <td style=" border-color: #B19CD9;">{{ produit.categorie }}</td>
+        <td style=" border-color: #B19CD9;">
+            {% if produit.photo %}
+                <img src="{{ asset('uploads/photos/' ~ produit.photo) }}" 
+                     alt="{{ produit.nom }}" 
+                     class="img-thumbnail" 
+                     style="max-width: 80px;">
+            {% else %}
+                <i class="fas fa-image text-muted" title="Aucune image"></i>
+            {% endif %}
+        </td>
+        <td style=" border-color: #B19CD9;">
+            <div class="btn-group" role="group">
+                <!-- Voir -->
+                <button class="btn btn-info show-modal-btn" 
+                        data-url="{{ path('produit_modal_show', {'id': produit.id}) }}"
+                        onclick="showProductDetails(this)">
+                    <i class="fas fa-eye"></i>
+                </button>
+
+                <!-- Modifier -->
+                <button class="btn btn-info" 
+                        onclick="editProductDetails({{ produit.id }})">
+                    <i class="fas fa-edit"></i>
+                </button>
+
+                <!-- Supprimer -->
+                <form method="post" 
+                      action="{{ path('app_produits_delete', {'id': produit.id}) }}" 
+                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');"
+                      style="display: inline;">
+                    <input type="hidden" name="_token" 
+                           value="{{ csrf_token('delete' ~ produit.id) }}">
+                    <button class="btn btn-info" title="Supprimer">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="8" class="text-center text-muted py-4">
+            <i class="fas fa-box-open fa-2x mb-3"></i><br>
+            Aucun produit enregistré
+        </td>
+    </tr>
+{% endfor %}

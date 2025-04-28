@@ -1,0 +1,120 @@
+<h2 style="text-align:center; margin-top:40px;">Liste des Réservations</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Téléphone</th>
+            <th>Date de Réservation</th>
+            <th>Heure</th>
+            <th>Salle ID</th>
+            <th>Salle Nom</th>
+            <th>Adresse</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for res in reservedDates %}
+            <tr>
+                <td>{{ res.id }}</td>
+                <td>{{ res.nom }}</td>
+                <td>{{ res.prenom }}</td>
+                <td>{{ res.tel }}</td>
+                <td>{{ res.dateReservation ? res.dateReservation|date('Y-m-d') : '---' }}</td>
+                <td>{{ res.heureReservation ?? '---' }}</td>
+                <td>{{ res.salle.id ?? '---' }}</td>
+                <td>{{ res.salle.nom ?? '---' }}</td>  {# Accès à la salle liée #}
+                <td>{{ res.adresse }}</td>
+            </tr>
+        {% else %}
+            <tr><td colspan="9" style="text-align:center;">Aucune réservation trouvée.</td></tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+<style>
+    .page-container {
+        background-color: #6A455D;
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
+
+    .content-card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 100%;
+        margin: 0 auto;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .content-card h1 {
+        color: #6A455D;
+        margin-bottom: 20px;
+    }
+
+    /* Table styles */
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        vertical-align: middle;
+        border: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #6A455D;
+        color: white;
+        font-weight: bold;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1e2e8;
+        transition: background-color 0.3s;
+    }
+
+    .table td {
+        color: #333;
+    }
+
+    .table td, .table th {
+        border: 1px solid #ddd;
+    }
+
+    /* Buttons */
+    .btn-primary, .btn-danger, .btn-secondary {
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: #79536b;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #8c424f;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #57374a;
+        color: white;
+    }
+
+    .btn-primary:hover, .btn-danger:hover, .btn-secondary:hover {
+        transform: translateY(-2px);
+    }
+
+</style>

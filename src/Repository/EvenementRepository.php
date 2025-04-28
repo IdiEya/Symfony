@@ -15,7 +15,34 @@ class EvenementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Evenement::class);
     }
+    public function findUpcomingEvents(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.statut IN (:status)')
+            ->setParameter('status', ['A_VENIR'])
+            ->orderBy('e.dateDebut', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAvailableEvents(): array
+{
+    return $this->createQueryBuilder('e')
+        ->where('e.statut IN (:status)')
+        ->andWhere('e.nombreDePlaces IS NULL OR e.nombreDePlaces > 0')
+        ->setParameter('status', ['A_VENIR', 'TERMINE', 'COMPLET'])
+        ->orderBy('e.dateDebut', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
 
+public function findByName(string $name): array
+{
+    return $this->createQueryBuilder('e')
+        ->where('e.nom LIKE :name')
+        ->setParameter('name', '%' . $name . '%')
+        ->getQuery()
+        ->getResult();
+}
     //    /**
     //     * @return Evenement[] Returns an array of Evenement objects
     //     */

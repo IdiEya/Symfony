@@ -1,0 +1,26 @@
+/* Style pour les champs du formulaire */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    font-size: 14px;
+    height: 40px;
+}
+
+/* Boutons alignés et espacé */
+.form-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-actions .btn {
+    font-size: 16px;
+    padding: 10px 25px;
+    margin: 0 10px;
+}
+
+/* Optionnel: Un peu de padding sur le formulaire */
+.container {
+    padding: 20px;
+}

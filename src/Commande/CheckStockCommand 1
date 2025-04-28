@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Command;
+
+use App\Entity\Notification;
+use App\Entity\Produit;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+
+#[AsCommand(
+    name: 'app:check-stock',
+    description: 'Vérifie les stocks bas et envoie des notifications'
+)]
+class CheckStockCommand1 extends Command
+{
+    public function __construct(
+        private EntityManagerInterface $em,
+        private MailerInterface $mailer
+    ) {
+        parent::__construct();
+    }
+
+    protected function configure(): void
+    {
+        $this->setHelp('Cette commande vérifie les produits avec un stock faible');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $threshold = 5;
+        $products = $this->em->getRepository(Produit::class)
+            ->findLowStockProducts($threshold);
+
+        foreach ($products as $product) {
+            // Création de notification
+            $notification = new Notification();
+            $notification->setMessage(sprintf(
+                'Stock faible pour %s : %d unités restantes',
+                $product->getNom(),
+                $product->getQuantite()
+            ));
+            $this->em->persist($notification);
+
+            // Envoi d'email
+            $email = (new TemplatedEmail())
+                ->to('admin@example.com')
+                ->subject('Alerte stock')
+                ->htmlTemplate('emails/low_stock.html.twig')
+                ->context(['product' => $product]);
+
+            $this->mailer->send($email);
+        }
+
+        $this->em->flush();
+        
+        $output->writeln(sprintf('%d produits en stock faible vérifiés', count($products)));
+        return Command::SUCCESS;
+    }
+}

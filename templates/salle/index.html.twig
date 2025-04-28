@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="page-container">
+    <div class="content-card">
+        <h1>Liste des Salles</h1>
+
+        {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label == 'success' ? 'success' : 'danger' }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
+
+        <div style="margin-bottom: 15px;">
+            <a href="{{ path('salle_add') }}" class="add-btn">
+                <i class="fas fa-plus-circle"></i> Ajouter une salle
+            </a>
+        </div>
+     <form method="get" action="{{ path('salle_index') }}">
+        <input type="text" name="search" placeholder="Nom, spécialité ou description..." value="{{ app.request.get('search') }}">
+        <button type="submit">Rechercher</button>
+</form>
+
+
+        {% if salles is not empty %}
+            <table class="salle-table">
+                <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Nom</th>
+                        <th>Capacité</th>
+                        <th>Spécialité</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for salle in salles %}
+                        <tr>
+                            <td>{{ salle.numero ?: 'N/A' }}</td>
+                            <td>{{ salle.nom }}</td>
+                            <td>{{ salle.capacite ?: 'Non spécifiée' }}</td>
+                            <td>{{ salle.specialite ?: 'Non précisée' }}</td>
+                            <td>{{ salle.description ?: 'Aucune description' }}</td>
+                            <td class="actions">
+                                <a href="{{ path('salle_edit', {'id': salle.id}) }}" class="edit-btn">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <form method="post" action="{{ path('salle_delete', {'id': salle.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ salle.id) }}">
+                                    <button class="btn btn-danger">Supprimer</button>
+                                </form>
+                                
+                                
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune salle trouvée.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Fond général */
+        .page-container {
+            background-color: #6A455D;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Carte blanche centrée */
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-card h1 {
+            color: #6A455D;
+            margin-bottom: 20px;
+        }
+
+        .salle-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            background-color: white;
+        }
+
+        .salle-table th {
+            background-color: #6A455D;
+            color: white;
+            text-transform: uppercase;
+            padding: 12px;
+        }
+
+        .salle-table td {
+            padding: 12px;
+        }
+
+        .salle-table tr:nth-child(even) {
+            background-color: #f4eef5;
+        }
+
+        .salle-table tr:hover {
+            background-color: #e9dfe9;
+        }
+
+        .add-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6A455D;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .add-btn:hover {
+            background-color: #57374a;
+            transform: translateY(-2px);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: none;
+            font-size: 13px;
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .edit-btn {
+            background-color: #AB7AA1;
+        }
+
+        .edit-btn:hover {
+            background-color: #94688c;
+            transform: translateY(-2px);
+        }
+
+        .delete-btn {
+            background-color: #A05264;
+        }
+
+        .delete-btn:hover {
+            background-color: #8c424f;
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}

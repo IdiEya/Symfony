@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block stylesheets %}
+
+<link rel="icon" href="{{ asset('assets/back/dist/assets/images/favicon.svg') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
+
+<!-- [Google Font] Family -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+
+<!-- [Tabler Icons] https://tablericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/tabler-icons.min.css') }}">
+
+<!-- [Feather Icons] https://feathericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/feather.css') }}">
+
+<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/fontawesome.css') }}">
+
+<!-- [Material Icons] https://fonts.google.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/material.css') }}">
+
+<!-- [Template CSS Files] -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style.css') }}" id="main-style-link">
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style-preset.css') }}">
+
+    <style>
+    /* Boutons */
+.btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+        body {
+            background: #f0f2f5;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .commande-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        table.table th,
+        table.table td {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        table.table th {
+            background-color: #f9fafb;
+            color: #34495e;
+            font-weight: 600;
+            text-align: left;
+            width: 35%;
+        }
+
+        table.table td {
+            color: #2d3436;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        a.button {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            padding: 12px 24px;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        a.button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .delete-form {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="commande-container">
+        <h1>Détails de la commande</h1>
+        <a href="{{ path('commande_pdf', {'id': commande.id}) }}" class="btn btn-primary">
+    Télécharger en PDF
+</a>
+
+ <div class="d-flex gap-2 mb-4" style="background-color:rgb(195, 177, 229); width:250px;">
+           
+           
+        </div>
+        <table class="table">
+            <tbody>
+              
+                <tr><th>Date</th><td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</td></tr>
+                <tr><th>Localisation</th><td>{{ commande.localisation }}</td></tr>
+                <tr><th>Téléphone</th><td>{{ commande.telephone }}</td></tr>
+                <tr><th>Mail</th><td>{{ commande.mail }}</td></tr>
+                <tr><th>Nombre</th><td>{{ commande.nombre }}</td></tr>
+                <tr><th>Prix</th><td>{{ commande.prix }}</td></tr>
+                <tr><th>Total</th><td>{{ commande.total }}</td></tr>
+                <tr><th>Nom du produit</th><td>{{ commande.nomProduit }}</td></tr>
+            </tbody>
+        </table>
+
+         <div class="d-flex gap-2" style="background-color:rgb(195, 177, 229); width:250px;" >
+                <a href="{{ path('app_commande_index') }}" class="btn " >
+                    <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+                </a>
+                
+               
+                   
+                    
+                   
+                </div>
+
+        
+    </div>
+{% endblock %}

@@ -1,3 +1,7 @@
+
+# config/packages/mailer.yaml
 framework:
     mailer:
-        dsn: '%env(MAILER_DSN)%'
+        transports:
+            # Désactive le transport async pour les tests
+            smtp: '%env(MAILER_DSN)%'

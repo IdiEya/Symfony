@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <!-- En-tête avec titre et bouton d'ajout -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0"><i class="fas fa-boxes me-2"></i>Nos produits</h1>
+        <button type="button" 
+                class="btn btn-primary" 
+                data-bs-toggle="modal" 
+                data-bs-target="#productModal">
+            <i class="fas fa-plus me-2"></i>Ajouter un produit
+        </button>
+    </div>
+
+    <!-- Grille de produits -->
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for produit in produits %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <!-- Image du produit -->
+                {% if produit.photo %}
+                <img src="{{ asset('uploads/photos/' ~ produit.photo) }}" 
+                     class="card-img-top p-3" 
+                     alt="{{ produit.nom }}"
+                     style="height: 250px; object-fit: contain;">
+                {% else %}
+                <div class="text-center bg-light p-3" style="height: 250px;">
+                    <i class="fas fa-image fa-5x text-muted mt-5"></i>
+                </div>
+                {% endif %}
+
+                <div class="card-body">
+                    <!-- Titre et prix -->
+                    <h5 class="card-title">{{ produit.nom }}</h5>
+                    <h6 class="text-primary mb-3">
+                        {{ produit.prix|number_format(2, ',', ' ') }} €
+                    </h6>
+
+                    <!-- Détails -->
+                    <div class="d-flex justify-content-between small mb-2">
+                        <span class="text-muted">
+                            <i class="fas fa-barcode me-1"></i>{{ produit.ref }}
+                        </span>
+                        <span class="badge {{ produit.quantite > 0 ? 'bg-success' : 'bg-danger' }}">
+                            {{ produit.quantite }} en stock
+                        </span>
+                    </div>
+
+                    <!-- Boutons d'action -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                        <a href="{{ path('app_produits_show', {'id': produit.id}) }}" 
+                           class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{{ path('app_produits_edit', {'id': produit.id}) }}" 
+                           class="btn btn-sm btn-outline-warning">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button type="button" 
+                                class="btn btn-sm btn-outline-danger delete-btn"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#deleteModal"
+                                data-url="{{ path('app_produits_delete', {'id': produit.id}) }}"
+                                data-token="{{ csrf_token('delete' ~ produit.id) }}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <i class="fas fa-info-circle me-2"></i>Aucun produit trouvé
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal de suppression -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Confirmer la suppression
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer définitivement ce produit ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Annuler
+                </button>
+                <form method="post" action="" class="d-inline">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Supprimer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal d'ajout (déjà présent dans votre code) -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Nouveau produit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+// Gestion dynamique de la suppression
+document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const form = deleteModal.querySelector('form');
+        form.action = this.dataset.url;
+        form.querySelector('input[name="_token"]').value = this.dataset.token;
+    });
+});
+</script>
+{% endblock %}

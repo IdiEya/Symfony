@@ -16,28 +16,32 @@ class CourRepository extends ServiceEntityRepository
         parent::__construct($registry, Cour::class);
     }
 
-    //    /**
-    //     * @return Cour[] Returns an array of Cour objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Vérifie s'il existe un cours qui utilise déjà la même salle dans le même créneau horaire.
+     *
+     * @param mixed $salle
+     * @param \DateTimeInterface $dateDebut
+     * @param \DateTimeInterface $dateFin
+     * @param int|null $excludeId
+     * @return Cour|null
+     */
+    public function findCoursBySalleAndCreneau($salle, $dateDebut, $dateFin, $excludeId = null): ?Cour
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->andWhere('c.salle = :salle')
+            ->andWhere('
+                (c.dateDebut < :dateFin AND c.dateFin > :dateDebut)
+            ')
+            ->setParameter('salle', $salle)
+            ->setParameter('dateDebut', $dateDebut)
+            ->setParameter('dateFin', $dateFin);
 
-    //    public function findOneBySomeField($value): ?Cour
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($excludeId) {
+            $qb->andWhere('c.id != :excludeId')
+               ->setParameter('excludeId', $excludeId);
+        }
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+    
 }

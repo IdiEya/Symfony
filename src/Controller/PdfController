@@ -1,0 +1,40 @@
+<?php
+
+// src/Controller/PdfController.php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+class PdfController extends AbstractController
+{
+    public function generatePdf($commande): Response
+    {
+        // Configure Dompdf
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultFont', 'Arial');
+        
+        $dompdf = new Dompdf($options);
+        
+        // Récupérer le HTML
+        $html = $this->renderView('commande/pdf.html.twig', [
+            'commande' => $commande
+        ]);
+
+        // Générer le PDF
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Envoyer le PDF au navigateur
+        return new Response(
+            $dompdf->stream('commande_'.$commande->getId().'.pdf', ["Attachment" => true]),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
+    }
+}

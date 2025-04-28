@@ -1,0 +1,16 @@
+{% extends 'base_email.html.twig' %}
+
+{% block content %}
+    <h1>Merci pour votre commande {{ commande.nomClient }} !</h1>
+    
+    <p>Détails de la commande :</p>
+    
+    <ul>
+        <li>Référence : #{{ commande.id }}</li>
+        <li>Produit : {{ commande.nomProduit }}</li>
+        <li>Quantité : {{ commande.nombre }}</li>
+        <li>Total : {{ commande.total|format_currency('EUR') }}</li>
+    </ul>
+    
+    <p>Votre facture est en pièce-jointe.</p>
+{% endblock %}

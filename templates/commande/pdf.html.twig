@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la commande</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .commande-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        table th,
+        table td {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        table th {
+            background-color: #f9fafb;
+            color: #34495e;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        table td {
+            color: #2d3436;
+        }
+    </style>
+</head>
+<body>
+    <div class="commande-container">
+        <h1>Détails de la commande</h1>
+        <table>
+            <tbody>
+                <tr><th>Nom du produit</th><td>{{ commande.nomProduit }}</td></tr>
+                <tr><th>Date</th><td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</td></tr>
+                <tr><th>Localisation</th><td>{{ commande.localisation }}</td></tr>
+                <tr><th>Téléphone</th><td>{{ commande.telephone }}</td></tr>
+                <tr><th>Mail</th><td>{{ commande.mail }}</td></tr>
+                <tr><th>Nombre</th><td>{{ commande.nombre }}</td></tr>
+                <tr><th>Prix</th><td>{{ commande.prix }}</td></tr>
+                <tr><th>Total</th><td>{{ commande.total }}</td></tr>
+            </tbody>
+        </table>
+
+        {% if qrCodeBase64 %}
+            <img src="data:image/png;base64,{{ qrCodeBase64 }}" alt="QR Code de la commande" style="width: 150px; height: 150px;">
+        {% else %}
+            <p>QR Code non disponible</p>
+        {% endif %}
+    </div>
+</body>
+</html>

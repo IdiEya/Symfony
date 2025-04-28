@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réserver {{ coach.name }}{% endblock %}
+
+{% block body %}
+<h2 class="text-center">Réserver avec {{ coach.name }}</h2>
+
+{% for msg in app.flashes('success') %}
+    <div class="alert alert-success">{{ msg }}</div>
+{% endfor %}
+
+{% for msg in app.flashes('error') %}
+    <div class="alert alert-danger">{{ msg }}</div>
+{% endfor %}
+
+<form method="post" class="reservation-form">
+    <div class="form-group">
+        <label>Nom</label>
+        <input type="text" name="nom" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label>Prénom</label>
+        <input type="text" name="prenom" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label>Choisir une date et une heure</label>
+        <input type="datetime-local" name="date" id="date" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label>Téléphone</label>
+        <input type="text" name="telephone" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label>Adresse</label>
+        <input type="text" name="adresse" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
+</form>
+
+<hr>
+
+<h4>Dates déjà réservées</h4>
+{% if reservedDates is empty %}
+    <p>Aucune date réservée pour le moment.</p>
+{% else %}
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr><th>Date réservée</th></tr>
+        </thead>
+        <tbody>
+            {% for date in reservedDates %}
+                <tr><td>{{ date|date('d/m/Y H:i') }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+<a href="{{ path('app_coach_list') }}" class="btn btn-secondary mt-3">Retour aux Coachs</a>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const dateInput = document.getElementById("date");
+    const now = new Date();
+    now.setMinutes(0);
+    now.setSeconds(0);
+    now.setMilliseconds(0);
+    now.setDate(now.getDate() + 1);
+    now.setHours(8);
+    dateInput.min = now.toISOString().slice(0,16);
+    dateInput.value = now.toISOString().slice(0,16);
+});
+</script>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #6A455D;
+    color: #fff;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.reservation-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    color: #000;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #8A5D78;
+    color: white;
+}
+
+a.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+a.btn-secondary:hover {
+    background-color: #5a6268;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Cours{% endblock %}
+
+{% block body %}
+<div class="page-container">
+    <div class="content-card">
+        <h1>Liste des Cours</h1>
+
+        {# 👉 Bouton Ajouter #}
+        <div style="margin-bottom: 15px;">
+            <a href="{{ path('cour_new') }}">
+                <button class="btn btn-secondary">
+                    <i class="fas fa-plus"></i> Ajouter des Cours
+                </button>
+            </a>
+        </div>
+
+        {# 👉 Formulaire de recherche #}
+        <form method="get" action="{{ path('cour_list') }}" class="form-inline mb-3" onsubmit="return validateSearch()">
+            <input type="text" name="search" id="searchInput" value="{{ app.request.get('search') }}"
+                class="form-control mr-2" placeholder="Rechercher dans toutes les colonnes...">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </form>
+
+        <script>
+            function validateSearch() {
+                const input = document.getElementById('searchInput').value.trim();
+                if (input === '') {
+                    alert('Veuillez entrer un mot-clé pour effectuer une recherche.');
+                    return false;
+                }
+                return true;
+            }
+        </script>
+
+        {# Messages de succès #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        {# 👉 Tableau des cours #}
+        {% if cours is not empty %}
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Localisation</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Salle</th>
+                        <th>Places disponibles</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cour in cours %}
+                        <tr>
+                            <td>{{ cour.dateDebut|date('Y-m-d') }}</td>
+                            <td>{{ cour.dateFin|date('Y-m-d') }}</td>
+                            <td>{{ cour.localisation }}</td>
+                            <td>{{ cour.description }}</td>
+                            <td>{{ cour.prix }}</td>
+                            <td>
+                                {% if cour.salle %}
+                                    {{ cour.salle.nom }}
+                                {% else %}
+                                    Pas de salle assignée
+                                {% endif %}
+                            </td>
+                            <td>{{ cour.placesDisponibles }}</td>
+                            <td>
+                                <a href="{{ path('cour_edit', {'id': cour.id}) }}" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <form action="{{ path('cour_delete', {'id': cour.id}) }}" method="POST" style="display:inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cour.id) }}">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Voulez-vous vraiment supprimer ce cours ?');">
+                                        <i class="fas fa-trash-alt"></i> Supprimer
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun cours trouvé.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .page-container {
+            background-color: #6A455D;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-card h1 {
+            color: #6A455D;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #6A455D;
+            color: white;
+        }
+
+        .btn-primary, .btn-danger, .btn-secondary {
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-primary {
+            background-color: #79536b;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #8c424f;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #57374a;
+            color: white;
+        }
+
+        .btn-primary:hover, .btn-danger:hover, .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+{% endblock %}

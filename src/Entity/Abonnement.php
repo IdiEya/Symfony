@@ -71,19 +71,6 @@ class Abonnement
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $type = null;
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-        return $this;
-    }
 
     #[ORM\Column(type: 'float', nullable: false)]
     private ?float $prix = null;
@@ -113,20 +100,9 @@ class Abonnement
         return $this;
     }
 
-    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'abonnement')]
-    #[ORM\JoinColumn(name: 'sportif_id', referencedColumnName: 'id', unique: true)]
-    private ?User $user = null;
+   
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-        return $this;
-    }
+   
 
     #[ORM\ManyToOne(targetEntity: Gym::class, inversedBy: 'abonnements')]
     #[ORM\JoinColumn(name: 'gym_id', referencedColumnName: 'id')]

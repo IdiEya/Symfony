@@ -1,0 +1,25 @@
+{# templates/notifications/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Notifications{% endblock %}
+
+{% block body %}
+<h1>Mes Notifications</h1>
+
+{% if notifications is not empty %}
+    <ul>
+        {% for notification in notifications %}
+            <li>
+                {{ notification.message }} - {{ notification.createdAt|date('d/m/Y H:i') }}
+                {! if not notification.isRead %}
+                    <form action="{{ path('app_notification_mark_as_read', {'id': notification.id}) }}" method="post">
+                        <button type="submit">Marquer comme lu</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucune notification.</p>
+{% endif %}
+{% endblock %}

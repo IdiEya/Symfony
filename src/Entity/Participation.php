@@ -10,16 +10,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Participation
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue] // Cette ligne est cruciale
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'participations', cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'participations')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')] // Ajout de onDelete
     private ?User $utilisateur = null;
 
     #[ORM\ManyToOne(targetEntity: Evenement::class, inversedBy: 'participations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')] // Ajout de onDelete
     private ?Evenement $evenement = null;
 
     #[ORM\Column(name: 'statutP', type: 'string', length: 50)]

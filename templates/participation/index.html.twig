@@ -40,6 +40,46 @@
 {% endblock %}
 
 <style>
+
+/* Style pour les filtres */
+.filter-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(106, 13, 173, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.filter-card label {
+    color: var(--violet-fonce);
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.filter-card .form-select,
+.filter-card .form-control {
+    border: 1px solid var(--violet-pale);
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.filter-card .form-select:focus,
+.filter-card .form-control:focus {
+    border-color: var(--violet-clair);
+    box-shadow: 0 0 0 0.25rem rgba(106, 13, 173, 0.25);
+}
+
+.filter-card .btn-primary {
+    background: var(--violet-gradient);
+    border: none;
+}
+
+.filter-card .btn-secondary {
+    background: #f8f9fa;
+    color: var(--violet-fonce);
+    border: 1px solid var(--violet-pale);
+}
       /* Palette violette */
       :root {
           --violet-principal: #6a0dad;
@@ -637,7 +677,45 @@
                     </div>
                 </div>
             </div>
-
+ <!-- Formulaire de filtrage -->
+            <div class="card mb-4">
+    <div class="card-body">
+        <form method="get" action="{{ path('app_participation_index') }}" class="row g-3" id="filterForm">
+            <div class="col-md-3">
+                <label for="user" class="form-label">Utilisateur</label>
+                <select name="user" id="user" class="form-select">
+                    <option value="">Tous les utilisateurs</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}" {{ currentFilters.user == user.id ? 'selected' : '' }}>
+                            {{ user.prenom }} {{ user.nom }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="event" class="form-label">Événement</label>
+                <select name="event" id="event" class="form-select">
+                    <option value="">Tous les événements</option>
+                    {% for event in events %}
+                        <option value="{{ event.id }}" {{ currentFilters.event == event.id ? 'selected' : '' }}>
+                            {{ event.nom }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="dateFrom" class="form-label">Date de début</label>
+                <input type="date" name="dateFrom" id="dateFrom" 
+                       value="{{ currentFilters.dateFrom }}" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <label for="dateTo" class="form-label">Date de fin</label>
+                <input type="date" name="dateTo" id="dateTo" 
+                       value="{{ currentFilters.dateTo }}" class="form-control">
+            </div>
+        </form>
+    </div>
+</div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -697,4 +775,36 @@
             </div>
         </div>
     </div>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupère tous les éléments de filtre
+    const filterInputs = document.querySelectorAll('#filterForm select, #filterForm input');
+    
+    // Ajoute un écouteur d'événement à chaque champ de filtre
+    filterInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            // Soumet automatiquement le formulaire quand une valeur change
+            document.getElementById('filterForm').submit();
+        });
+    });
+    
+    // Pour les champs date, on peut ajouter un délai pour éviter des soumissions trop fréquentes
+    const dateInputs = document.querySelectorAll('#filterForm input[type="date"]');
+    let submitTimeout;
+    
+    dateInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            // Annule le timeout précédent s'il existe
+            if (submitTimeout) {
+                clearTimeout(submitTimeout);
+            }
+            
+            // Définit un nouveau timeout (500ms de délai)
+            submitTimeout = setTimeout(() => {
+                document.getElementById('filterForm').submit();
+            }, 500);
+        });
+    });
+});
+</script>
 {% endblock %}

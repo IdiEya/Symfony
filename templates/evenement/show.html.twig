@@ -20,6 +20,9 @@
 
     <!-- Font-awesome et autres icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <!-- Autres CSS personnalisés ou de plugins -->
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/linearicons.css') }}">
@@ -40,6 +43,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+    /* Ajoutez ce style pour la carte */
+        #event-map {
+            height: 400px; 
+            width: 100%; 
+            border-radius: 10px;
+            margin-top: 20px;
+            z-index: 0; /* Important pour que la carte s'affiche correctement */
+        }
+        .map-container {
+            position: relative;
+        }
+        .map-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
         /* Styles globaux */
         body {
             font-family: 'Roboto', sans-serif;
@@ -463,7 +489,53 @@
             </div>
         </div>
     </div>
+<div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Localisation</h4>
+                <div class="map-container">
+                    <div id="event-map"></div>
+                    <div class="map-loading" id="map-loading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Chargement de la carte...</span>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-muted">Adresse: {{ evenement.localisation }}</small>
+            </div>
+        </div>
+    </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const address = "{{ evenement.localisation|escape('js') }}";
+    const map = L.map('map').setView([34, 9], 6); // Vue par défaut centrée sur la Tunisie
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 
+    // Géocodage de l'adresse
+    if (address) {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&countrycodes=tn`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lon = parseFloat(data[0].lon);
+                    
+                    map.setView([lat, lon], 15);
+                    
+                    L.marker([lat, lon])
+                        .addTo(map)
+                        .bindPopup(`<b>{{ evenement.nom|escape('js') }}</b><br>${address}`);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur de géocodage:', error);
+            });
+    }
+});
+</script>
     <!-- Footer / Contact -->
    	<footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
 
@@ -700,7 +772,88 @@
                     </div>`;
             });
         });
+    <!-- Bootstrap 5 Bundle (incluant Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+     <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialisation de la carte
+            initMap();
+        });
+
+        function initMap() {
+            const address = "{{ evenement.localisation|escape('js') }}";
+            const loadingElement = document.getElementById('map-loading');
+            const map = L.map('event-map').setView([0, 0], 2); // Vue monde par défaut
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                maxZoom: 19
+            }).addTo(map);
+
+            if (address) {
+                loadingElement.style.display = 'flex';
+                
+                // Utilisation de l'API Nominatim avec timeout
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`, {
+                    signal: controller.signal,
+                    headers: {
+                        'User-Agent': 'GymTownApp/1.0 (contact@example.com)'
+                    }
+                })
+                .then(response => {
+                    clearTimeout(timeoutId);
+                    if (!response.ok) throw new Error('Erreur réseau');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.length > 0) {
+                        const lat = parseFloat(data[0].lat);
+                        const lon = parseFloat(data[0].lon);
+                        
+                        map.setView([lat, lon], 15);
+                        
+                        L.marker([lat, lon])
+                            .addTo(map)
+                            .bindPopup(`<b>{{ evenement.nom|escape('js') }}</b><br>${address}`)
+                            .openPopup();
+                    } else {
+                        // Si aucune localisation trouvée
+                        map.setView([20, 0], 2); // Vue monde
+                        L.marker([20, 0])
+                            .addTo(map)
+                            .bindPopup(`Adresse non trouvée: ${address}`)
+                            .openPopup();
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    map.setView([20, 0], 2);
+                    L.marker([20, 0])
+                        .addTo(map)
+                        .bindPopup('Erreur de géocodage')
+                        .openPopup();
+                })
+                .finally(() => {
+                    loadingElement.style.display = 'none';
+                });
+            } else {
+                loadingElement.style.display = 'none';
+                map.setView([20, 0], 2);
+                L.marker([20, 0])
+                    .addTo(map)
+                    .bindPopup('Aucune adresse fournie')
+                    .openPopup();
+            }
+        }
     </script>
     {% endblock %}
+  
 </body>
 </html>

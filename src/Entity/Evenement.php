@@ -276,7 +276,58 @@ public function updateStatut(): void
         }
     }
 }
+// src/Entity/Evenement.php
 
+#[ORM\Column(type: 'integer', options: ['default' => 0])]
+private int $likes = 0;
 
+#[ORM\Column(type: 'integer', options: ['default' => 0])]
+private int $dislikes = 0;
 
+// ... (dans la même classe)
+
+public function getLikes(): int
+{
+    return $this->likes;
 }
+
+public function setLikes(int $likes): self
+{
+    $this->likes = $likes;
+    return $this;
+}
+
+public function getDislikes(): int
+{
+    return $this->dislikes;
+}
+
+public function setDislikes(int $dislikes): self
+{
+    $this->dislikes = $dislikes;
+    return $this;
+}
+
+public function incrementLikes(): self
+{
+    $this->likes++;
+    return $this;
+}
+
+public function decrementLikes(): self
+{
+    $this->likes = max(0, $this->likes - 1);
+    return $this;
+}
+
+public function incrementDislikes(): self
+{
+    $this->dislikes++;
+    return $this;
+}
+
+public function decrementDislikes(): self
+{
+    $this->dislikes = max(0, $this->dislikes - 1);
+    return $this;
+}}

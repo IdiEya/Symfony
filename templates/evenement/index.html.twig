@@ -34,6 +34,62 @@
   {% endblock %}
 
 <style>
+/* Style pour le champ de recherche */
+#global-search {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--violet-pale);
+    transition: all 0.3s;
+    width: 100%;
+}
+
+#global-search:focus {
+    border-color: var(--violet-clair);
+    box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.25);
+    outline: none;
+}
+
+/* Style pour les résultats de recherche */
+.highlight {
+    background-color: rgba(255, 255, 0, 0.3);
+}
+/* Style pour les en-têtes triables */
+.event-table th {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.event-table th:hover {
+    background-color: rgba(106, 13, 173, 0.1);
+}
+
+/* Indicateurs de tri */
+.event-table th.asc::after,
+.event-table th.desc::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+.event-table th.asc::after {
+    border-bottom: 5px solid var(--violet-fonce);
+}
+
+.event-table th.desc::after {
+    border-top: 5px solid var(--violet-fonce);
+}
+
+/* Style pour la colonne Actions */
+.event-table th:last-child {
+    cursor: default;
+}
       /* Palette violette */
       :root {
           --violet-principal: #6a0dad;
@@ -780,9 +836,15 @@
           <div class="page-header">
               <div class="page-block">
                   <div class="row align-items-center">
+                  <div class="row mb-4">
+    <div class="col-md-6">
+        <input type="text" id="global-search" class="form-control" placeholder="Rechercher dans tous les champs...">
+    </div>
+</div>
                       <div class="col-md-6">
                           <h1 class="mb-0">Liste des Événements</h1>
                       </div>
+                      
                       <div class="col-md-6 text-end">
                           <a class="btn-nouveau" href="{{ path('app_evenement_new') }}">
                               <i class="ti ti-plus"></i> Créer un Nouvel Événement
@@ -800,7 +862,12 @@
                               <table class="event-table">
                                   <thead>
                                       <tr>
-                                          <th>Nom</th>
+                                       <th>
+                <a href="{{ path('app_evenement_index', {'sort_by': 'nom', 'direction': sort_by == 'nom' and direction == 'asc' ? 'desc' : 'asc'}) }}" class="sortable-header">
+                    Nom {% if sort_by == 'nom' %}({{ direction == 'asc' ? '↑' : '↓' }}){% endif %}
+                </a>
+            </th>
+                                          
                                           <th>Description</th>
                                           <th>Date Début</th>
                                           <th>Date Fin</th>
@@ -848,6 +915,19 @@
   {% endblock %}
 
   <script>
+  // Ajoutez en haut de votre fichier JavaScript
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
+// Puis modifiez votre écouteur d'événement
+document.getElementById('global-search').addEventListener('input', debounce(function() {
+    // Votre code de recherche ici...
+}, 300)); // 300ms de délai
     function confirmDelete(url, token) {
         Swal.fire({
     title: 'Confirmation de Suppression',
@@ -877,6 +957,134 @@
     }
 }); 
     }
+    <script>
+    // Fonction pour trier le tableau
+    function sortTable(columnIndex, isDateColumn = false) {
+        const table = document.querySelector('.event-table');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const header = table.querySelectorAll('th')[columnIndex];
+        
+        // Déterminer la direction du tri
+        const isAscending = !header.classList.contains('asc');
+        
+        // Supprimer les classes de tri des autres colonnes
+        table.querySelectorAll('th').forEach(th => {
+            if (th !== header) {
+                th.classList.remove('asc', 'desc');
+            }
+        });
+        
+        // Trier les lignes
+        rows.sort((a, b) => {
+            const aText = a.cells[columnIndex].textContent.trim();
+            const bText = b.cells[columnIndex].textContent.trim();
+            
+            if (isDateColumn) {
+                // Tri des dates (format dd/mm/yyyy)
+                const [aDay, aMonth, aYear] = aText.split('/');
+                const [bDay, bMonth, bYear] = bText.split('/');
+                const aDate = new Date(`${aYear}-${aMonth}-${aDay}`);
+                const bDate = new Date(`${bYear}-${bMonth}-${bDay}`);
+                
+                return isAscending ? aDate - bDate : bDate - aDate;
+            } else if (columnIndex === 5) { // Colonne Frais (nombre)
+                const aNum = parseFloat(aText);
+                const bNum = parseFloat(bText);
+                return isAscending ? aNum - bNum : bNum - aNum;
+            } else if (columnIndex === 6) { // Colonne Places (nombre)
+                const aNum = parseInt(aText);
+                const bNum = parseInt(bText);
+                return isAscending ? aNum - bNum : bNum - aNum;
+            } else {
+                // Tri alphabétique
+                return isAscending 
+                    ? aText.localeCompare(bText) 
+                    : bText.localeCompare(aText);
+            }
+        });
+        
+        // Mettre à jour la classe de l'en-tête
+        header.classList.toggle('asc', isAscending);
+        header.classList.toggle('desc', !isAscending);
+        
+        // Réinsérer les lignes triées
+        rows.forEach(row => tbody.appendChild(row));
+    }
+    
+    // Ajouter les écouteurs d'événements aux en-têtes
+    document.addEventListener('DOMContentLoaded', () => {
+        const headers = document.querySelectorAll('.event-table th');
+        headers.forEach((header, index) => {
+            // Ne pas ajouter de tri pour la colonne Actions
+            if (index !== headers.length - 1) {
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', () => {
+                    const isDateColumn = index === 2 || index === 3; // Colonnes Date Début et Date Fin
+                    sortTable(index, isDateColumn);
+                });
+            }
+        });
+    });
+</script>
+<script>
+document.getElementById('global-search').addEventListener('input', function() {
+    const query = this.value.trim();
+    const container = document.querySelector('.event-table tbody');
+    
+    if (query.length < 2) {
+        if (query.length === 0) {
+            // Recharger les données originales si la recherche est vide
+            location.reload();
+        }
+        return;
+    }
+
+    // Afficher un indicateur de chargement
+    container.innerHTML = `<tr><td colspan="8" class="text-center"><i class="fas fa-spinner fa-spin"></i> Recherche en cours...</td></tr>`;
+    
+    fetch(`{{ path('app_evenement_search_index') }}?query=${encodeURIComponent(query)}`)
+    .then(response => {
+        if (!response.ok) throw new Error(`Erreur ${response.status}`);
+        return response.json();
+    })
+    .then(data => {
+        container.innerHTML = '';
+        
+        if (data.length === 0) {
+            container.innerHTML = `<tr><td colspan="8" class="text-center">Aucun résultat trouvé</td></tr>`;
+            return;
+        }
+
+        data.forEach(event => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${event.nom}</td>
+                <td title="${event.description}">${event.description}</td>
+                <td>${event.dateDebut}</td>
+                <td>${event.dateFin}</td>
+                <td>${event.localisation}</td>
+                <td>${event.frais} dt</td>
+                <td>${event.nombreDePlaces}</td>
+                <td>
+                    <div class="button-container">
+                        <a class="btn-modifier" href="/evenement/${event.id}/edit">
+                            <i class="ti ti-edit"></i> Modifier
+                        </a>
+                        <button class="btn-supprimer" onclick="confirmDelete('/evenement/${event.id}', '{{ csrf_token('delete') }}')">
+                            <i class="ti ti-trash"></i> Supprimer
+                        </button>
+                    </div>
+                </td>`;
+            container.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Search error:', error);
+        container.innerHTML = `<tr><td colspan="8" class="text-center text-danger">Erreur lors de la recherche</td></tr>`;
+    });
+});
+</script>
 </script>
 </body>
 <!-- [Body] end -->

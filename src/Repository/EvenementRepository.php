@@ -43,6 +43,52 @@ public function findByName(string $name): array
         ->getQuery()
         ->getResult();
 }
+public function searchByNameAndDescription(string $query, ?\DateTimeInterface $date = null): array
+{
+    $qb = $this->createQueryBuilder('e')
+        ->where('e.nom LIKE :query OR e.description LIKE :query')
+        ->setParameter('query', '%'.$query.'%');
+
+    if ($date) {
+        $qb->andWhere('e.dateDebut >= :date')
+           ->setParameter('date', $date);
+    }
+
+    return $qb->getQuery()
+             ->getResult();
+}
+public function findAllSorted(string $sortBy = 'nom', string $direction = 'asc'): array
+{
+    $validSorts = ['nom', 'dateDebut', 'dateFin', 'localisation', 'frais', 'nombreDePlaces'];
+    $validDirections = ['asc', 'desc'];
+    
+    if (!in_array($sortBy, $validSorts)) {
+        $sortBy = 'nom';
+    }
+    
+    if (!in_array($direction, $validDirections)) {
+        $direction = 'asc';
+    }
+    
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.'.$sortBy, $direction)
+        ->getQuery()
+        ->getResult();
+}
+// src/Repository/EvenementRepository.php
+public function advancedSearch(string $query): array
+{
+    return $this->createQueryBuilder('e')
+        ->where('e.nom LIKE :query')
+        ->orWhere('e.description LIKE :query')
+        ->orWhere('e.localisation LIKE :query')
+        ->orWhere('e.frais LIKE :query')
+        ->orWhere('e.nombreDePlaces LIKE :query')
+        ->orWhere('e.statut LIKE :query')
+        ->setParameter('query', '%'.$query.'%')
+        ->getQuery()
+        ->getResult();
+}
     //    /**
     //     * @return Evenement[] Returns an array of Evenement objects
     //     */

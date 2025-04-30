@@ -2,157 +2,87 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
-use App\Repository\EvenementRepository;
-
-#[ORM\Entity(repositoryClass: EvenementRepository::class)]
-#[ORM\Table(name: 'evenement')]
+/**
+ * Evenement
+ *
+ * @ORM\Table(name="evenement")
+ * @ORM\Entity
+ */
 class Evenement
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     */
+    private $nom;
 
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
+    private $description;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $nom = null;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateDebut", type="date", nullable=false)
+     */
+    private $datedebut;
 
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFin", type="date", nullable=false)
+     */
+    private $datefin;
 
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-        return $this;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="localisation", type="string", length=255, nullable=false)
+     */
+    private $localisation;
 
-    #[ORM\Column(type: 'text', nullable: false)]
-    private ?string $description = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="frais", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $frais;
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=255, nullable=false)
+     */
+    private $photo;
 
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-        return $this;
-    }
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="nombreDePlaces", type="integer", nullable=true)
+     */
+    private $nombredeplaces;
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $dateDebut = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statut", type="string", length=0, nullable=false)
+     */
+    private $statut;
 
-    public function getDateDebut(): ?\DateTimeInterface
-    {
-        return $this->dateDebut;
-    }
-
-    public function setDateDebut(\DateTimeInterface $dateDebut): self
-    {
-        $this->dateDebut = $dateDebut;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $dateFin = null;
-
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->dateFin;
-    }
-
-    public function setDateFin(\DateTimeInterface $dateFin): self
-    {
-        $this->dateFin = $dateFin;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $localisation = null;
-
-    public function getLocalisation(): ?string
-    {
-        return $this->localisation;
-    }
-
-    public function setLocalisation(string $localisation): self
-    {
-        $this->localisation = $localisation;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'decimal', nullable: false)]
-    private ?float $frais = null;
-
-    public function getFrais(): ?float
-    {
-        return $this->frais;
-    }
-
-    public function setFrais(float $frais): self
-    {
-        $this->frais = $frais;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $photo = null;
-
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(string $photo): self
-    {
-        $this->photo = $photo;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $nombreDePlaces = null;
-
-    public function getNombreDePlaces(): ?int
-    {
-        return $this->nombreDePlaces;
-    }
-
-    public function setNombreDePlaces(?int $nombreDePlaces): self
-    {
-        $this->nombreDePlaces = $nombreDePlaces;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $statut = null;
-
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(string $statut): self
-    {
-        $this->statut = $statut;
-        return $this;
-    }
 
 }

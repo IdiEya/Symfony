@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7fc;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .subscription-card {
+        display: flex;
+        max-width: 600px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin: 60px auto;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .qr-section {
+        flex: 1;
+        background-color: #f9f9f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .qr-section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .info-section {
+        flex: 2;
+        padding: 20px;
+    }
+
+    .info-section h3 {
+        margin-bottom: 16px;
+        color: #4a2f6c;
+        font-size: 1.4rem;
+    }
+
+    .info-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .info-section li {
+        margin-bottom: 12px;
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .info-section li strong {
+        color: #333;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin: 30px auto;
+        width: fit-content;
+        padding: 12px 25px;
+        background-color: #4a2f6c;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+    }
+
+    .back-link:hover {
+        background-color: #2c1b47;
+    }
+
+    .subscribe-btn {
+        margin-top: 10px;
+        background: linear-gradient(135deg, #88659F, #9D77B8);
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: center;
+        transition: background 0.2s;
+        text-decoration: none;
+        display: block;
+        font-size: 0.9rem;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .subscribe-btn:hover {
+        background: linear-gradient(135deg, #7b5491, #8d66a7);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .subscription-card {
+            flex-direction: column;
+        }
+    }
+
+    @media print {
+        .subscribe-btn,
+        .back-link {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="subscription-card">
+    <div class="qr-section">
+        <img src="{{ path('abonnement_qr_code', {'id': abonnement.id, 'format': 'png'}) }}" alt="QR Code Abonnement">
+    </div>
+    <div class="info-section">
+        <h3>Informations d'abonnement</h3>
+        <ul>
+            <li><strong>Type :</strong> {{ abonnement.type.value }}</li>
+            <li><strong>Prix :</strong> {{ abonnement.prix }} TND</li>
+            <li><strong>Date début :</strong> {{ abonnement.dateInitiale|date('d/m/Y') }}</li>
+            <li><strong>Expiration :</strong> {{ abonnement.dateExpiration|date('d/m/Y') }}</li>
+            <li><strong>Salle :</strong> {{ abonnement.gym ? abonnement.gym.nom : 'Non spécifiée' }}</li>
+        </ul>
+    </div>
+</div>
+
+<a href="#" class="subscribe-btn" onclick="window.print(); return false;">Imprimer l'abonnement</a>
+
+{% endblock %}

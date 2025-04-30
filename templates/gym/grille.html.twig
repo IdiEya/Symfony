@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salles de sport{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #faf9ff;
+        margin: 0;
+        padding: 20px;
+        color: #444;
+        font-size: 0.9rem;
+    }
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 15px;
+    }
+    .gym-card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(92, 64, 111, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s;
+    }
+    .gym-card:hover {
+        transform: translateY(-4px);
+    }
+    .gym-photo {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+    }
+    .gym-content {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+    }
+    .gym-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #5C406F;
+        margin-bottom: 8px;
+    }
+    .gym-info {
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 4px;
+    }
+    .button-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .subscribe-btn, .show-btn {
+        flex: 1;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: center;
+        transition: background 0.2s;
+        text-decoration: none;
+        display: block;
+        font-size: 0.9rem;
+    }
+    .subscribe-btn {
+        background: linear-gradient(135deg, #88659F, #9D77B8);
+    }
+    .subscribe-btn:hover {
+        background: linear-gradient(135deg, #9D77B8, #A882D4);
+    }
+    .show-btn {
+        background: linear-gradient(135deg, #5C6BC0, #7986CB);
+    }
+    .show-btn:hover {
+        background: linear-gradient(135deg, #7986CB, #9FA8DA);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 style="text-align:center; color:#5C406F; margin-bottom:25px; font-size: 1.5rem;">
+        Découvrez nos salles de sport
+    </h1>
+
+    <div class="grid-container">
+        {% for gym in gyms %}
+            <div class="gym-card">
+                {% if gym.photo %}
+                    <img src="{{ asset('uploads/gyms/' ~ gym.photo) }}" alt="{{ gym.nom }}" class="gym-photo">
+                {% else %}
+                    <img src="{{ asset('images/default-gym.jpg') }}" alt="Salle de sport" class="gym-photo">
+                {% endif %}
+                <div class="gym-content">
+                    <div class="gym-title">{{ gym.nom }}</div>
+                    <div class="gym-info">Services: {{ gym.services }}</div>
+                    <div class="gym-info">Prix mensuel: {{ gym.prixMensuel }} DT</div>
+                    <div class="button-container">
+                        <!-- Liens redirigeant vers les pages de détails et d'abonnement -->
+                        <a class="show-btn" href="{{ path('app_gym_show', {'id': gym.id}) }}">
+                            Voir
+                        </a>
+                        <a class="subscribe-btn" href="{{ path('app_abonnement_new', {'gymId': gym.id}) }}">
+                            S'abonner
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p style="grid-column: 1 / -1; text-align:center;">Aucune salle disponible pour le moment.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

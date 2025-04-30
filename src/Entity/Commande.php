@@ -2,185 +2,100 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
-use App\Repository\CommandeRepository;
-
-#[ORM\Entity(repositoryClass: CommandeRepository::class)]
-#[ORM\Table(name: 'commande')]
+/**
+ * Commande
+ *
+ * @ORM\Table(name="commande", indexes={@ORM\Index(name="utilisateur_id", columns={"utilisateur_id"}), @ORM\Index(name="produit_id", columns={"produit_id"})})
+ * @ORM\Entity
+ */
 class Commande
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="date", type="datetime", nullable=true, options={"default"="CURRENT_TIMESTAMP"})
+     */
+    private $date = 'CURRENT_TIMESTAMP';
 
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="localisation", type="string", length=255, nullable=false)
+     */
+    private $localisation;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'commandes')]
-    #[ORM\JoinColumn(name: 'utilisateur_id', referencedColumnName: 'id')]
-    private ?User $user = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="string", length=20, nullable=false)
+     */
+    private $telephone;
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mail", type="string", length=100, nullable=false)
+     */
+    private $mail;
 
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-        return $this;
-    }
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nombre", type="integer", nullable=false)
+     */
+    private $nombre;
 
-    #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'commandes')]
-    #[ORM\JoinColumn(name: 'produit_id', referencedColumnName: 'id')]
-    private ?Produit $produit = null;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $prix;
 
-    public function getProduit(): ?Produit
-    {
-        return $this->produit;
-    }
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $total;
 
-    public function setProduit(?Produit $produit): self
-    {
-        $this->produit = $produit;
-        return $this;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_produit", type="string", length=255, nullable=false)
+     */
+    private $nomProduit;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $date = null;
+    /**
+     * @var \Produit
+     *
+     * @ORM\ManyToOne(targetEntity="Produit")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
+     * })
+     */
+    private $produit;
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utilisateur_id", referencedColumnName="id")
+     * })
+     */
+    private $utilisateur;
 
-    public function setDate(?\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $localisation = null;
-
-    public function getLocalisation(): ?string
-    {
-        return $this->localisation;
-    }
-
-    public function setLocalisation(string $localisation): self
-    {
-        $this->localisation = $localisation;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $telephone = null;
-
-    public function getTelephone(): ?string
-    {
-        return $this->telephone;
-    }
-
-    public function setTelephone(string $telephone): self
-    {
-        $this->telephone = $telephone;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $mail = null;
-
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private ?int $nombre = null;
-
-    public function getNombre(): ?int
-    {
-        return $this->nombre;
-    }
-
-    public function setNombre(int $nombre): self
-    {
-        $this->nombre = $nombre;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $prix = null;
-
-    public function getPrix(): ?float
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(float $prix): self
-    {
-        $this->prix = $prix;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $total = null;
-
-    public function getTotal(): ?float
-    {
-        return $this->total;
-    }
-
-    public function setTotal(float $total): self
-    {
-        $this->total = $total;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $nom_produit = null;
-
-    public function getNom_produit(): ?string
-    {
-        return $this->nom_produit;
-    }
-
-    public function setNom_produit(string $nom_produit): self
-    {
-        $this->nom_produit = $nom_produit;
-        return $this;
-    }
-
-    public function getNomProduit(): ?string
-    {
-        return $this->nom_produit;
-    }
-
-    public function setNomProduit(string $nom_produit): static
-    {
-        $this->nom_produit = $nom_produit;
-
-        return $this;
-    }
 
 }

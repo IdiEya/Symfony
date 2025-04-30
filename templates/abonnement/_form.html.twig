@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Style du formulaire */
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(92, 64, 111, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #5C406F;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .form-container .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-container label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-container .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .form-container .btn {
+            background-color: #88659F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(136, 101, 159, 0.2);
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .form-container .btn:hover {
+            background-color: #9D77B8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(136, 101, 159, 0.3);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="form-container">
+        <h2>{{ button_label|default('Nouveau ') }}</h2>
+
+{{ form_start(form, { 'attr': { 'novalidate': 'novalidate' } }) }}
+            <div class="form-group">
+                {{ form_widget(form) }}
+            </div>
+
+            <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

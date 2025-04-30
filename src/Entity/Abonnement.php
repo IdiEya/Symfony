@@ -2,15 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
+use App\Enum\TypeAbonnement;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 
-use App\Repository\AbonnementRepository;
-
-#[ORM\Entity(repositoryClass: AbonnementRepository::class)]
-#[ORM\Table(name: 'abonnement')]
+#[ORM\Entity(repositoryClass: "App\Repository\AbonnementRepository")]
 class Abonnement
 {
     #[ORM\Id]
@@ -18,33 +14,21 @@ class Abonnement
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    #[ORM\Column(type: 'string', enumType: TypeAbonnement::class)]
+    #[Assert\NotBlank(message: "Le type d'abonnement ne peut pas être vide.")]
+    private ?TypeAbonnement $type = null;
 
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
+    #[ORM\Column(type: 'float')]
+    #[Assert\PositiveOrZero(message: "Le prix doit être positif.")]
+    private float $prix = 0.0;
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $services = null;
-
-    public function getServices(): ?string
-    {
-        return $this->services;
-    }
-
-    public function setServices(string $services): self
-    {
-        $this->services = $services;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'date', nullable: false)]
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $dateInitiale = null;
+
+    public function __construct()
+    {
+        $this->dateInitiale = new \DateTime(); // valeur par défaut = date système
+    }
 
     public function getDateInitiale(): ?\DateTimeInterface
     {
@@ -54,41 +38,38 @@ class Abonnement
     public function setDateInitiale(\DateTimeInterface $dateInitiale): self
     {
         $this->dateInitiale = $dateInitiale;
+
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
-    private ?\DateTimeInterface $dateExpiration = null;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTimeInterface $dateExpiration;
 
-    public function getDateExpiration(): ?\DateTimeInterface
+    #[ORM\ManyToOne(targetEntity: Gym::class)]
+    private ?Gym $gym = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $user = null;
+
+    // --- GETTERS & SETTERS ---
+
+    public function getId(): ?int
     {
-        return $this->dateExpiration;
+        return $this->id;
     }
 
-    public function setDateExpiration(\DateTimeInterface $dateExpiration): self
-    {
-        $this->dateExpiration = $dateExpiration;
-        return $this;
-    }
-
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $type = null;
-
-    public function getType(): ?string
+    public function getType(): ?TypeAbonnement
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(TypeAbonnement $type): self
     {
         $this->type = $type;
         return $this;
     }
 
-    #[ORM\Column(type: 'float', nullable: false)]
-    private ?float $prix = null;
-
-    public function getPrix(): ?float
+    public function getPrix(): float
     {
         return $this->prix;
     }
@@ -99,38 +80,18 @@ class Abonnement
         return $this;
     }
 
-    #[ORM\Column(type: 'string', nullable: false)]
-    private ?string $modePaiement = null;
+    
 
-    public function getModePaiement(): ?string
+    public function getDateExpiration(): \DateTimeInterface
     {
-        return $this->modePaiement;
+        return $this->dateExpiration;
     }
 
-    public function setModePaiement(string $modePaiement): self
+    public function setDateExpiration(\DateTimeInterface $dateExpiration): self
     {
-        $this->modePaiement = $modePaiement;
+        $this->dateExpiration = $dateExpiration;
         return $this;
     }
-
-    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'abonnement')]
-    #[ORM\JoinColumn(name: 'sportif_id', referencedColumnName: 'id', unique: true)]
-    private ?User $user = null;
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    #[ORM\ManyToOne(targetEntity: Gym::class, inversedBy: 'abonnements')]
-    #[ORM\JoinColumn(name: 'gym_id', referencedColumnName: 'id')]
-    private ?Gym $gym = null;
 
     public function getGym(): ?Gym
     {
@@ -143,4 +104,14 @@ class Abonnement
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
 }

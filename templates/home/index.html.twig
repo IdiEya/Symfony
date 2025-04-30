@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -7,837 +6,629 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <!-- Les 3 meta tags doivent être placés en premier dans le head -->
 {% block css %}
     <!-- Font-family -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
         
     <!-- Title of site -->
     <title>{% block title %} CarVilla {% endblock %}</title>
 
-    <!-- For favicon png -->
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/icon" href="{{ asset('assets/front/assets/logo/favicon.png') }}"/>
 
-    <!-- Font-awesome.min.css -->
-    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/font-awesome.min.css') }}">
+    <!-- Font-awesome et autres icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- Linear icon css -->
+    <!-- Autres CSS personnalisés ou de plugins -->
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/linearicons.css') }}">
-
-    <!-- Flaticon.css -->
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/flaticon.css') }}">
-
-    <!-- Animate.css -->
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/animate.css') }}">
-
-    <!-- Owl.carousel.css -->
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/owl.theme.default.min.css') }}">
-        
-    <!-- Bootstrap.min.css -->
-    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/bootstrap.min.css') }}">
-        
-    <!-- Bootsnav -->
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/bootsnav.css') }}">
-    
-    <!-- Style.css -->
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/style.css') }}">
-        
-    <!-- Responsive.css -->
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/responsive.css') }}">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 {% endblock %}
 
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		
+        <!-- HTML5 shim and Respond.js for IE8 support (facultatif) -->
         <!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
     </head>
 	
 	<body>
 		<!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+            <p class="browserupgrade">Vous utilisez un navigateur <strong>obsolète</strong>. Merci de <a href="https://browsehappy.com/">mettre à jour votre navigateur</a> pour améliorer votre expérience et votre sécurité.</p>
         <![endif]-->
 	
-		<!--welcome-hero start -->
-		<section id="home" class="welcome-hero">
-{% block body %}
-			<!-- top-area Start -->
-			<div class="top-area">
-				<div class="header-area">
-					<!-- Start Navigation -->
-				    <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+		<!-- Welcome Hero -->
+		  <section id="home" class="welcome-hero">
+    {% block body %}
+    <div class="top-area" style=" background-color: #e1bee7 ;">
+        <div class="header-area" style=" background-color: #e1bee7 ;">
+            <!-- Navbar Bootstrap 5 -->
+           <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" 
+     style="background-color: #e1bee7 ;">
+                <div class="container" style="display: flex; align-items: center;">
+                    <!-- Logo à gauche -->
+                  <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:150px; length:200px;">
+                    
+                    <!-- Bouton de toggler pour mobile -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" 
+                        aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-				        <div class="container">
+                    <!-- Menu à droite du logo -->
+                    <div class="collapse navbar-collapse" id="navbar-menu">
+                        <ul class="navbar-nav ms-auto" style="display: flex; gap: 20px;">
+     <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_produituser_index') }}">Produits</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_commandeuser_index') }}">Panier</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_client_events') }}"> Evenement</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_mes_participations') }}">Participations</a>
+    </li>
+  
+       <li class="nav-item">
+    <a class="nav-link" href="{{ path('app_reserver') }}"> Cours</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_coach1_index') }}"> Coachs</a></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('planning_index') }}">Planning</a>
+    </li>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 
-				            <!-- Start Header Navigation -->
-				            <div class="navbar-header">
-				                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-				                    <i class="fa fa-bars"></i>
-				                </button>
-				                <a class="navbar-brand" href="index.html">carvilla<span></span></a>
+			<!-- Fin top-area -->
 
-				            </div><!--/.navbar-header-->
-				            <!-- End Header Navigation -->
+	<div style="length:3000px;" >
+  <div  style="background-image: url('{{ asset('img/GYM4.jpeg') }}'); width:1500px;   height:600px; background-size: cover; background-position: center; padding: 100px; color: white;">
+   <h2 style="font-size: 3em; margin: 0 auto 30px; max-width: 800px; text-align: center; color: black;">
+    GymTown t’accompagne à chaque étape de ton parcours sportif !
+</h2>
+<p style="font-size: 1.5em; max-width: 1000px; line-height: 1.6; margin: 0 auto; text-align: center; color: black;">
+    Bienvenue sur GymTown, l’univers où le sport prend vie ! Réserve tes cours, découvre des coachs passionnés, explore des salles équipées et plonge dans une expérience sportive unique — tout cela en un seul clic.
+</p>
+  </div>
+</div>
 
-				            <!-- Collect the nav links, forms, and other content for toggling -->
-				            <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-				                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-				                    <li class=" scroll active"><a href="#home">home</a></li>
-				                    <li class="scroll"><a href="#service">service</a></li>
-				                    <li class="scroll"><a href="#featured-cars">featured cars</a></li>
-				                    <li class="scroll"><a href="#new-cars">new cars</a></li>
-				                    <li class="scroll"><a href="#brand">brands</a></li>
-				                    <li class="scroll"><a href="#contact">contact</a></li>
-				                </ul><!--/.nav -->
-				            </div><!-- /.navbar-collapse -->
-				        </div><!--/.container-->
-				    </nav><!--/nav-->
-				    <!-- End Navigation -->
-				</div><!--/.header-area-->
-			    <div class="clearfix"></div>
 
-			</div><!-- /.top-area-->
-			<!-- top-area End -->
 
-			<div class="container">
-				<div class="welcome-hero-txt">
-					<h2>get your desired car in resonable price</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore   magna aliqua. 
-					</p>
-					<button class="welcome-btn" onclick="window.location.href='#'">contact us</button>
-				</div>
-			</div>
+		</section>
+		<!-- Fin Welcome Hero -->
 
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="model-search-content">
-							<div class="row">
-								<div class="col-md-offset-1 col-md-2 col-sm-12">
-									<div class="single-model-search">
-										<h2>select year</h2>
-										<div class="model-select-icon">
-											<select class="form-control">
+		<!-- Section produits -->
+		<div class="container py-5" style="margin-top:300px;">
+		    <!-- En-tête avec titre et bouton d'ajout -->
+		    <div class="d-flex justify-content-between align-items-center mb-4">
+		        <h1 class="h3 mb-0"><i class="fas fa-boxes me-2"></i>Nos produits</h1>
+		    </div>
 
-											  	<option value="default">year</option><!-- /.option-->
+   <li class="pc-h-item d-none d-md-inline-flex">
+      <form class="header-search">
+        <i data-feather="search" class="icon-search"></i>
+         <input type="text" id="searchAll" placeholder="Recherche par nom, référence ou catégorie ...." class="form-control mb-2" style="width:500px;">
+      </form>
+    </li>
 
-											  	<option value="2018">2018</option><!-- /.option-->
+<li class="nav-item">
+        <form method="get" action="{{ path('app_produituser_index') }}" class="mb-4">
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                      
+                
+                <div class="col-auto">
+                    <select name="categorie" id="categorie" class="form-select" onchange="this.form.submit()">
+                        <option value="">Toutes les catégories</option>
+                        {% for categorie in categories %}
+                            <option value="{{ categorie.id }}" {% if categorie.id == selectedCategorie %}selected{% endif %}>
+                                {{ categorie.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                </div>
+            </div>
+        </form>
+    </li>
 
-											  	<option value="2017">2017</option><!-- /.option-->
-											  	<option value="2016">2016</option><!-- /.option-->
+		    <!-- Grille de produits -->
+		    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4" id="productTable">
+		        {% for produit in produits %}
+		        <div class="col">
+		            <div class="card h-100 shadow-sm">
+		                <!-- Image du produit -->
+		                {% if produit.photo %}
+		                <img src="{{ asset('uploads/photos/' ~ produit.photo) }}" 
+		                     class="card-img-top p-3" 
+		                     alt="{{ produit.nom }}"
+		                     style="height: 250px; object-fit: contain;">
+		                {% else %}
+		                <div class="text-center bg-light p-3" style="height: 250px;">
+		                    <i class="fas fa-image fa-5x text-muted mt-5"></i>
+		                </div>
+		                {% endif %}
 
-											</select><!-- /.select-->
-										</div><!-- /.model-select-icon -->
-									</div>
-									<div class="single-model-search">
-										<h2>body style</h2>
-										<div class="model-select-icon">
-											<select class="form-control">
+		                <div class="card-body">
+		                    <!-- Titre et prix -->
+		                    <h5 class="card-title">{{ produit.nom }}</h5>
+		                    <h6 class="text-primary mb-3">
+		                        {{ produit.prix|number_format(2, ',', ' ') }} DT
+		                    </h6>
 
-											  	<option value="default">style</option><!-- /.option-->
+		                    <!-- Détails -->
+		                    <div class="d-flex justify-content-between small mb-2">
+		                        <span class="text-muted">
+		                            <i class="fas fa-barcode me-1"></i>{{ produit.ref }}
+		                        </span>
+		                        <span class="badge {{ produit.quantite > 0 ? 'bg-success' : 'bg-danger' }}">
+		                            {{ produit.quantite }} en stock
+		                        </span>
+		                    </div>
 
-											  	<option value="sedan">sedan</option><!-- /.option-->
+		                    <!-- Boutons d'action -->
+		                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+		                        <button class="btn btn-info show-modal-btn" 
+		                            data-url="{{ path('produit_modal_show', {'id': produit.id}) }}"
+		                            onclick="showProductDetails(this)">
+		                            <i class="fas fa-eye"></i>
+		                        </button>
+		                        <!-- Bouton pour passer une commande -->
+		              <!-- Bouton pour passer une commande -->
+<button class="btn btn-sm btn-outline-success {% if produit.quantite < 1 %}disabled{% endif %}" 
+    title="Commander" 
+    data-url="{{ path('app_commande_new', { produitId: produit.id }) }}"
+    onclick="orderProduct(this)">
+    <i class="fas fa-shopping-cart"></i>
+</button>
 
-											  	<option value="van">van</option><!-- /.option-->
-											  	<option value="roadster">roadster</option><!-- /.option-->
 
-											</select><!-- /.select-->
-										</div><!-- /.model-select-icon -->
-									</div>
-								</div>
-								<div class="col-md-offset-1 col-md-2 col-sm-12">
-									<div class="single-model-search">
-										<h2>select make</h2>
-										<div class="model-select-icon">
-											<select class="form-control">
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        {% else %}
+		        <div class="col-12">
+		            <div class="alert alert-info text-center">
+		                <i class="fas fa-info-circle me-2"></i>Aucun produit trouvé
+		            </div>
+		        </div>
+		        {% endfor %}
+		    </div>
+		</div>
 
-											  	<option value="default">make</option><!-- /.option-->
+		<!-- Modal de suppression -->
+		<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header bg-danger text-white">
+		                <h5 class="modal-title">
+		                    <i class="fas fa-exclamation-triangle me-2"></i>Confirmer la suppression
+		                </h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body">
+		                Êtes-vous sûr de vouloir supprimer définitivement ce produit ?
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+		                    <i class="fas fa-times me-2"></i>Annuler
+		                </button>
+		                <form method="post" action="" class="d-inline">
+		                    <input type="hidden" name="_method" value="DELETE">
+		                    <input type="hidden" name="_token" value="">
+		                    <button type="submit" class="btn btn-danger">
+		                        <i class="fas fa-trash me-2"></i>Supprimer
+		                    </button>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 
-											  	<option value="toyota">toyota</option><!-- /.option-->
+		{% for message in app.flashes('error') %}
+		    <div class="alert alert-danger">
+		        {{ message }}
+		    </div>
+		{% endfor %}
 
-											  	<option value="holden">holden</option><!-- /.option-->
-											  	<option value="maecedes-benz">maecedes-benz.</option><!-- /.option-->
-
-											</select><!-- /.select-->
-										</div><!-- /.model-select-icon -->
-									</div>
-									<div class="single-model-search">
-										<h2>car condition</h2>
-										<div class="model-select-icon">
-											<select class="form-control">
-
-											  	<option value="default">condition</option><!-- /.option-->
-
-											  	<option value="something">something</option><!-- /.option-->
-
-											  	<option value="something">something</option><!-- /.option-->
-											  	<option value="something">something</option><!-- /.option-->
-
-											</select><!-- /.select-->
-										</div><!-- /.model-select-icon -->
-									</div>
-								</div>
-								<div class="col-md-offset-1 col-md-2 col-sm-12">
-									<div class="single-model-search">
-										<h2>select model</h2>
-										<div class="model-select-icon">
-											<select class="form-control">
-
-											  	<option value="default">model</option><!-- /.option-->
-
-											  	<option value="kia-rio">kia-rio</option><!-- /.option-->
-
-											  	<option value="mitsubishi">mitsubishi</option><!-- /.option-->
-											  	<option value="ford">ford</option><!-- /.option-->
-
-											</select><!-- /.select-->
-										</div><!-- /.model-select-icon -->
-									</div>
-									<div class="single-model-search">
-										<h2>select price</h2>
-										<div class="model-select-icon">
-											<select class="form-control">
-
-											  	<option value="default">price</option><!-- /.option-->
-
-											  	<option value="$0.00">$0.00</option><!-- /.option-->
-
-											  	<option value="$0.00">$0.00</option><!-- /.option-->
-											  	<option value="$0.00">$0.00</option><!-- /.option-->
-
-											</select><!-- /.select-->
-										</div><!-- /.model-select-icon -->
-									</div>
-								</div>
-								<div class="col-md-2 col-sm-12">
-									<div class="single-model-search text-center">
-										<button class="welcome-btn model-search-btn" onclick="window.location.href='#'">
-											search
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</section><!--/.welcome-hero-->
-		<!--welcome-hero end -->
-
-		<!--service start -->
-		<section id="service" class="service">
-          
-			<div class="container">
-				<div class="service-content">
-					<div class="row">
-						<div class="col-md-4 col-sm-6">
-							<div class="single-service-item">
-								<div class="single-service-icon">
-									<i class="flaticon-car"></i>
-								</div>
-								<h2><a href="#">largest dealership <span> of</span> car</a></h2>
-								<p>
-									Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.  
-								</p>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6">
-							<div class="single-service-item">
-								<div class="single-service-icon">
-									<i class="flaticon-car-repair"></i>
-								</div>
-								<h2><a href="#">unlimited repair warrenty</a></h2>
-								<p>
-									Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.  
-								</p>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6">
-							<div class="single-service-item">
-								<div class="single-service-icon">
-									<i class="flaticon-car-1"></i>
-								</div>
-								<h2><a href="#">insurence support</a></h2>
-								<p>
-									Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia. 
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!--/.container-->
-
-		</section><!--/.service-->
-		<!--service end-->
-
-		<!--new-cars start -->
-		<section id="new-cars" class="new-cars">
-            
-			<div class="container">
-				<div class="section-header">
-					<p>checkout <span>the</span> latest cars</p>
-					<h2>newest cars</h2>
-				</div><!--/.section-header-->
-				<div class="new-cars-content">
-					<div class="owl-carousel owl-theme" id="new-cars-carousel">
-						<div class="new-cars-item">
-							<div class="single-new-cars-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-cars-img">
-											<img src="{{ asset('assets/images/new-cars-model/ncm1.png') }}"  alt="img"/>
-										</div><!--/.new-cars-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-cars-txt">
-											<h2><a href="#">chevrolet camaro <span> za100</span></a></h2>
-											<p>
-												Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
-											</p>
-											<p class="new-cars-para2">
-												Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. 
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												view details
-											</button>
-										</div><!--/.new-cars-txt-->	
-									</div><!--/.col-->
-								</div><!--/.row-->
-							</div><!--/.single-new-cars-item-->
-						</div><!--/.new-cars-item-->
-						<div class="new-cars-item">
-							<div class="single-new-cars-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-cars-img">
-											<img src="assets/images/new-cars-model/ncm2.png" alt="img"/>
-										</div><!--/.new-cars-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-cars-txt">
-											<h2><a href="#">BMW series-3 wagon</a></h2>
-											<p>
-												Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
-											</p>
-											<p class="new-cars-para2">
-												Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. 
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												view details
-											</button>
-										</div><!--/.new-cars-txt-->	
-									</div><!--/.col-->
-								</div><!--/.row-->	
-							</div><!--/.single-new-cars-item-->
-						</div><!--/.new-cars-item-->
-						<div class="new-cars-item">
-							<div class="single-new-cars-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-cars-img">
-											<img src="assets/images/new-cars-model/ncm3.png" alt="img"/>
-										</div><!--/.new-cars-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-cars-txt">
-											<h2><a href="#">ferrari 488 superfast</a></h2>
-											<p>
-												Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
-											</p>
-											<p class="new-cars-para2">
-												Sed ut pers unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. 
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												view details
-											</button>
-										</div><!--/.new-cars-txt-->	
-									</div><!--/.col-->
-								</div><!--/.row-->
-							</div><!--/.single-new-cars-item-->
-						</div><!--/.new-cars-item-->
-					</div><!--/#new-cars-carousel-->
-				</div><!--/.new-cars-content-->
-			</div><!--/.container-->
-
-		</section><!--/.new-cars-->
-		<!--new-cars end -->
-
-		<!--featured-cars start -->
-		<section id="featured-cars" class="featured-cars">
-            
-			<div class="container">
-				<div class="section-header">
-					<p>checkout <span>the</span> featured cars</p>
-					<h2>featured cars</h2>
-				</div><!--/.section-header-->
-				<div class="featured-cars-content">
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured-cars/fc1.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">BMW 6-series gran coupe</a></h2>
-									<h3>$89,395</h3>
-									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured-cars/fc2.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">chevrolet camaro <span>wmv20</span></a></h2>
-									<h3>$66,575</h3>
-									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured-cars/fc3.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">lamborghini <span>v520</span></a></h2>
-									<h3>$125,250</h3>
-									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured-cars/fc4.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">audi <span> a3</span> sedan</a></h2>
-									<h3>$95,500</h3>
-									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured-cars/fc4.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">infiniti <span>z5</span></a></h2>
-									<h3>$36,850</h3>
-									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured-cars/fc5.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">porsche <span>718</span> cayman</a></h2>
-									<h3>$48,500</h3>
-									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured-cars/fc7.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#"><span>bmw 8-</span>series coupe</a></h2>
-									<h3>$56,000</h3>
-									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured-cars/fc8.png" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">BMW <span> x</span>series-6</a></h2>
-									<h3>$75,800</h3>
-									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!--/.container-->
-
-		</section><!--/.featured-cars-->
-		<!--featured-cars end -->
-
-		<!-- clients-say strat -->
-		<section id="clients-say"  class="clients-say">
-            
-			<div class="container">
-				<div class="section-header">
-					<h2>what our clients say</h2>
-				</div><!--/.section-header-->
-				<div class="row">
-					<div class="owl-carousel testimonial-carousel">
-						<div class="col-sm-3 col-xs-12">
-							<div class="single-testimonial-box">
-								<div class="testimonial-description">
-									<div class="testimonial-info">
-										<div class="testimonial-img">
-											<img src="assets/images/clients/c1.png" alt="image of clients person" />
-										</div><!--/.testimonial-img-->
-									</div><!--/.testimonial-info-->
-									<div class="testimonial-comment">
-										<p>
-											Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem aperiam, eaque ipsa quae ab illo inventore verit. 
-										</p>
-									</div><!--/.testimonial-comment-->
-									<div class="testimonial-person">
-										<h2><a href="#">tomas lili</a></h2>
-										<h4>new york</h4>
-									</div><!--/.testimonial-person-->
-								</div><!--/.testimonial-description-->
-							</div><!--/.single-testimonial-box-->
-						</div><!--/.col-->
-						<div class="col-sm-3 col-xs-12">
-							<div class="single-testimonial-box">
-								<div class="testimonial-description">
-									<div class="testimonial-info">
-										<div class="testimonial-img">
-											<img src="assets/images/clients/c2.png" alt="image of clients person" />
-										</div><!--/.testimonial-img-->
-									</div><!--/.testimonial-info-->
-									<div class="testimonial-comment">
-										<p>
-											Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem aperiam, eaque ipsa quae ab illo inventore verit. 
-										</p>
-									</div><!--/.testimonial-comment-->
-									<div class="testimonial-person">
-										<h2><a href="#">romi rain</a></h2>
-										<h4>london</h4>
-									</div><!--/.testimonial-person-->
-								</div><!--/.testimonial-description-->
-							</div><!--/.single-testimonial-box-->
-						</div><!--/.col-->
-						<div class="col-sm-3 col-xs-12">
-							<div class="single-testimonial-box">
-								<div class="testimonial-description">
-									<div class="testimonial-info">
-										<div class="testimonial-img">
-											<img src="assets/images/clients/c3.png" alt="image of clients person" />
-										</div><!--/.testimonial-img-->
-									</div><!--/.testimonial-info-->
-									<div class="testimonial-comment">
-										<p>
-											Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem aperiam, eaque ipsa quae ab illo inventore verit. 
-										</p>
-									</div><!--/.testimonial-comment-->
-									<div class="testimonial-person">
-										<h2><a href="#">john doe</a></h2>
-										<h4>washington</h4>
-									</div><!--/.testimonial-person-->
-								</div><!--/.testimonial-description-->
-							</div><!--/.single-testimonial-box-->
-						</div><!--/.col-->
-					</div><!--/.testimonial-carousel-->
-				</div><!--/.row-->
-			</div><!--/.container-->
-
-		</section><!--/.clients-say-->	
-		<!-- clients-say end -->
-
-		<!--brand strat -->
-		<section id="brand"  class="brand">
-          
-			<div class="container">
-				<div class="brand-area">
-					<div class="owl-carousel owl-theme brand-item">
-						<div class="item">
-							<a href="#">
-								<img src="assets/images/brand/br1.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-						<div class="item">
-							<a href="#">
-								<img src="assets/images/brand/br2.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-						<div class="item">
-							<a href="#">
-								<img src="assets/images/brand/br3.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-						<div class="item">
-							<a href="#">
-								<img src="assets/images/brand/br4.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-
-						<div class="item">
-							<a href="#">
-								<img src="assets/images/brand/br5.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-
-						<div class="item">
-							<a href="#">
-								<img src="assets/images/brand/br6.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-					</div><!--/.owl-carousel-->
-				</div><!--/.clients-area-->
-
-			</div><!--/.container-->
-
-		</section><!--/brand-->	
-		<!--brand end -->
-
-		<!--blog start -->
-		<section id="blog" class="blog"></section><!--/.blog-->
-		<!--blog end -->
-
-		<!--contact start-->
-		<footer id="contact"  class="contact">
-			<div class="container">
-				<div class="footer-top">
-					<div class="row">
-						<div class="col-md-3 col-sm-6">
-							<div class="single-footer-widget">
-								<div class="footer-logo">
-									<a href="index.html">carvilla</a>
-								</div>
-								<p>
-									Ased do eiusm tempor incidi ut labore et dolore magnaian aliqua. Ut enim ad minim veniam.
-								</p>
-								<div class="footer-contact">
-									<p>info@themesine.com</p>
-									<p>+1 (885) 2563154554</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-2 col-sm-6">
-							<div class="single-footer-widget">
-								<h2>about devloon</h2>
-								<ul>
-									<li><a href="#">about us</a></li>
-									<li><a href="#">career</a></li>
-									<li><a href="#">terms <span> of service</span></a></li>
-									<li><a href="#">privacy policy</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-3 col-xs-12">
-							<div class="single-footer-widget">
-								<h2>top brands</h2>
-								<div class="row">
-									<div class="col-md-7 col-xs-6">
-										<ul>
-											<li><a href="#">BMW</a></li>
-											<li><a href="#">lamborghini</a></li>
-											<li><a href="#">camaro</a></li>
-											<li><a href="#">audi</a></li>
-											<li><a href="#">infiniti</a></li>
-											<li><a href="#">nissan</a></li>
-										</ul>
-									</div>
-									<div class="col-md-5 col-xs-6">
-										<ul>
-											<li><a href="#">ferrari</a></li>
-											<li><a href="#">porsche</a></li>
-											<li><a href="#">land rover</a></li>
-											<li><a href="#">aston martin</a></li>
-											<li><a href="#">mersedes</a></li>
-											<li><a href="#">opel</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-offset-1 col-md-3 col-sm-6">
-							<div class="single-footer-widget">
-								<h2>news letter</h2>
-								<div class="footer-newsletter">
-									<p>
-										Subscribe to get latest news  update and informations
-									</p>
-								</div>
-								<div class="hm-foot-email">
-									<div class="foot-email-box">
-										<input type="text" class="form-control" placeholder="Add Email">
-									</div><!--/.foot-email-box-->
-									<div class="foot-email-subscribe">
-										<span><i class="fa fa-arrow-right"></i></span>
-									</div><!--/.foot-email-icon-->
-								</div><!--/.hm-foot-email-->
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="footer-copyright">
-					<div class="row">
-						<div class="col-sm-6">
-							<p>
-								&copy; copyright.designed and developed by <a href="https://www.themesine.com/">themesine</a>.
-							</p><!--/p-->
-						</div>
-						<div class="col-sm-6">
-							<div class="footer-social">
-								<a href="#"><i class="fa fa-facebook"></i></a>	
-								<a href="#"><i class="fa fa-instagram"></i></a>
-								<a href="#"><i class="fa fa-linkedin"></i></a>
-								<a href="#"><i class="fa fa-pinterest-p"></i></a>
-								<a href="#"><i class="fa fa-behance"></i></a>	
-							</div>
-						</div>
-					</div>
-				</div><!--/.footer-copyright-->
-			</div><!--/.container-->
-
-			<div id="scroll-Top">
-				<div class="return-to-top">
-					<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
-				</div>
-				
-			</div><!--/.scroll-Top-->
-			
-        </footer><!--/.contact-->
-		<!--contact end-->
-{% endblock %}
-
-		{% block js %}
-    <!-- Include jQuery (required for Bootstrap and other plugins) -->
-    <script src="{{ asset('assets/front/assets/js/jquery.js') }}"></script>
-
-    <!-- Modernizr - Ensures feature detection for HTML5 and CSS3 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-    
-    <!-- Bootstrap JS (ensure jQuery is loaded first) -->
-    <script src="{{ asset('assets/front/assets/js/bootstrap.min.js') }}"></script>
-    
-    <!-- Bootsnav JS (for the navigation) -->
-    <script src="{{ asset('assets/front/assets/js/bootsnav.js') }}"></script>
-    
-    <!-- Owl Carousel JS (for carousel functionality) -->
-    <script src="{{ asset('assets/front/assets/js/owl.carousel.min.js') }}"></script>
-
-    <!-- jQuery Easing (smooth scrolling effect) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-
-    <!-- Custom JS (your custom scripts) -->
-    <script src="{{ asset('assets/front/assets/js/custom.js') }}"></script>
-{% endblock %}
-
-    </body>
 	
+
+		<!-- Modal Show pour le détail du produit -->
+		<div class="modal fade" id="showProductModal" tabindex="-1" aria-labelledby="showProductModalLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-xl modal-dialog-centered">
+		        <div class="modal-content">
+		            <div class="modal-header" style="background-color:rgb(195, 177, 229);">
+		                <h5 class="modal-title">
+		                    <i class="fas fa-eye me-2"></i>Détails du Produit
+		                </h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		            </div>
+		            <div class="modal-body" id="showProductContent">
+		                {# Le contenu sera chargé dynamiquement via AJAX #}
+		            </div>
+		        </div>
+		    </div>
+		</div>
+    
+
+<!-- ... Autres parties du template ... -->
+
+<!-- Modal de commande -->
+<div class="modal fade" id="orderProductModal" tabindex="-1" aria-labelledby="orderProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:rgb(195, 177, 229);">
+                <h5 class="modal-title" id="orderProductModalLabel">
+                    <i class="fas fa-shopping-cart me-2"></i>Passer commande
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="orderProductContent">
+                <!-- Le contenu sera chargé dynamiquement ici -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ... Suite du template ... -->
+		<!-- Footer / Contact -->
+		
+			<footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
+
+    <div class="container"  style="color: black;">
+
+        <div class="footer-top"   style="color: black;">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo">
+                            <a href="index.html" style="font-size: 24px; font-weight: bold; color: black;">GYMTOWN</a>
+                        </div>
+                        <p style="color: black;">
+                            Votre partenaire fitness et bien-être. Rejoignez notre communauté pour atteindre vos objectifs sportifs !
+                        </p>
+                        <div class="footer-contact">
+                            <p style="color: black;">admin@gymtown.com</p>
+                            <p style="color: black;">+216 95 443 345</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2 style="color: black;">À propos</h2>
+                        <ul>
+
+                        
+                            <li style="color: black;"><a href="{{ path('app_produituser_index') }}" style="color: black;">Nos produits</a></li>
+                            <li style="color: black;"><a href="{{ path('app_commandeuser_index') }}" style="color: black;">Panier</a></li>
+                            <li style="color: black;"><a href="#" style="color: black;">Nos salles de sport</a></li>
+                            <li style="color: black;"><a href="#" style="color: black;">Notre cours</a></li>
+                            <li style="color: black;"><a href="{{ path('app_client_events') }}" style="color: black;">Nos évenement</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2 style="color: black;">Activités</h2>
+                        <div class="row">
+                            <div class="col-md-7 col-xs-6">
+                                <ul>
+                                    <li style="color: black;"><a href="#" style="color: black;">Musculation</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Cardio</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">CrossFit</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Zumba</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Yoga</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-5 col-xs-6">
+                                <ul>
+                                    <li style="color: black;"><a href="#" style="color: black;">Pilates</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Boxe</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Cycling</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">TRX</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">HIIT</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2 style="color: black;">Newsletter</h2>
+                        <div class="footer-newsletter">
+                            <p style="color: black;">
+                                Abonnez-vous pour recevoir les dernières actualités et offres spéciales !
+                            </p>
+                        </div>
+                         <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:1000px; length:1000px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p style="color: black;">
+                        &copy; 2025 GYMTOWN. Tous droits réservés.
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up" id="scroll-top" data-bs-toggle="tooltip" data-bs-placement="top" title="Retour en haut"></i>
+        </div>
+    </div>
+</footer>
+		<!-- Fin Footer / Contact -->
+{% endblock %}
+
+<style>
+ /* Supprimer la marge gauche de l'image */
+  
+
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+   /* Ajustement du contenu sous la navbar fixe */
+   .container.py-5 {
+       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+   }
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
+</style>
+
+{% block js %}
+<script>
+// Gestion du menu fixe
+let lastScroll = 0;
+const navbar = document.querySelector('.navbar');
+const navbarHeight = navbar.offsetHeight;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > lastScroll && currentScroll > navbarHeight) {
+        // Scroll vers le bas - cacher
+        navbar.classList.add('navbar-hidden');
+    } else {
+        // Scroll vers le haut - afficher
+        navbar.classList.remove('navbar-hidden');
+        navbar.classList.add('navbar-visible');
+    }
+    
+    lastScroll = currentScroll;
+});
+document.getElementById("searchAll").addEventListener("input", function () {
+  const searchTerm = this.value.toLowerCase();
+  const rows = document.querySelectorAll("#productTable");
+
+  rows.forEach(row => {
+    const rowText = row.textContent.toLowerCase();
+    if (rowText.includes(searchTerm)) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
+}); 
+// Ajustement initial pour le contenu
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.paddingTop = navbarHeight + 'px';
+});
+    document.addEventListener('DOMContentLoaded', () => {
+    const prix = parseFloat(document.getElementById('prix').value);
+    const quantiteInput = document.getElementById('commande_nombre');
+    const totalOutput = document.getElementById('total');
+    
+    quantiteInput.addEventListener('input', () => {
+        const quantite = parseInt(quantiteInput.value);
+        const total = prix * quantite;
+        totalOutput.value = total.toFixed(2) + ' DT';
+    });
+});
+
+    function orderProduct(button) {
+        const url = button.getAttribute('data-url');
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('orderProductContent').innerHTML = html;
+                const modal = new bootstrap.Modal(document.getElementById('orderProductModal'));
+                modal.show();
+                 initCommandeForm();
+            })
+            .catch(error => console.error('Error loading product:', error));
+    }
+
+
+function initCommandeForm() {
+    const prix = parseFloat(document.getElementById('prix')?.value || 0);
+    const quantiteInput = document.getElementById('commande_nombre');
+    const totalOutput = document.getElementById('total');
+
+    const updateTotal = () => {
+        const quantite = parseInt(quantiteInput?.value) || 0;
+        if(totalOutput) totalOutput.value = (prix * quantite).toFixed(2) + ' DT';
+    };
+
+    quantiteInput?.addEventListener('input', updateTotal);
+    updateTotal();
+
+    
+}
+
+
+
+    // Gestion dynamique de la suppression
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const form = deleteModal.querySelector('form');
+            form.action = this.dataset.url;
+            form.querySelector('input[name="_token"]').value = this.dataset.token;
+        });
+    });
+
+    function showProductDetails(button) {
+        const url = button.getAttribute('data-url');
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('showProductContent').innerHTML = html;
+                const modal = new bootstrap.Modal(document.getElementById('showProductModal'));
+                modal.show();
+            })
+            .catch(error => console.error('Error loading product:', error));
+    }
+
+    // Glisser-déposer pour un élément (exemple)
+    let isDraggingTable = false;
+    let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+    const draggableTable = document.getElementById('draggableTable');
+    if (draggableTable) {
+        draggableTable.style.left = initialXTable + 'px';
+        draggableTable.style.top = initialYTable + 'px';
+
+        draggableTable.addEventListener('mousedown', startDraggingTable);
+        document.addEventListener('mousemove', dragTable);
+        document.addEventListener('mouseup', stopDraggingTable);
+
+        // Événements pour le tactile
+        draggableTable.addEventListener('touchstart', (e) => {
+            startDraggingTable(e.touches[0]);
+        });
+        draggableTable.addEventListener('touchmove', (e) => {
+            dragTable(e.touches[0]);
+        });
+        draggableTable.addEventListener('touchend', stopDraggingTable);
+    }
+
+    function startDraggingTable(e) {
+        isDraggingTable = true;
+        startXTable = e.clientX - initialXTable;
+        startYTable = e.clientY - initialYTable;
+        draggableTable.style.transition = 'none';
+        draggableTable.classList.add('dragging');
+    }
+    function dragTable(e) {
+        if (!isDraggingTable) return;
+        const newX = e.clientX - startXTable;
+        const newY = e.clientY - startYTable;
+        const maxX = window.innerWidth - draggableTable.offsetWidth;
+        const maxY = window.innerHeight - draggableTable.offsetHeight;
+        initialXTable = Math.max(0, Math.min(newX, maxX));
+        initialYTable = Math.max(0, Math.min(newY, maxY));
+        draggableTable.style.left = initialXTable + 'px';
+        draggableTable.style.top = initialYTable + 'px';
+    }
+    function stopDraggingTable() {
+        isDraggingTable = false;
+        if (draggableTable) {
+            draggableTable.style.transition = 'transform 0.3s ease';
+            draggableTable.classList.remove('dragging');
+        }
+    }
+    function resetTablePosition() {
+        initialXTable = 300;
+        initialYTable = 180;
+        if (draggableTable) {
+            draggableTable.style.left = initialXTable + 'px';
+            draggableTable.style.top = initialYTable + 'px';
+        }
+    }
+
+    document.querySelectorAll('.show-modal-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const url = btn.getAttribute('data-url');
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('modalContent').innerHTML = html;
+                    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+                    modal.show();
+                });
+        });
+    });
+</script>
+
+<!-- Bootstrap 5 Bundle (incluant Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Vous pouvez retirer jQuery si vous n'en avez plus besoin dans vos scripts personnalisés -->
+{% endblock %}
+    </body>
 </html>

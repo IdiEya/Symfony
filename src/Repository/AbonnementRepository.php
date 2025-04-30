@@ -40,4 +40,14 @@ class AbonnementRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    // src/Repository/AbonnementRepository.php
+
+public function findAllQuery()
+{
+    return $this->createQueryBuilder('a')
+        ->leftJoin('a.gym', 'g')  // Assurez-vous que le lien avec 'gym' est correct
+        ->addSelect('g')
+        ->getQuery();
+}
+
 }

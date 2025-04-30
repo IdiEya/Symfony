@@ -1,0 +1,476 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Abonnement index{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Styles hérités de la première page (Gym) */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #faf9ff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #5C406F;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(92, 64, 111, 0.1);
+            margin-bottom: 20px;
+            background-color: white;
+            max-width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .table th {
+            background-color: #725387;
+            color: white;
+            padding: 10px 12px;
+            font-weight: 500;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+        }
+
+        .table th.sort-asc:after {
+            content: " ↑";
+        }
+
+        .table th.sort-desc:after {
+            content: " ↓";
+        }
+
+        .table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #f3edff;
+            text-align: center;
+            color: #555;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tr:hover {
+            background-color: #fbf8ff;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn-create {
+            background-color: #88659F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(136, 101, 159, 0.2);
+        }
+
+        .btn-create:hover {
+            background-color: #9D77B8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(136, 101, 159, 0.3);
+        }
+
+        .action-link {
+            color: #725387;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 3px;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .action-link:hover {
+            background-color: #f3edff;
+            color: #5C406F;
+        }
+
+        /* Styles pour la barre de recherche et filtres */
+        .search-filter-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-container {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input, .filter-select {
+            padding: 8px;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            min-width: 200px;
+        }
+
+        /* Pagination styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
+        }
+
+        .pagination a, .pagination span {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #725387;
+            font-size: 0.9rem;
+        }
+
+        .pagination a:hover {
+            background-color: #f3edff;
+        }
+
+        .pagination .active {
+            background-color: #725387;
+            color: white;
+            border-color: #725387;
+        }
+
+        .pagination .disabled {
+            color: #ccc;
+            pointer-events: none;
+        }
+
+        /* Popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(61, 38, 76, 0.8);
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(61, 38, 76, 0.3);
+            overflow: hidden;
+            animation: slideDown 0.4s ease;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: #725387;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            display: none;
+        }
+
+        /* Styles pour le formulaire dans la modal */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #5C406F;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit {
+            background-color: #725387;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #88659F;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des abonnements</h1>
+
+    <!-- Barre de recherche et filtres -->
+    <div class="search-filter-container">
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Rechercher...">
+        </div>
+        <div class="filter-container">
+            <select id="gymFilter" class="filter-select">
+                <option value="">Toutes les salles</option>
+                {% for gym in gyms %}
+                    <option value="{{ gym.id }}" {% if selectedGym is defined and selectedGym == gym.id %}selected{% endif %}>{{ gym.nom }}</option>
+                {% endfor %}
+            </select>
+            <select id="sortSelect" class="filter-select">
+                <option value="gym.asc" {% if sort is defined and sort == 'gym.asc' %}selected{% endif %}>Salle (A-Z)</option>
+                <option value="gym.desc" {% if sort is defined and sort == 'gym.desc' %}selected{% endif %}>Salle (Z-A)</option>
+                <option value="type.asc" {% if sort is defined and sort == 'type.asc' %}selected{% endif %}>Type (A-Z)</option>
+                <option value="type.desc" {% if sort is defined and sort == 'type.desc' %}selected{% endif %}>Type (Z-A)</option>
+                <option value="prix.asc" {% if sort is defined and sort == 'prix.asc' %}selected{% endif %}>Prix (Croissant)</option>
+                <option value="prix.desc" {% if sort is defined and sort == 'prix.desc' %}selected{% endif %}>Prix (Décroissant)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="{% if sort is defined and sort == 'gym.asc' %}sort-asc{% elseif sort is defined and sort == 'gym.desc' %}sort-desc{% endif %}" onclick="sortTable('gym')">Nom de la salle de sport</th>
+                    <th class="{% if sort is defined and sort == 'type.asc' %}sort-asc{% elseif sort is defined and sort == 'type.desc' %}sort-desc{% endif %}" onclick="sortTable('type')">Type</th>
+                    <th class="{% if sort is defined and sort == 'prix.asc' %}sort-asc{% elseif sort is defined and sort == 'prix.desc' %}sort-desc{% endif %}" onclick="sortTable('prix')">Prix</th>
+                    <th>Date initiale</th>
+                    <th>Date d'expiration</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="abonnementsTableBody">
+                {% for abonnement in pagination %}
+                    <tr data-search="{{ abonnement.gym.nom|lower }} {{ abonnement.type.value|trans|lower }} {{ abonnement.prix }} {{ abonnement.dateInitiale|date('d/m/Y') }} {{ abonnement.dateExpiration|date('d/m/Y') }}" data-gym="{{ abonnement.gym.id }}">
+                        <td>{{ abonnement.gym.nom }}</td>
+                        <td>
+                            {% if abonnement.type is not null %}
+                                {{ abonnement.type.value|trans }}
+                            {% else %}
+                                Non spécifié
+                            {% endif %}
+                        </td>
+                        <td>{{ abonnement.prix|number_format(2, ',', ' ') }} TND</td>
+                        <td>{{ abonnement.dateInitiale|date('d/m/Y') }}</td>
+                        <td>{{ abonnement.dateExpiration|date('d/m/Y') }}</td>
+                        <td>
+                            <a href="{{ path('app_abonnement_show', {'id': abonnement.id}) }}" class="action-link">Voir</a>
+                            <a href="javascript:void(0);" class="action-link" onclick="openEditModal({{ abonnement.id }})">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" style="text-align: center;">Aucun abonnement trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="noResults" class="no-results">
+            Aucun résultat trouvé pour votre recherche.
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    <!-- Popup Modal for View -->
+    <div id="viewAbonnementModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('viewAbonnementModal')">&times;</span>
+            <div id="viewModalContent"></div>
+        </div>
+    </div>
+
+    <!-- Popup Modal for Edit -->
+    <div id="editAbonnementModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editAbonnementModal')">&times;</span>
+            <div id="editModalContent"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function openViewModal(abonnementId) {
+            fetch(`/abonnement/${abonnementId}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('viewModalContent').innerHTML = html;
+                    document.getElementById('viewAbonnementModal').style.display = 'block';
+                });
+        }
+
+        function openEditModal(abonnementId) {
+            fetch(`/abonnement/${abonnementId}/edit`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('editModalContent').innerHTML = html;
+                    document.getElementById('editAbonnementModal').style.display = 'block';
+                    
+                    // Attacher l'événement de soumission au formulaire
+                    const editForm = document.querySelector('#editModalContent form');
+                    if (editForm) {
+                        editForm.addEventListener('submit', submitEditForm);
+                    }
+                });
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function submitEditForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(html => {
+                if (html) {
+                    document.getElementById('editModalContent').innerHTML = html;
+                    // Réattacher les événements après le rechargement du contenu
+                    const editForm = document.querySelector('#editModalContent form');
+                    if (editForm) {
+                        editForm.addEventListener('submit', submitEditForm);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function sortTable(sortField) {
+            const currentSort = "{{ sort }}";
+            let newSort;
+            
+            if (currentSort === `${sortField}.asc`) {
+                newSort = `${sortField}.desc`;
+            } else {
+                newSort = `${sortField}.asc`;
+            }
+            
+            const url = new URL(window.location.href);
+            url.searchParams.set('sort', newSort);
+            window.location.href = url.toString();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const gymFilter = document.getElementById('gymFilter');
+            const sortSelect = document.getElementById('sortSelect');
+            const rows = document.querySelectorAll('#abonnementsTableBody tr');
+            const noResults = document.getElementById('noResults');
+
+            function filterTable() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedGym = gymFilter.value;
+                let hasResults = false;
+
+                rows.forEach(row => {
+                    const rowData = row.getAttribute('data-search').toLowerCase();
+                    const rowGym = row.getAttribute('data-gym');
+                    
+                    const matchesSearch = searchTerm === '' || rowData.includes(searchTerm);
+                    const matchesGym = selectedGym === '' || rowGym === selectedGym;
+                    
+                    if (matchesSearch && matchesGym) {
+                        row.style.display = '';
+                        hasResults = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                if (!hasResults && (searchTerm.length > 0 || selectedGym !== '')) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            }
+
+            searchInput.addEventListener('input', filterTable);
+            gymFilter.addEventListener('change', filterTable);
+
+            sortSelect.addEventListener('change', function() {
+                const url = new URL(window.location.href);
+                url.searchParams.set('sort', this.value);
+                window.location.href = url.toString();
+            });
+        });
+    </script>
+{% endblock %}

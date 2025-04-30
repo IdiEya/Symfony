@@ -1,0 +1,126 @@
+{{ form_start(form, {'attr': {'class': 'gym-form', 'enctype': 'multipart/form-data', 'novalidate': 'novalidate'}}) }}
+    <div class="form-container">
+        {{ form_errors(form) }}
+
+        {# Champ Nom #}
+        <div class="form-row">
+            {{ form_label(form.nom, 'Nom du gymnase *') }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-input', 'placeholder': 'Entrez le nom du gymnase'}}) }}
+            {{ form_errors(form.nom) }}
+        </div>
+
+        {# Champ Latitude #}
+        <div class="form-row">
+            {{ form_label(form.latitude, 'Latitude *') }}
+            {{ form_widget(form.latitude, {'attr': {'class': 'form-input', 'placeholder': 'Entrez la latitude du gymnase'}}) }}
+            {{ form_errors(form.latitude) }}
+        </div>
+
+        {# Champ Longitude #}
+        <div class="form-row">
+            {{ form_label(form.longitude, 'Longitude *') }}
+            {{ form_widget(form.longitude, {'attr': {'class': 'form-input', 'placeholder': 'Entrez la longitude du gymnase'}}) }}
+            {{ form_errors(form.longitude) }}
+        </div>
+
+        {# Champ Photo #}
+        <div class="form-row">
+            {{ form_label(form.imageFile, 'Photo du gymnase') }}
+            <div class="file-upload-wrapper">
+                {{ form_widget(form.imageFile, {'attr': {'class': 'file-upload-input', 'accept': 'image/*'}}) }}
+                <label for="{{ form.imageFile.vars.id }}" class="file-upload-label">
+                    <i class="fas fa-cloud-upload-alt"></i> Choisir un fichier
+                </label>
+                <span class="file-upload-name">Aucun fichier sélectionné</span>
+            </div>
+            
+            {% if form.vars.data.photo %}
+                <div class="current-photo">
+                    <p>Photo actuelle :</p>
+                    <img src="{{ asset('uploads/gyms/' ~ form.vars.data.photo) }}" 
+                         class="photo-preview"
+                         alt="Photo actuelle du gymnase"
+                         onerror="this.onerror=null;this.src='{{ asset('images/default-gym.jpg') }}'" />
+                </div>
+            {% endif %}
+            
+            {{ form_errors(form.imageFile) }}
+            <small class="form-help">Formats acceptés : JPG, PNG. Taille max : 5Mo</small>
+        </div>
+
+        {# Champ Services #}
+        <div class="form-row">
+            {{ form_label(form.services, 'Services proposés *') }}
+            {{ form_widget(form.services, {'attr': {'class': 'form-input', 'rows': 5, 'placeholder': 'Liste des services disponibles'}}) }}
+            {{ form_errors(form.services) }}
+        </div>
+
+        {# Champ Horaires #}
+        <div class="form-row">
+            {{ form_label(form.horaires, 'Horaires d\'ouverture *') }}
+            {{ form_widget(form.horaires, {'attr': {'class': 'form-input', 'placeholder': 'Ex: Lundi-Vendredi 8h-20h'}}) }}
+            {{ form_errors(form.horaires) }}
+        </div>
+
+        {# Champ Contact #}
+        <div class="form-row">
+            {{ form_label(form.contact, 'Contact *') }}
+            {{ form_widget(form.contact, {'attr': {'class': 'form-input', 'placeholder': 'Numéro de téléphone'}}) }}
+            {{ form_errors(form.contact) }}
+        </div>
+
+        {# Section Prix #}
+        <div class="pricing-section">
+            <h3 class="section-title">Tarifs (DT)</h3>
+            
+            <div class="pricing-grid">
+                <div class="price-card">
+                    {{ form_label(form.prixMensuel, 'Mensuel') }}
+                    <div class="price-input-wrapper">
+                        {{ form_widget(form.prixMensuel, {'attr': {'class': 'price-input', 'min': 0}}) }}
+                        <span class="currency">DT</span>
+                    </div>
+                    {{ form_errors(form.prixMensuel) }}
+                </div>
+                
+                <div class="price-card">
+                    {{ form_label(form.prixTrimestriel, 'Trimestriel') }}
+                    <div class="price-input-wrapper">
+                        {{ form_widget(form.prixTrimestriel, {'attr': {'class': 'price-input', 'min': 0}}) }}
+                        <span class="currency">DT</span>
+                    </div>
+                    {{ form_errors(form.prixTrimestriel) }}
+                </div>
+                
+                <div class="price-card">
+                    {{ form_label(form.prixSemestriel, 'Semestriel') }}
+                    <div class="price-input-wrapper">
+                        {{ form_widget(form.prixSemestriel, {'attr': {'class': 'price-input', 'min': 0}}) }}
+                        <span class="currency">DT</span>
+                    </div>
+                    {{ form_errors(form.prixSemestriel) }}
+                </div>
+                
+                <div class="price-card">
+                    {{ form_label(form.prixAnnuel, 'Annuel') }}
+                    <div class="price-input-wrapper">
+                        {{ form_widget(form.prixAnnuel, {'attr': {'class': 'price-input', 'min': 0}}) }}
+                        <span class="currency">DT</span>
+                    </div>
+                    {{ form_errors(form.prixAnnuel) }}
+                </div>
+            </div>
+        </div>
+
+        {# Boutons #}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">
+                <i class="fas fa-save"></i> {{ button_label|default('Enregistrer') }}
+            </button>
+            <a href="{{ path('app_gym_index') }}" class="btn btn-cancel">
+                <i class="fas fa-times"></i> Annuler
+            </a>
+        </div>
+    </div>
+{{ form_end(form) }}
+    

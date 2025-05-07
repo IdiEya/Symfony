@@ -1,0 +1,602 @@
+
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Les 3 meta tags doivent être placés en premier dans le head -->
+{% block css %}
+    <!-- Font-family -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+        
+    <!-- Title of site -->
+    <title>{% block title %} CarVilla {% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href="{{ asset('assets/front/assets/logo/favicon.png') }}"/>
+
+    <!-- Font-awesome et autres icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Autres CSS personnalisés ou de plugins -->
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/linearicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/bootsnav.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/responsive.css') }}">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+{% endblock %}
+
+        <!-- HTML5 shim and Respond.js for IE8 support (facultatif) -->
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+	
+	<body>
+		<!--[if lte IE 9]>
+            <p class="browserupgrade">Vous utilisez un navigateur <strong>obsolète</strong>. Merci de <a href="https://browsehappy.com/">mettre à jour votre navigateur</a> pour améliorer votre expérience et votre sécurité.</p>
+        <![endif]-->
+	
+		<!-- Welcome Hero -->
+		  <section id="home" class="welcome-hero">
+    {% block body %}
+    <div class="top-area" style=" background-color: rgb(195, 177, 229); ">
+        <div class="header-area" style=" background-color: rgb(195, 177, 229); ">
+            <!-- Navbar Bootstrap 5 -->
+           <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" 
+     style="background-color: rgb(195, 177, 229);">
+                <div class="container" style="display: flex; align-items: center;">
+                    <!-- Logo à gauche -->
+                  <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:150px; length:200px;">
+                    
+                    <!-- Bouton de toggler pour mobile -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" 
+                        aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Menu à droite du logo -->
+                    <div class="collapse navbar-collapse" id="navbar-menu">
+                        <ul class="navbar-nav ms-auto" style="display: flex; gap: 20px;">
+     <li class="nav-item">
+        <a class="nav-link active" href="">Produits</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="">Panier</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{ path('app_reserver') }}">Réservation des Cours</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_coach1_index') }}">Liste des Coachs</a></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('planning_index') }}">Planning</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="">CONTACT</a>
+    </li>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+			<!-- Fin top-area -->
+
+			<div class="container">
+			<div class="welcome-hero-txt" >
+
+                
+					<h2>Get your desired car at a reasonable price</h2>
+                    
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					</p>
+					<button class="btn btn-primary" onclick="window.location.href='#'">Contact Us</button>
+				</div>
+			</div>
+
+		</section>
+		<!-- Fin Welcome Hero -->
+  <div class="page-container">
+    <div class="content-card">
+        <h1>Planning des Cours</h1>
+
+        <table class="planning-table">
+            <thead>
+                <tr>
+                    <th>Horaire</th>
+                    {% for jour in jours %}
+                        <th>{{ jour }}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Salle</th>
+                    {% for jour in jours %}
+                        {% for salle in salles %}
+                            <th>{{ salle.nom ?: 'Salle ' ~ salle.numero }}</th>
+                        {% endfor %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Spécialité</th>
+                    {% for jour in jours %}
+                        {% for salle in salles %}
+                            <th>{{ salle.specialite }}</th>
+                        {% endfor %}
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for horaire in horaires %}
+                    <tr>
+                        <td>{{ horaire }}</td>
+                        {% for jour in jours %}
+                            {% for salle in salles %}
+                                <td>
+                                    {# Affichage simple des cours comme texte sans tenter d'accéder à une propriété "nomCours" #}
+                                    {% if planning[jour][salle.id][horaire] is defined %}
+                                        {{ planning[jour][salle.id][horaire] }}<br>
+                                        {# Affichage de la spécialité si définie #}
+                                        <small>{{ salle.specialite }}</small>
+                                    {% else %}
+                                        Aucun cours
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Fond général */
+        .page-container {
+            background-color: #ffffff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Carte blanche centrée */
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-card h1 {
+            color: #6A455D;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* Tableau des plannings */
+        .planning-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            background-color: white;
+        }
+
+        .planning-table th {
+            background-color: #6A455D;
+            color: white;
+            text-transform: uppercase;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .planning-table td {
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .planning-table tr:nth-child(even) {
+            background-color: #f4eef5;
+        }
+
+        .planning-table tr:hover {
+            background-color: #e9dfe9;
+        }
+
+        .planning-table th, .planning-table td {
+            border: 1px solid #ddd;
+        }
+
+        /* Styles pour les cellules avec "Aucun cours" */
+        .planning-table td.no-course {
+            background-color: #f5f5f5;
+            color: #777;
+        }
+
+        /* Amélioration de la visibilité des horaires et des salles */
+        .planning-table td {
+            background-color: #fff;
+        }
+
+        .planning-table tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        .planning-table tr:hover {
+            background-color: #e1d4e1;
+        }
+
+        /* Styles des cellules de la ligne "Salle" */
+        .planning-table th.salle-header {
+            background-color: #8E5A7F;
+            font-weight: bold;
+        }
+
+        .planning-table td.salle-header {
+            background-color: #D1A1C1;
+            color: #6A455D;
+        }
+
+        /* Mise en évidence des cellules vides avec aucun cours */
+        .planning-table td.no-course {
+            background-color: #f0f0f0;
+            color: #aaa;
+            font-style: italic;
+        }
+    </style>
+
+
+<footer id="contact" class="contact"  style="background-color: rgb(65, 35, 120);">
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo">
+                            <a href="index.html">CarVilla</a>
+                        </div>
+                        <p>
+                            Ased do eiusm tempor incidi ut labore et dolore magnaian aliqua. Ut enim ad minim veniam.
+                        </p>
+                        <div class="footer-contact">
+                            <p>info@themesine.com</p>
+                            <p>+1 (885) 2563154554</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>about devloon</h2>
+                        <ul>
+                            <li><a href="#">about us</a></li>
+                            <li><a href="#">career</a></li>
+                            <li><a href="#">terms <span>of service</span></a></li>
+                            <li><a href="#">privacy policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2>top brands</h2>
+                        <div class="row">
+                            <div class="col-md-7 col-xs-6">
+                                <ul>
+                                    <li><a href="#">BMW</a></li>
+                                    <li><a href="#">Lamborghini</a></li>
+                                    <li><a href="#">Camaro</a></li>
+                                    <li><a href="#">Audi</a></li>
+                                    <li><a href="#">Infiniti</a></li>
+                                    <li><a href="#">Nissan</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-5 col-xs-6">
+                                <ul>
+                                    <li><a href="#">Ferrari</a></li>
+                                    <li><a href="#">Porsche</a></li>
+                                    <li><a href="#">Land Rover</a></li>
+                                    <li><a href="#">Aston Martin</a></li>
+                                    <li><a href="#">Mercedes</a></li>
+                                    <li><a href="#">Opel</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>news letter</h2>
+                        <div class="footer-newsletter">
+                            <p>
+                                Subscribe to get latest news update and informations
+                            </p>
+                        </div>
+                        <div class="hm-foot-email">
+                            <div class="foot-email-box">
+                                <input type="text" class="form-control" placeholder="Add Email">
+                            </div>
+                            <div class="foot-email-subscribe">
+                                <span><i class="fa fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>
+                        &copy; copyright. Designed and developed by <a href="https://www.themesine.com/">themesine</a>.
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>	
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fa fa-behance"></i></a>	
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up" id="scroll-top" data-bs-toggle="tooltip" data-bs-placement="top" title="Back to Top"></i>
+        </div>
+    </div>
+</footer>
+<!-- Fin Footer / Contact -->
+{% endblock %}
+
+<style>
+/* Supprimer la marge gauche de l'image */
+
+
+/* Menu fixe avec apparition au scroll */
+.navbar {
+position: fixed !important;
+top: 0;
+width: 100%;
+z-index: 1000;
+transition: transform 0.3s ease-in-out;
+background-color: rgb(195, 177, 229); 
+}
+
+.navbar-hidden {
+transform: translateY(-100%);
+}
+
+.navbar-visible {
+transform: translateY(0);
+}
+
+/* Ajustement du contenu sous la navbar fixe */
+.container.py-5 {
+margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+}
+/* Ajustement pour la navbar */
+.navbar-nav.ms-auto {
+margin-left: auto !important;
+}
+.navbar-nav {
+display: flex !important;
+flex-direction: row !important;
+align-items: center;
+}
+.navbar-nav > li {
+margin: 0 15px;
+position: relative;
+}
+.navbar-nav > li > a {
+padding: 15px 10px !important;
+text-transform: capitalize;
+}
+@media (max-width: 768px) {
+.navbar-nav {
+    flex-direction: column !important;
+    padding: 0;
+}
+.navbar-nav > li {
+    margin: 3px 0;
+    width: 100%;
+    text-align: center;
+}
+}
+</style>
+
+{% block js %}
+<script>
+// Gestion du menu fixe
+let lastScroll = 0;
+const navbar = document.querySelector('.navbar');
+const navbarHeight = navbar.offsetHeight;
+
+window.addEventListener('scroll', () => {
+const currentScroll = window.pageYOffset;
+
+if (currentScroll > lastScroll && currentScroll > navbarHeight) {
+// Scroll vers le bas - cacher
+navbar.classList.add('navbar-hidden');
+} else {
+// Scroll vers le haut - afficher
+navbar.classList.remove('navbar-hidden');
+navbar.classList.add('navbar-visible');
+}
+
+lastScroll = currentScroll;
+});
+
+// Ajustement initial pour le contenu
+document.addEventListener('DOMContentLoaded', () => {
+document.body.style.paddingTop = navbarHeight + 'px';
+});
+document.addEventListener('DOMContentLoaded', () => {
+const prix = parseFloat(document.getElementById('prix').value);
+const quantiteInput = document.getElementById('commande_nombre');
+const totalOutput = document.getElementById('total');
+
+quantiteInput.addEventListener('input', () => {
+const quantite = parseInt(quantiteInput.value);
+const total = prix * quantite;
+totalOutput.value = total.toFixed(2) + ' DT';
+});
+});
+
+function orderProduct(button) {
+const url = button.getAttribute('data-url');
+fetch(url)
+    .then(response => response.text())
+    .then(html => {
+        document.getElementById('orderProductContent').innerHTML = html;
+        const modal = new bootstrap.Modal(document.getElementById('orderProductModal'));
+        modal.show();
+         initCommandeForm();
+    })
+    .catch(error => console.error('Error loading product:', error));
+}
+
+
+function initCommandeForm() {
+const prix = parseFloat(document.getElementById('prix')?.value || 0);
+const quantiteInput = document.getElementById('commande_nombre');
+const totalOutput = document.getElementById('total');
+
+const updateTotal = () => {
+const quantite = parseInt(quantiteInput?.value) || 0;
+if(totalOutput) totalOutput.value = (prix * quantite).toFixed(2) + ' DT';
+};
+
+quantiteInput?.addEventListener('input', updateTotal);
+updateTotal();
+
+
+}
+
+
+
+// Gestion dynamique de la suppression
+document.querySelectorAll('.delete-btn').forEach(button => {
+button.addEventListener('click', function() {
+    const form = deleteModal.querySelector('form');
+    form.action = this.dataset.url;
+    form.querySelector('input[name="_token"]').value = this.dataset.token;
+});
+});
+
+function showProductDetails(button) {
+const url = button.getAttribute('data-url');
+fetch(url)
+    .then(response => response.text())
+    .then(html => {
+        document.getElementById('showProductContent').innerHTML = html;
+        const modal = new bootstrap.Modal(document.getElementById('showProductModal'));
+        modal.show();
+    })
+    .catch(error => console.error('Error loading product:', error));
+}
+
+// Glisser-déposer pour un élément (exemple)
+let isDraggingTable = false;
+let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+const draggableTable = document.getElementById('draggableTable');
+if (draggableTable) {
+draggableTable.style.left = initialXTable + 'px';
+draggableTable.style.top = initialYTable + 'px';
+
+draggableTable.addEventListener('mousedown', startDraggingTable);
+document.addEventListener('mousemove', dragTable);
+document.addEventListener('mouseup', stopDraggingTable);
+
+// Événements pour le tactile
+draggableTable.addEventListener('touchstart', (e) => {
+    startDraggingTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchmove', (e) => {
+    dragTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchend', stopDraggingTable);
+}
+
+function startDraggingTable(e) {
+isDraggingTable = true;
+startXTable = e.clientX - initialXTable;
+startYTable = e.clientY - initialYTable;
+draggableTable.style.transition = 'none';
+draggableTable.classList.add('dragging');
+}
+function dragTable(e) {
+if (!isDraggingTable) return;
+const newX = e.clientX - startXTable;
+const newY = e.clientY - startYTable;
+const maxX = window.innerWidth - draggableTable.offsetWidth;
+const maxY = window.innerHeight - draggableTable.offsetHeight;
+initialXTable = Math.max(0, Math.min(newX, maxX));
+initialYTable = Math.max(0, Math.min(newY, maxY));
+draggableTable.style.left = initialXTable + 'px';
+draggableTable.style.top = initialYTable + 'px';
+}
+function stopDraggingTable() {
+isDraggingTable = false;
+if (draggableTable) {
+    draggableTable.style.transition = 'transform 0.3s ease';
+    draggableTable.classList.remove('dragging');
+}
+}
+function resetTablePosition() {
+initialXTable = 300;
+initialYTable = 180;
+if (draggableTable) {
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+}
+
+document.querySelectorAll('.show-modal-btn').forEach(btn => {
+btn.addEventListener('click', function () {
+    const url = btn.getAttribute('data-url');
+    fetch(url)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('modalContent').innerHTML = html;
+            const modal = new bootstrap.Modal(document.getElementById('productModal'));
+            modal.show();
+        });
+});
+});
+</script>
+
+<!-- Bootstrap 5 Bundle (incluant Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Vous pouvez retirer jQuery si vous n'en avez plus besoin dans vos scripts personnalisés -->
+{% endblock %}
+</body>
+</html>
+

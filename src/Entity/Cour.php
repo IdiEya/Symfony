@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use App\Repository\CourRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\UniqueSallePerCreneau;
+
+
 
 #[ORM\Entity(repositoryClass: CourRepository::class)]
 #[ORM\Table(name: 'cours')]
@@ -28,8 +30,12 @@ class Cour
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
+    // Changed to 'datetime' to store both date and time
+    #[ORM\Column(name: 'date_debut', type: 'date', nullable: false)]
     private ?\DateTimeInterface $dateDebut = null;
+    
+    
+    
 
     public function getDateDebut(): ?\DateTimeInterface
     {
@@ -42,8 +48,10 @@ class Cour
         return $this;
     }
 
-    #[ORM\Column(type: 'date', nullable: false)]
+    // Changed to 'datetime' to store both date and time
+    #[ORM\Column(type: 'datetime', nullable: false)]
     private ?\DateTimeInterface $dateFin = null;
+    
 
     public function getDateFin(): ?\DateTimeInterface
     {
@@ -84,11 +92,14 @@ class Cour
         return $this;
     }
 
-    // Utilisation d'une relation ManyToOne au lieu d'une colonne salle_id
-    #[ORM\ManyToOne(targetEntity: Salle::class)]
-    #[ORM\JoinColumn(name: 'salle_id', referencedColumnName: 'id', nullable: true)]  // salle_id est une clé étrangère
+    // Many-to-One relation with 'Salle'
+    #[Assert\NotNull(message: 'Veuillez choisir une salle.')]
+    #[ORM\ManyToOne(targetEntity: Salle::class, inversedBy: 'cours')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Salle $salle = null;
 
+
+    
     public function getSalle(): ?Salle
     {
         return $this->salle;
@@ -100,7 +111,8 @@ class Cour
         return $this;
     }
 
-    #[ORM\Column(type: 'decimal', nullable: false)]
+    // Changed the type to float to match the column type
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, nullable: false)]
     private ?float $prix = null;
 
     public function getPrix(): ?float

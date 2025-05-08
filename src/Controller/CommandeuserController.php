@@ -16,6 +16,12 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Component\HttpFoundation\HeaderBag;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
+
 
 #[Route('/commandeuser')]
 final class CommandeuserController extends AbstractController
@@ -183,5 +189,75 @@ final class CommandeuserController extends AbstractController
                 ]
             );
         }
+        #[Route('/export/pdf', name: 'commande_export_pdf1')]
+public function exportPdf(CommandeRepository $commandeRepository): Response
+{
+    $commandes = $commandeRepository->findAll();
+
+    $dompdf = new Dompdf();
+    $options = new Options();
+    $options->set('defaultFont', 'Arial');
+    $dompdf->setOptions($options);
+
+    $html = $this->renderView('commande/pdf.html.twig', ['commandes' => $commandes]);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+
+    return new Response(
+        $dompdf->output(),
+        200,
+        ['Content-Type' => 'application/pdf',
+         'Content-Disposition' => 'attachment; filename="commandes.pdf"']
+    );
+}
+
+
+#[Route('/export/excel', name: 'commande_export_excel1')]
+public function exportExcel(CommandeRepository $commandeRepository): Response
+{
+    $commandes = $commandeRepository->findAll();
+
+    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->fromArray(['Date', 'Localisation', 'Téléphone', 'Mail', 'Nombre', 'Prix', 'Total', 'Nom Produit'], null, 'A1');
+
+    $row = 2;
+    foreach ($commandes as $commande) {
+        $sheet->fromArray([
+            $commande->getDate()?->format('Y-m-d H:i:s'),
+            $commande->getLocalisation(),
+            $commande->getTelephone(),
+            $commande->getMail(),
+            $commande->getNombre(),
+            $commande->getPrix(),
+            $commande->getTotal(),
+            $commande->getNomProduit(),
+        ], null, 'A' . $row++);
+    }
+
+    $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+    $fileName = 'commandes.xlsx';
+    $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+    $writer->save($temp_file);
+
+    return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+}
+#[Route('/export/word', name: 'commande_export_word1')]
+public function exportWord(CommandeRepository $commandeRepository): Response
+{
+    $commandes = $commandeRepository->findAll();
+    $html = $this->renderView('commande/word.html.twig', ['commandes' => $commandes]);
+
+    return new Response(
+        $html,
+        200,
+        [
+            'Content-Type' => 'application/msword',
+            'Content-Disposition' => 'attachment; filename="commandes.doc"',
+        ]
+    );
+}
+
     }
     

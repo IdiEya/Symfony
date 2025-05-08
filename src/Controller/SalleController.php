@@ -23,6 +23,7 @@ class SalleController extends AbstractController
     public function index(Request $request, SalleRepository $salleRepository): Response
     {
         $search = $request->query->get('search');
+        $user = $this->getUser();
     
         if ($search) {
             $salles = $salleRepository->createQueryBuilder('s')
@@ -38,6 +39,7 @@ class SalleController extends AbstractController
     
         return $this->render('salle/index.html.twig', [
             'salles' => $salles,
+            'user' => $user,
         ]);
     }
     
@@ -48,6 +50,7 @@ public function add(Request $request, SalleRepository $salleRepository): Respons
     $salle = new Salle();
     $form = $this->createForm(SalleType::class, $salle);
     $form->handleRequest($request);
+    $user = $this->getUser();
 
     if ($form->isSubmitted()) {
         $numero = $form->get('numero')->getData();
@@ -104,6 +107,7 @@ public function add(Request $request, SalleRepository $salleRepository): Respons
 
     return $this->render('salle/add.html.twig', [
         'form' => $form->createView(),
+        'user' => $user,
     ]);
 }
 
@@ -115,6 +119,7 @@ public function add(Request $request, SalleRepository $salleRepository): Respons
     {
         $form = $this->createForm(SalleType::class, $salle);
         $form->handleRequest($request);
+        $user = $this->getUser();
     
         if ($form->isSubmitted()) {
             $numero = $form->get('numero')->getData();
@@ -168,6 +173,7 @@ public function add(Request $request, SalleRepository $salleRepository): Respons
     
         return $this->render('salle/edit.html.twig', [
             'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
     

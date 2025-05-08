@@ -27,9 +27,11 @@ final class ProduitsController extends AbstractController
     #[Route('/', name: 'app_produits_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository, NotificationRepository $notificationRepository): Response
     {
+        $user = $this->getUser();
         return $this->render('produits/index.html.twig', [
             'produits' => $produitRepository->findAll(),
-            'notifications_unread' => $notificationRepository->findUnreadNotifications()
+            'notifications_unread' => $notificationRepository->findUnreadNotifications(),
+            'user' => $user,
         ]);
     }
 

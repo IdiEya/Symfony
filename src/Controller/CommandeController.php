@@ -17,7 +17,10 @@ use App\Service\CommandeMailService;
  
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Component\HttpFoundation\HeaderBag;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 
 #[Route('/commande')]
@@ -26,8 +29,11 @@ final class CommandeController extends AbstractController
     #[Route('/', name: 'app_commande_index', methods: ['GET'])]
     public function index(CommandeRepository $commandeRepository): Response
     {
+        $user = $this->getUser();
         return $this->render('commande/index.html.twig', [
             'commandes' => $commandeRepository->findAll(),
+            'user' => $user,
+
         ]);
     }
 
@@ -195,4 +201,93 @@ final class CommandeController extends AbstractController
             ]
         );
     }
+    #[Route('/export/pdf', name: 'commande_export_pdf')]
+public function exportPdf(CommandeRepository $commandeRepository): Response
+{
+    $commandes = $commandeRepository->findAll();
+
+    $dompdf = new Dompdf();
+    $options = new Options();
+    $options->set('defaultFont', 'Arial');
+    $dompdf->setOptions($options);
+
+    $html = $this->renderView('commande/pdf1.html.twig', ['commandes' => $commandes]);
+
+    $dompdf->loadHtml($html);
+
+    // Définir une taille personnalisée : [largeur, hauteur] en millimètres convertis en points (1 mm = 2.83465 points)
+    $customPaper = [0, 0, 700.551, 841.89]; // environ 350mm x 297mm (A4 en hauteur)
+    $dompdf->setPaper($customPaper);
+
+    $dompdf->render();
+
+    return new Response(
+        $dompdf->output(),
+        200,
+        [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="commande.pdf"'
+        ]
+    );
 }
+
+    
+#[Route('/export/excel', name: 'commande_export_excel')]
+public function exportExcel(CommandeRepository $commandeRepository): Response
+{
+    $commandes = $commandeRepository->findAll();
+
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // En-têtes
+    $sheet->setCellValue('A1', 'ID');
+    $sheet->setCellValue('B1', 'Nom du produit');
+    $sheet->setCellValue('C1', 'Date');
+    $sheet->setCellValue('D1', 'Localisation');
+    $sheet->setCellValue('E1', 'Téléphone');
+    $sheet->setCellValue('F1', 'Mail');
+    $sheet->setCellValue('G1', 'Nombre');
+    $sheet->setCellValue('H1', 'Prix');
+    $sheet->setCellValue('I1', 'Total');
+
+    // Données
+    $row = 2;
+    foreach ($commandes as $commande) {
+        $sheet->setCellValue('A' . $row, $commande->getId());
+        $sheet->setCellValue('B' . $row, $commande->getNomProduit());
+        $sheet->setCellValue('C' . $row, $commande->getDate()->format('Y-m-d H:i'));
+        $sheet->setCellValue('D' . $row, $commande->getLocalisation());
+        $sheet->setCellValue('E' . $row, $commande->getTelephone());
+        $sheet->setCellValue('F' . $row, $commande->getMail());
+        $sheet->setCellValue('G' . $row, $commande->getNombre());
+        $sheet->setCellValue('H' . $row, $commande->getPrix());
+        $sheet->setCellValue('I' . $row, $commande->getTotal());
+        $row++;
+    }
+
+    $writer = new Xlsx($spreadsheet);
+    $fileName = 'commandes.xlsx';
+    $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+    $writer->save($temp_file);
+
+    return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+}
+    #[Route('/export/word', name: 'commande_export_word')]
+    public function exportWord(CommandeRepository $commandeRepository): Response
+    {
+        $commandes = $commandeRepository->findAll();
+        $html = $this->renderView('commande/word.html.twig', ['commandes' => $commandes]);
+    
+        return new Response(
+            $html,
+            200,
+            [
+                'Content-Type' => 'application/msword',
+                'Content-Disposition' => 'attachment; filename="commandes.doc"',
+            ]
+        );
+    }
+    
+        }
+        

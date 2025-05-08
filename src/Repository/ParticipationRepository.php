@@ -48,7 +48,7 @@ public function countAvailablePlaces(int $eventId): int
 public function findAllWithUserAndEvent()
 {
     return $this->createQueryBuilder('p')
-        ->leftJoin('p.utilisateur', 'u')
+        ->leftJoin('p.user', 'u')
         ->addSelect('u')
         ->leftJoin('p.evenement', 'e')
         ->addSelect('e')
@@ -69,10 +69,43 @@ public function findByUser(User $user): array
     return $this->createQueryBuilder('p')
         ->leftJoin('p.evenement', 'e')
         ->addSelect('e')
-        ->where('p.utilisateur = :user')
+        ->where('p.user = :user')
         ->setParameter('user', $user)
         ->orderBy('p.id', 'DESC')
         ->getQuery()
         ->getResult();
+}
+
+public function findWithFilters(array $filters = []): array
+{
+    $qb = $this->createQueryBuilder('p')
+        ->leftJoin('p.user', 'u')
+        ->addSelect('u')
+        ->leftJoin('p.evenement', 'e')
+        ->addSelect('e');
+
+    if (!empty($filters['user'])) {
+        $qb->andWhere('u.id = :userId')
+           ->setParameter('userId', $filters['user']);
+    }
+
+    if (!empty($filters['event'])) {
+        $qb->andWhere('e.id = :eventId')
+           ->setParameter('eventId', $filters['event']);
+    }
+
+    if (!empty($filters['dateFrom'])) {
+        $qb->andWhere('e.dateDebut >= :dateFrom')
+           ->setParameter('dateFrom', new \DateTime($filters['dateFrom']));
+    }
+
+    if (!empty($filters['dateTo'])) {
+        $qb->andWhere('e.dateFin <= :dateTo')
+           ->setParameter('dateTo', new \DateTime($filters['dateTo']));
+    }
+
+    return $qb->orderBy('p.id', 'DESC')
+              ->getQuery()
+              ->getResult();
 }
 }

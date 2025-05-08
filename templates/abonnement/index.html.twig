@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- [Head] start -->
+
+<head>
+  <title>{% block title %} Home | Mantis Bootstrap 5 Admin Template {% endblock %}</title>
+  <!-- [Meta] -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Mantis is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
+  <meta name="keywords" content="Mantis, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template">
+  <meta name="author" content="CodedThemes">
+{% block css %}
+  <!-- [Favicon] icon -->
+  <!-- [Favicon] icon -->
+<link rel="icon" href="{{ asset('assets/back/dist/assets/images/favicon.svg') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
+
+<!-- [Google Font] Family -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+
+<!-- [Tabler Icons] https://tablericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/tabler-icons.min.css') }}">
+
+<!-- [Feather Icons] https://feathericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/feather.css') }}">
+
+<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/fontawesome.css') }}">
+
+<!-- [Material Icons] https://fonts.google.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/material.css') }}">
+
+<!-- [Template CSS Files] -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style.css') }}" id="main-style-link">
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style-preset.css') }}">
+
+
+{% endblock %}
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
+  
+  <!-- [ Pre-loader ] start -->
+<div class="loader-bg">
+  <div class="loader-track">
+    <div class="loader-fill"></div>
+  </div>
+</div>
+<!-- [ Pre-loader ] End -->
+ <!-- [ Sidebar Menu ] start -->
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+   
+      <!-- ========   Change your logo from here   ============ -->
+        <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:200px; length:200px; margin-left:20px;">
+    
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+        <li class="pc-item">
+          <a href="../dashboard/index.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Utilsateurs</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('admin_dashboard') }}" class="pc-link">
+         
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Utilisateurs</span>
+          </a>
+        </li>
+    
+
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Produits</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('app_categorie_index') }}" class="pc-link">
+          
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Categories</span>
+          </a>
+        </li>
+        <li class="pc-item">
+           <a href="{{ path('app_produits_index') }}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-box"></i></i></span>
+            <span class="pc-mtext">Liste Des Produits</span>
+          </a>
+        </li>
+        <li class="pc-item">
+            <a href="{{ path('app_commande_index') }}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-shopping-cart"></i></span>
+            <span class="pc-mtext">Liste Des Commandes</span>
+          </a>
+        </li>
+
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Evenements</label>
+          <i class="ti ti-news"></i>
+        </li>
+         <li class="pc-item">
+            <a href="{{ path('app_evenement_index') }}" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-calendar-event"></i>
+</span>
+              <span class="pc-mtext">Liste Des événements</span>
+            </a>
+          </li>
+          <li class="pc-item">
+            <a href="{{ path('app_participation_index') }}" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-color-swatch"></i></span>
+              <span class="pc-mtext">Liste Des participations</span>
+            </a>
+          </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Cours</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('cour_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-notebook"></i></span>
+    <span class="pc-mtext">Liste des Cours</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('salle_index') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('reservation_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-calendar-time"></i></span>
+    <span class="pc-mtext">Liste des Réservations</span>
+  </a>
+</li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Salles de Sport</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('app_gym_index') }}" class="pc-link">
+       <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('app_abonnement_index') }}" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-id"></i></span>
+    <span class="pc-mtext">Liste des Abonnements</span>
+  </a>
+</li>
+
+
+
+
+
+
+        <li class="pc-item pc-caption">
+        
+          <i class="ti ti-brand-chrome"></i>
+        </li>
+        <li class="pc-item pc-hasmenu">
+    
+          <ul class="pc-submenu">
+         
+            <li class="pc-item pc-hasmenu">
+           
+              <ul class="pc-submenu">
+            
+                <li class="pc-item pc-hasmenu">
+               
+                  <ul class="pc-submenu">
+                   
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="pc-item pc-hasmenu">
+             
+              <ul class="pc-submenu">
+               
+                <li class="pc-item pc-hasmenu">
+                
+                  <ul class="pc-submenu">
+                  
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="pc-item">
+          <a href="../other/sample-page.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+           
+          </a>
+        </li>
+      </ul>
+      <div class="card text-center">
+        <div class="card-body">
+          <img src="../assets/images/img-navbar-card.png" alt="images" class="img-fluid mb-2">
+      
+       
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
+<header class="pc-header" 
+        style="position: fixed; 
+               top: 0; 
+               left: 40; 
+              ">
+  <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
+<div class="me-auto pc-mob-drp">
+  <ul class="list-unstyled">
+    <!-- ======= Menu collapse Icon ===== -->
+    <li class="pc-h-item pc-sidebar-collapse">
+      <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="pc-h-item pc-sidebar-popup">
+      <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="dropdown pc-h-item d-inline-flex d-md-none">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none m-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        aria-expanded="false"
+      >
+        <i class="ti ti-search"></i>
+      </a>
+      <div class="dropdown-menu pc-h-dropdown drp-search">
+        <form class="px-3">
+          <div class="form-group mb-0 d-flex align-items-center">
+            <i data-feather="search"></i>
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="pc-h-item d-none d-md-inline-flex">
+      <form class="header-search">
+        <i data-feather="search" class="icon-search"></i>
+        <input type="search" class="form-control" placeholder="Search here. . .">
+      </form>
+    </li>
+  </ul>
+</div>
+
+    <li class="dropdown pc-h-item header-user-profile">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none me-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >             <div class="flex-shrink-0">
+    <!-- Vérification de la photo de l'utilisateur -->
+    <img src="{{ user.photo ? asset(user.photo) : asset('uploads/profiles') }}" 
+         alt="user-image" class="user-avtar">
+</div>
+       <span>{{ user.prenom }} {{ user.nom }}</span>
+
+      </a>
+      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+        <div class="dropdown-header">
+          <div class="d-flex mb-1">
+            <div class="flex-shrink-0">
+              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <h6 class="mb-1">{{ user.prenom }} {{ user.nom }}</h6>
+              <span>GymTown</span>
+            </div>
+            
+            <a  href="{{ path('app_login') }}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
+          </div>
+        </div>
+        <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="drp-t1"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-1"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-1"
+              aria-selected="true"
+              ><i class="ti ti-user"></i> Profile</button
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="drp-t2"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-2"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-2"
+              aria-selected="false"
+              ><i class="ti ti-settings"></i> Setting</button
+            >
+          </li>
+        </ul>
+        <div class="tab-content" id="mysrpTabContent">
+          <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-edit-circle"></i>
+              <span>Edit Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>View Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-clipboard-list"></i>
+              <span>Social Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-wallet"></i>
+              <span>Billing</span>
+            </a>
+            <a href="{{ path('app_login') }}" class="dropdown-item">
+              <i class="ti ti-power"></i>
+              <span>  <a href="" class="pc-link">
+         </span>
+            </a>
+          </div>
+          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-help"></i>
+              <span>Support</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>Account Settings</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-lock"></i>
+              <span>Privacy Center</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-messages"></i>
+              <span>Feedback</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-list"></i>
+              <span>History</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+ </div>
+ </header>
+<!-- [ Header ] end -->
+
+
+
+{% block body %}
+    <h1  style="position: absolute; 
+               top: 100px; 
+               left: 300px;
+               cursor: move;
+               width: 1100px;
+               z-index: 1000;">Liste des abonnements</h1>
+
+    <!-- Barre de recherche -->
+    <div class="search-container"  style="
+    position: absolute;
+    top: 130px;
+    left: 300px;
+    z-index: 1000;
+    cursor: move;
+">
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher dans tous les champs...">
+    </div>
+
+    <div class="table-container" style="position: absolute; 
+            top: 200px; 
+            left: 300px;
+            cursor: move;
+           right: 50px;
+            z-index: 1000;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom de la salle de sport</th>
+                    <th>Type</th>
+                    <th>Prix</th>
+                    <th>Date initiale</th>
+                    <th>Date d'expiration</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="abonnementsTableBody">
+                {% for abonnement in abonnements %}
+                    <tr data-search="{{ abonnement.gym.nom|lower }} {{ abonnement.type.value|trans|lower }} {{ abonnement.prix }} {{ abonnement.dateInitiale|date('d/m/Y') }} {{ abonnement.dateExpiration|date('d/m/Y') }}">
+                        <td>{{ abonnement.gym.nom }}</td>
+                        <td>
+                            {% if abonnement.type is not null %}
+                                {{ abonnement.type.value|trans }}
+                            {% else %}
+                                Non spécifié
+                            {% endif %}
+                        </td>
+                        <td>{{ abonnement.prix|number_format(2, ',', ' ') }} TND</td>
+                        <td>{{ abonnement.dateInitiale|date('d/m/Y') }}</td>
+                        <td>{{ abonnement.dateExpiration|date('d/m/Y') }}</td>
+                        <td>
+                            <a href="{{ path('app_abonnement_show', {'id': abonnement.id}) }}">Voir</a>
+                            <a href="javascript:void(0);" class="action-link" onclick="openEditModal({{ abonnement.id }})">Modifier</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="noResults" class="no-results">
+            Aucun résultat trouvé pour votre recherche.
+        </div>
+    </div>
+
+    <!-- Popup Modal for View -->
+    <div id="viewAbonnementModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('viewAbonnementModal')">&times;</span>
+            <div id="viewModalContent"></div>
+        </div>
+    </div>
+
+    <!-- Popup Modal for Edit -->
+    <div id="editAbonnementModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editAbonnementModal')">&times;</span>
+            <div id="editModalContent"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- [Page Specific JS] start -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pages/dashboard-default.js') }}"></script>
+  <!-- [Page Specific JS] end -->
+
+  <!-- Required Js -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/popper.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/fonts/custom-font.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pcoded.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/feather.min.js') }}"></script>
+
+
+  
+  
+  
+  
+  <script>layout_change('light');</script>
+  
+  
+  
+  
+  <script>change_box_container('false');</script>
+  
+  
+  
+  <script>layout_rtl_change('false');</script>
+  
+  
+  <script>preset_change("preset-1");</script>
+  
+  
+  <script>font_change("Public-Sans");</script>
+
+    <script>
+        function openViewModal(abonnementId) {
+            fetch(`/abonnement/${abonnementId}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('viewModalContent').innerHTML = html;
+                    document.getElementById('viewAbonnementModal').style.display = 'block';
+                });
+        }
+
+        function openEditModal(abonnementId) {
+            fetch(`/abonnement/${abonnementId}/edit`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('editModalContent').innerHTML = html;
+                    document.getElementById('editAbonnementModal').style.display = 'block';
+                    
+                    // Attacher l'événement de soumission au formulaire
+                    const editForm = document.querySelector('#editModalContent form');
+                    if (editForm) {
+                        editForm.addEventListener('submit', submitEditForm);
+                    }
+                });
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function submitEditForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(html => {
+                if (html) {
+                    document.getElementById('editModalContent').innerHTML = html;
+                    // Réattacher les événements après le rechargement du contenu
+                    const editForm = document.querySelector('#editModalContent form');
+                    if (editForm) {
+                        editForm.addEventListener('submit', submitEditForm);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const rows = document.querySelectorAll('#abonnementsTableBody tr');
+            const noResults = document.getElementById('noResults');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                let hasResults = false;
+
+                rows.forEach(row => {
+                    const rowData = row.getAttribute('data-search').toLowerCase();
+                    if (rowData.includes(searchTerm)) {
+                        row.style.display = '';
+                        hasResults = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                if (!hasResults && searchTerm.length > 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            });
+        });
+    {# Inclusion de Font Awesome pour les icônes #}
+   
+// Variables pour le glissement
+let isDraggingTable = false;
+let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+const draggableTable = document.getElementById('draggableTable');
+
+// Position initiale
+draggableTable.style.left = initialXTable + 'px';
+draggableTable.style.top = initialYTable + 'px';
+
+// Événements
+draggableTable.addEventListener('mousedown', startDraggingTable);
+document.addEventListener('mousemove', dragTable);
+document.addEventListener('mouseup', stopDraggingTable);
+
+// Gestion tactile
+draggableTable.addEventListener('touchstart', (e) => {
+    startDraggingTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchmove', (e) => {
+    dragTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchend', stopDraggingTable);
+
+function startDraggingTable(e) {
+    isDraggingTable = true;
+    startXTable = e.clientX - initialXTable;
+    startYTable = e.clientY - initialYTable;
+    draggableTable.style.transition = 'none';
+    draggableTable.classList.add('dragging');
+}
+
+function editCategorieDetails(id) {
+    fetch(`/categorie/${id}/edit-modal`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const modal = new bootstrap.Modal(document.getElementById('editCategorieModal'));
+            modal.show();
+            
+            // Nouveau code pour gérer la soumission
+            const form = document.getElementById('editForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (response.status === 422) {
+                            return response.text().then(html => {
+                                document.getElementById('editCategorieContent').innerHTML = html;
+                                const newForm = document.getElementById('editForm');
+                                if (newForm) {
+                                    newForm.addEventListener('submit', arguments.callee);
+                                }
+                            });
+                        }
+                        if (response.ok) {
+                            window.location.reload();
+                            modal.hide();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function handleEditSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        if (response.status === 422) { // Erreur de validation
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const newForm = document.getElementById('editForm');
+            if (newForm) newForm.addEventListener('submit', handleEditSubmit);
+        } else if (response.ok) {
+            window.location.reload();
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
+}
+function dragTable(e) {
+    if (!isDraggingTable) return;
+    
+    const newX = e.clientX - startXTable;
+    const newY = e.clientY - startYTable;
+
+    // Limites de la fenêtre
+    const maxX = window.innerWidth - draggableTable.offsetWidth;
+    const maxY = window.innerHeight - draggableTable.offsetHeight;
+
+    initialXTable = Math.max(0, Math.min(newX, maxX));
+    initialYTable = Math.max(0, Math.min(newY, maxY));
+
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+
+function stopDraggingTable() {
+    isDraggingTable = false;
+    draggableTable.style.transition = 'transform 0.3s ease';
+    draggableTable.classList.remove('dragging');
+}
+
+function resetTablePosition() {
+    initialXTable = 300;
+    initialYTable = 180;
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+</script>
+
+{% block stylesheets %}
+    <style>
+        /* Styles hérités de la première page (Gym) */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #faf9ff;
+            margin: 0;
+            padding: 0px;
+        }
+
+        h1 {
+            color: #5C406F;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(92, 64, 111, 0.1);
+            margin-bottom: 20px;
+            background-color: white;
+            max-width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .table th {
+            background-color: #725387;
+            color: white;
+            padding: 10px 12px;
+            font-weight: 500;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+
+        .table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #f3edff;
+            text-align: center;
+            color: #555;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tr:hover {
+            background-color: #fbf8ff;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn-create {
+            background-color: #88659F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(136, 101, 159, 0.2);
+        }
+
+        .btn-create:hover {
+            background-color: #9D77B8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(136, 101, 159, 0.3);
+        }
+
+        .action-link {
+            color: #725387;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 3px;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .action-link:hover {
+            background-color: #f3edff;
+            color: #5C406F;
+        }
+
+        /* Styles pour la barre de recherche */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 250px;
+            padding: 8px;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        /* Popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(61, 38, 76, 0.8);
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(61, 38, 76, 0.3);
+            overflow: hidden;
+            animation: slideDown 0.4s ease;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: #725387;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            display: none;
+        }
+
+        /* Styles pour le formulaire dans la modal */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #5C406F;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit {
+            background-color: #725387;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #88659F;
+        }
+   
+/* Style général du tableau */
+/* Modification des couleurs des boutons */
+/* Boutons */
+.btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+</style>
+    {% endblock %}
+  {% endblock %}
+  
+</body>
+<!-- [Body] end -->
+
+</html>

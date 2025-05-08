@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de participation</title>
+</head>
+<body>
+    <h1>Confirmation de participation</h1>
+    <p>Bonjour {{ user.prenom }},</p>
+    
+    <p>Votre participation à l'événement <strong>{{ evenement.nom }}</strong> a bien été enregistrée.</p>
+    
+    <p>Détails :</p>
+    <ul>
+        <li>Date : {{ evenement.dateDebut|date('d/m/Y') }} - {{ evenement.dateFin|date('d/m/Y') }}</li>
+        <li>Lieu : {{ evenement.localisation }}</li>
+        <li>Nombre de places réservées : {{ placesReservees }}</li>
+    </ul>
+    
+    <p>Merci et à bientôt !</p>
+    
+    <p>L'équipe GymTown</p>
+</body>
+</html>

@@ -84,13 +84,14 @@
     </li>
   
        <li class="nav-item">
-    <a class="nav-link" href="{{ path('app_reserver') }}"> Cours</a>
+    <a class="nav-link" href="{{ path('planning_index') }}"> Cours</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_coach1_index') }}"> Coachs</a></li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('planning_index') }}">Planning</a>
+        <a class="nav-link" href="{{ path('app_gym_grille') }}">Salles des sports</a>
     </li>
+     
                     </div>
                 </div>
             </nav>
@@ -123,37 +124,36 @@
 		        <h1 class="h3 mb-0"><i class="fas fa-boxes me-2"></i>Nos produits</h1>
 		    </div>
 
-   <li class="pc-h-item d-none d-md-inline-flex">
-      <form class="header-search">
-        <i data-feather="search" class="icon-search"></i>
-         <input type="text" id="searchAll" placeholder="Recherche par nom, référence ou catégorie ...." class="form-control mb-2" style="width:500px;">
-      </form>
-    </li>
-
-<li class="nav-item">
-        <form method="get" action="{{ path('app_produituser_index') }}" class="mb-4">
-            <div class="row g-2 align-items-center">
-                <div class="col-auto">
-                      
-                
-                <div class="col-auto">
-                    <select name="categorie" id="categorie" class="form-select" onchange="this.form.submit()">
-                        <option value="">Toutes les catégories</option>
-                        {% for categorie in categories %}
-                            <option value="{{ categorie.id }}" {% if categorie.id == selectedCategorie %}selected{% endif %}>
-                                {{ categorie.nom }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                </div>
-            </div>
+   <!-- Barre de recherche et filtre par catégorie -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form class="d-flex" method="get" action="{{ path('app_produituser_index') }}">
+            <input type="text" id="searchAll" name="search" placeholder="Recherche par nom, référence ou catégorie ..." 
+                   class="form-control me-2" style="width:100%;" value="{{ app.request.get('search') }}">
+            <button type="submit" class="btn btn-outline-secondary">
+                <i class="fas fa-search"></i>
+            </button>
         </form>
-    </li>
+    </div>
+    <div class="col-md-4 offset-md-2">
+        <form method="get" action="{{ path('app_produituser_index') }}">
+            <select name="categorie" id="categorie" class="form-select" onchange="this.form.submit()">
+                <option value="">Toutes les catégories</option>
+                {% for categorie in categories %}
+                    <option value="{{ categorie.id }}" {% if categorie.id == selectedCategorie %}selected{% endif %}>
+                        {{ categorie.nom }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+</div>
+
 
 		    <!-- Grille de produits -->
 		    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4" id="productTable">
 		        {% for produit in produits %}
+                
 		        <div class="col">
 		            <div class="card h-100 shadow-sm">
 		                <!-- Image du produit -->
@@ -454,6 +454,22 @@
 
 {% block js %}
 <script>
+document.getElementById('searchAll').addEventListener('input', function () {
+    const searchValue = this.value.toLowerCase();
+    const products = document.querySelectorAll('#productTable .col');
+
+    products.forEach(product => {
+        const name = product.getAttribute('data-name') || '';
+        const ref = product.getAttribute('data-ref') || '';
+        const categorie = product.getAttribute('data-categorie') || '';
+
+        const matches = name.includes(searchValue) || ref.includes(searchValue) || categorie.includes(searchValue);
+
+        product.style.display = matches ? '' : 'none';
+    });
+});
+
+
 // Gestion du menu fixe
 let lastScroll = 0;
 const navbar = document.querySelector('.navbar');

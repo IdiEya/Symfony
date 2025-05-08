@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 use App\Repository\ReservationCreneauxRepository;
 
 #[ORM\Entity(repositoryClass: ReservationCreneauxRepository::class)]
@@ -20,15 +23,21 @@ class ReservationCreneaux
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     #[ORM\Column(type: 'date', nullable: false)]
     private ?\DateTimeInterface $date_reservation = null;
 
-    public function getDateReservation(): ?\DateTimeInterface
+    public function getDate_reservation(): ?\DateTimeInterface
     {
         return $this->date_reservation;
     }
 
-    public function setDateReservation(\DateTimeInterface $date_reservation): static
+    public function setDate_reservation(\DateTimeInterface $date_reservation): self
     {
         $this->date_reservation = $date_reservation;
         return $this;
@@ -37,12 +46,12 @@ class ReservationCreneaux
     #[ORM\Column(type: 'time', nullable: false)]
     private ?string $heure_debut = null;
 
-    public function getHeureDebut(): ?string
+    public function getHeure_debut(): ?string
     {
         return $this->heure_debut;
     }
 
-    public function setHeureDebut(string $heure_debut): static
+    public function setHeure_debut(string $heure_debut): self
     {
         $this->heure_debut = $heure_debut;
         return $this;
@@ -51,12 +60,12 @@ class ReservationCreneaux
     #[ORM\Column(type: 'time', nullable: false)]
     private ?string $heure_fin = null;
 
-    public function getHeureFin(): ?string
+    public function getHeure_fin(): ?string
     {
         return $this->heure_fin;
     }
 
-    public function setHeureFin(string $heure_fin): static
+    public function setHeure_fin(string $heure_fin): self
     {
         $this->heure_fin = $heure_fin;
         return $this;
@@ -70,9 +79,46 @@ class ReservationCreneaux
         return $this->choix;
     }
 
-    public function setChoix(string $choix): static
+    public function setChoix(string $choix): self
     {
         $this->choix = $choix;
         return $this;
     }
+
+    public function getDateReservation(): ?\DateTimeInterface
+    {
+        return $this->date_reservation;
+    }
+
+    public function setDateReservation(\DateTimeInterface $date_reservation): static
+    {
+        $this->date_reservation = $date_reservation;
+
+        return $this;
+    }
+
+    public function getHeureDebut(): ?\DateTimeInterface
+    {
+        return $this->heure_debut;
+    }
+
+    public function setHeureDebut(\DateTimeInterface $heure_debut): static
+    {
+        $this->heure_debut = $heure_debut;
+
+        return $this;
+    }
+
+    public function getHeureFin(): ?\DateTimeInterface
+    {
+        return $this->heure_fin;
+    }
+
+    public function setHeureFin(\DateTimeInterface $heure_fin): static
+    {
+        $this->heure_fin = $heure_fin;
+
+        return $this;
+    }
+
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Commandes - Excel</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des Commandes</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Localisation</th>
+                    <th>Téléphone</th>
+                    <th>Mail</th>
+                    <th>Nombre</th>
+                    <th>Prix</th>
+                    <th>Total</th>
+                    <th>Nom Produit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in commandes %}
+                    <tr>
+                        <td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ commande.localisation }}</td>
+                        <td>{{ commande.telephone }}</td>
+                        <td>{{ commande.mail }}</td>
+                        <td>{{ commande.nombre }}</td>
+                        <td>{{ commande.prix }}</td>
+                        <td>{{ commande.total }}</td>
+                        <td>{{ commande.nomProduit }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">Aucune commande enregistrée</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+</body>
+</html>

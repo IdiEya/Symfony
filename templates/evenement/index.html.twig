@@ -11,360 +11,77 @@
   <meta name="description" content="Mantis is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
   <meta name="keywords" content="Mantis, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template">
   <meta name="author" content="CodedThemes">
-  {% block css %}
+{% block css %}
   <!-- [Favicon] icon -->
-  <link rel="icon" href="{{ asset('assets/back/dist/assets/images/favicon.svg') }}" type="image/x-icon">
-  <link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
-  <!-- [Google Font] Family -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
-  <!-- [Tabler Icons] -->
-  <link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/tabler-icons.min.css') }}">
-  <!-- [Feather Icons] -->
-  <link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/feather.css') }}">
-  <!-- [Font Awesome Icons] -->
-  <link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/fontawesome.css') }}">
-  <!-- [Material Icons] -->
-  <link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/material.css') }}">
-  <!-- [Template CSS Files] -->
-  <link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style.css') }}" id="main-style-link">
-  <link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style-preset.css') }}">
+  <!-- [Favicon] icon -->
+<link rel="icon" href="{{ asset('assets/back/dist/assets/images/favicon.svg') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  {% endblock %}
+<!-- [Google Font] Family -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
 
-<style>
-      /* Palette violette */
-      :root {
-          --violet-principal: #6a0dad;
-          --violet-clair: #9c27b0;
-          --violet-pale: #e1bee7;
-          --violet-fonce: #4a148c;
-          --violet-gradient: linear-gradient(135deg, #6a0dad 0%, #9c27b0 100%);
-          --texte-clair: #f3e5f5;
-          --texte-fonce: #4a148c;
-      }
+<!-- [Tabler Icons] https://tablericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/tabler-icons.min.css') }}">
 
-      /* Style personnalisé pour le formulaire */
-      .form-card {
-          background: white;
-          border-radius: 12px;
-          box-shadow: 0 4px 20px rgba(106, 13, 173, 0.1);
-          padding: 30px;
-          margin-bottom: 30px;
-          border: 1px solid var(--violet-pale);
-      }
-      
-      .form-title {
-          color: var(--violet-fonce);
-          font-weight: 700;
-          margin-bottom: 25px;
-          padding-bottom: 15px;
-          border-bottom: 2px solid var(--violet-pale);
-          font-size: 1.5rem;
-          background: var(--violet-gradient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-      }
-      
-      .form-group label {
-          font-weight: 600;
-          color: var(--violet-fonce);
-          margin-bottom: 8px;
-          display: block;
-      }
-      
-      .form-control {
-          border: 1px solid var(--violet-pale);
-          border-radius: 8px;
-          padding: 12px 15px;
-          transition: all 0.3s;
-          color: var(--violet-fonce);
-      }
-      
-      .form-control:focus {
-          border-color: var(--violet-clair);
-          box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.25);
-          outline: none;
-      }
-      
-      .btn-primary {
-          background: var(--violet-gradient);
-          border: none;
-          padding: 12px 25px;
-          font-weight: 600;
-          transition: all 0.3s;
-          color: white;
-          border-radius: 8px;
-          box-shadow: 0 4px 6px rgba(106, 13, 173, 0.2);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-      }
-      
-      .btn-primary:hover {
-          background: linear-gradient(135deg, #5a0b9e 0%, #8e24aa 100%);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 12px rgba(106, 13, 173, 0.3);
-          color: white;
-      }
-      
-      .btn-secondary {
-          background-color: white;
-          border: 1px solid var(--violet-pale);
-          color: var(--violet-fonce);
-          padding: 12px 25px;
-          font-weight: 600;
-          transition: all 0.3s;
-          border-radius: 8px;
-      }
-      
-      .btn-secondary:hover {
-          background-color: var(--violet-pale);
-          color: var(--violet-fonce);
-          transform: translateY(-2px);
-      }
-      
-      .error-message {
-          color: #f5365c;
-          font-size: 0.875rem;
-          margin-top: 5px;
-          font-weight: 500;
-      }
-      
-      select.form-control {
-          appearance: none;
-          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236a0dad'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-          background-repeat: no-repeat;
-          background-position: right 15px center;
-          background-size: 15px;
-          padding-right: 40px;
-      }
+<!-- [Feather Icons] https://feathericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/feather.css') }}">
 
-      /* En-tête de page */
-      .page-header h1 {
-          color: var(--violet-fonce);
-          position: relative;
-          display: inline-block;
-      }
-      
-      .page-header h1:after {
-          content: '';
-          position: absolute;
-          bottom: -8px;
-          left: 0;
-          width: 50px;
-          height: 3px;
-          background: var(--violet-gradient);
-          border-radius: 3px;
-      }
+<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/fontawesome.css') }}">
 
-      /* Carte principale */
-      .card {
-          border: none;
-          border-radius: 12px;
-          box-shadow: 0 4px 20px rgba(106, 13, 173, 0.08);
-          overflow: hidden;
-      }
-      
-      .card-header {
-          background: var(--violet-gradient);
-          color: white;
-          border-bottom: none;
-          padding: 20px;
-      }
+<!-- [Material Icons] https://fonts.google.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/material.css') }}">
 
-      /* Icônes */
-      .ti {
-          color: var(--violet-clair);
-      }
+<!-- [Template CSS Files] -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style.css') }}" id="main-style-link">
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style-preset.css') }}">
 
-      /* Champ fichier personnalisé */
-      .custom-file-input {
-          position: relative;
-          overflow: hidden;
-          display: inline-block;
-      }
-      
-      .custom-file-input input[type="file"] {
-          position: absolute;
-          left: 0;
-          top: 0;
-          opacity: 0;
-      }
-      
-      .custom-file-label {
-          display: block;
-          padding: 12px 15px;
-          background-color: rgba(225, 190, 231, 0.3);
-          border: 1px dashed var(--violet-clair);
-          border-radius: 8px;
-          text-align: center;
-          cursor: pointer;
-          transition: all 0.3s;
-          color: var(--violet-fonce);
-      }
-      
-      .custom-file-label:hover {
-          background-color: rgba(225, 190, 231, 0.5);
-          border-color: var(--violet-fonce);
-      }
 
-      /* Conteneur principal avec défilement */
-      .table-responsive-container {
-          overflow-x: auto;
-          max-width: 100%;
-          margin: 20px 0;
-          background: white;
-          border-radius: 10px;
-          box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-      }
-
-      /* Tableau stylisé pour correspondre au template */
-      .event-table {
-          width: 100%;
-          min-width: 800px;
-          border-collapse: separate;
-          border-spacing: 0;
-          border: 1px solid #e9ecef;
-      }
-
-      .event-table th {
-          background-color: var(--violet-pale);
-          color: var(--violet-fonce);
-          padding: 12px 15px;
-          text-align: left;
-          position: sticky;
-          top: 0;
-          font-weight: 600;
-          border-bottom: 1px solid var(--violet-pale);
-      }
-
-      .event-table td {
-          padding: 12px 15px;
-          border-bottom: 1px solid var(--violet-pale);
-          vertical-align: top;
-          color: var(--violet-fonce);
-      }
-
-      /* Colonne Description avec texte tronqué */
-      .event-table td:nth-child(2) {
-          max-width: 300px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-      }
-
-      /* Survol des lignes */
-      .event-table tr:hover {
-          background-color: #f8f9fa;
-      }
-
-      /* Boutons d'action */
-      .button-container {
-          display: flex;
-          gap: 8px;
-      }
-
-      .btn-modifier {
-          background-color: var(--violet-clair);
-          color: white;
-          border: none;
-          padding: 6px 12px;
-          border-radius: 4px;
-          cursor: pointer;
-          text-decoration: none;
-          font-size: 13px;
-          white-space: nowrap;
-          transition: all 0.2s;
-      }
-
-      .btn-modifier:hover {
-          background-color: var(--violet-fonce);
-          color: white;
-      }
-
-      .btn-supprimer {
-          background-color: #f5365c;
-          color: white;
-          border: none;
-          padding: 6px 12px;
-          border-radius: 4px;
-          cursor: pointer;
-          text-decoration: none;
-          font-size: 13px;
-          white-space: nowrap;
-          transition: all 0.2s;
-      }
-
-      .btn-supprimer:hover {
-          background-color: #da2c4d;
-          color: white;
-      }
-
-      .btn-nouveau {
-          background: var(--violet-gradient);
-          color: white;
-          border: none;
-          padding: 8px 16px;
-          border-radius: 4px;
-          cursor: pointer;
-          text-decoration: none;
-          font-size: 14px;
-          transition: all 0.2s;
-          display: inline-block;
-          margin: 20px 0;
-      }
-
-      .btn-nouveau:hover {
-          background: linear-gradient(135deg, #5a0b9e 0%, #8e24aa 100%);
-          color: white;
-      }
-
-      /* Style pour les lignes impaires */
-      .event-table tr:nth-child(odd) {
-          background-color: #f8fafc;
-      }
-
-      /* Style pour le header du tableau */
-      .pc-content h1 {
-          color: var(--violet-fonce);
-          margin-bottom: 20px;
-          font-weight: 600;
-      }
-  </style>
-
+{% endblock %}
 </head>
 <!-- [Head] end -->
-
 <!-- [Body] Start -->
+
 <body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
-
+  
   <!-- [ Pre-loader ] start -->
-  <div class="loader-bg">
-    <div class="loader-track">
-      <div class="loader-fill"></div>
-    </div>
+<div class="loader-bg">
+  <div class="loader-track">
+    <div class="loader-fill"></div>
   </div>
-  <!-- [ Pre-loader ] End -->
+</div>
+<!-- [ Pre-loader ] End -->
+ <!-- [ Sidebar Menu ] start -->
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+   
+      <!-- ========   Change your logo from here   ============ -->
+        <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:200px; length:200px; margin-left:20px;">
+    
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+        <li class="pc-item">
+          <a href="../dashboard/index.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Utilsateurs</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('admin_dashboard') }}" class="pc-link">
+         
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Utilisateurs</span>
+          </a>
+        </li>
+    
 
-  <!-- [ Sidebar Menu ] start -->
-  <nav class="pc-sidebar">
-    <div class="navbar-wrapper">
-     
-     <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:200px; length:200px; margin-left:20px;">
-        </a>
-      </div>
-      <div class="navbar-content">
-        <ul class="pc-navbar">
-          <li class="pc-item">
-            <a href="../dashboard/index.html" class="pc-link">
-              <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-              <span class="pc-mtext">Dashboard</span>
-            </a>
-          </li>
-
-          <li class="pc-item pc-caption">
-          <label>Gestion De Produits</label>
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Produits</label>
           <i class="ti ti-dashboard"></i>
         </li>
          <li class="pc-item">
@@ -405,249 +122,745 @@
               <span class="pc-mtext">Liste Des participations</span>
             </a>
           </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Cours</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('cour_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-notebook"></i></span>
+    <span class="pc-mtext">Liste des Cours</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('salle_index') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('reservation_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-calendar-time"></i></span>
+    <span class="pc-mtext">Liste des Réservations</span>
+  </a>
+</li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Salles de Sport</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('app_gym_index') }}" class="pc-link">
+       <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('app_abonnement_index') }}" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-id"></i></span>
+    <span class="pc-mtext">Liste des Abonnements</span>
+  </a>
+</li>
 
-          <li class="pc-item pc-caption">
-            <label>Autres</label>
-            <i class="ti ti-brand-chrome"></i>
-          </li>
-          <li class="pc-item pc-hasmenu">
-            <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span class="pc-mtext">Menu niveaux</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-            <ul class="pc-submenu">
-              <li class="pc-item"><a class="pc-link" href="#!">Niveau 2.1</a></li>
-              <li class="pc-item pc-hasmenu">
-                <a href="#!" class="pc-link">Niveau 2.2<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-                <ul class="pc-submenu">
-                  <li class="pc-item"><a class="pc-link" href="#!">Niveau 3.1</a></li>
-                  <li class="pc-item"><a class="pc-link" href="#!">Niveau 3.2</a></li>
-                  <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">Niveau 3.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                      <li class="pc-item"><a class="pc-link" href="#!">Niveau 4.1</a></li>
-                      <li class="pc-item"><a class="pc-link" href="#!">Niveau 4.2</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li class="pc-item pc-hasmenu">
-                <a href="#!" class="pc-link">Niveau 2.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-                <ul class="pc-submenu">
-                  <li class="pc-item"><a class="pc-link" href="#!">Niveau 3.1</a></li>
-                  <li class="pc-item"><a class="pc-link" href="#!">Niveau 3.2</a></li>
-                  <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">Niveau 3.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-                    <ul class="pc-submenu">
-                      <li class="pc-item"><a class="pc-link" href="#!">Niveau 4.1</a></li>
-                      <li class="pc-item"><a class="pc-link" href="#!">Niveau 4.2</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li class="pc-item">
-            <a href="../other/sample-page.html" class="pc-link">
-              <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-              <span class="pc-mtext">Page d'exemple</span>
-            </a>
-          </li>
-        </ul>
-        <div class="card text-center">
-          <div class="card-body">
-            <img src="../assets/images/img-navbar-card.png" alt="images" class="img-fluid mb-2">
-            <h5>Passer à la version Pro</h5>
-            <p>Pour obtenir plus de fonctionnalités et de composants</p>
-            <a href="https://codedthemes.com/item/berry-bootstrap-5-admin-template/" target="_blank" class="btn btn-success">Acheter maintenant</a>
-          </div>
+
+
+
+
+
+        <li class="pc-item pc-caption">
+        
+          <i class="ti ti-brand-chrome"></i>
+        </li>
+        <li class="pc-item pc-hasmenu">
+    
+          <ul class="pc-submenu">
+         
+            <li class="pc-item pc-hasmenu">
+           
+              <ul class="pc-submenu">
+            
+                <li class="pc-item pc-hasmenu">
+               
+                  <ul class="pc-submenu">
+                   
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="pc-item pc-hasmenu">
+             
+              <ul class="pc-submenu">
+               
+                <li class="pc-item pc-hasmenu">
+                
+                  <ul class="pc-submenu">
+                  
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="pc-item">
+          <a href="../other/sample-page.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+           
+          </a>
+        </li>
+      </ul>
+      <div class="card text-center">
+        <div class="card-body">
+          <img src="../assets/images/img-navbar-card.png" alt="images" class="img-fluid mb-2">
+      
+       
         </div>
       </div>
     </div>
-  </nav>
-  <!-- [ Sidebar Menu ] end --> 
+  </div>
+</nav>
+<!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
+<header class="pc-header" 
+        style="position: fixed; 
+               top: 0; 
+               left: 40; 
+              ">
+  <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
+<div class="me-auto pc-mob-drp">
+  <ul class="list-unstyled">
+    <!-- ======= Menu collapse Icon ===== -->
+    <li class="pc-h-item pc-sidebar-collapse">
+      <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="pc-h-item pc-sidebar-popup">
+      <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="dropdown pc-h-item d-inline-flex d-md-none">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none m-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        aria-expanded="false"
+      >
+        <i class="ti ti-search"></i>
+      </a>
+      <div class="dropdown-menu pc-h-dropdown drp-search">
+        <form class="px-3">
+          <div class="form-group mb-0 d-flex align-items-center">
+            <i data-feather="search"></i>
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="pc-h-item d-none d-md-inline-flex">
+      <form class="header-search">
+        <i data-feather="search" class="icon-search"></i>
+        <input type="search" class="form-control" placeholder="Search here. . .">
+      </form>
+    </li>
+  </ul>
+</div>
 
-  <!-- [ Header Topbar ] start -->
-  <header class="pc-header" style="position: fixed; top: 0; left: 40;">
-    <div class="header-wrapper">
-      <div class="me-auto pc-mob-drp">
-        <ul class="list-unstyled">
-          <li class="pc-h-item pc-sidebar-collapse">
-            <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
-              <i class="ti ti-menu-2"></i>
-            </a>
-          </li>
-          <li class="pc-h-item pc-sidebar-popup">
-            <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
-              <i class="ti ti-menu-2"></i>
-            </a>
-          </li>
-          <li class="dropdown pc-h-item d-inline-flex d-md-none">
-            <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-              <i class="ti ti-search"></i>
-            </a>
-            <div class="dropdown-menu pc-h-dropdown drp-search">
-              <form class="px-3">
-                <div class="form-group mb-0 d-flex align-items-center">
-                  <i data-feather="search"></i>
-                  <input type="search" class="form-control border-0 shadow-none" placeholder="Recherche ici...">
-                </div>
-              </form>
+    <li class="dropdown pc-h-item header-user-profile">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none me-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >             <div class="flex-shrink-0">
+    <!-- Vérification de la photo de l'utilisateur -->
+    <img src="{{ user.photo ? asset(user.photo) : asset('uploads/profiles') }}" 
+         alt="user-image" class="user-avtar">
+</div>
+       <span>{{ user.prenom }} {{ user.nom }}</span>
+
+      </a>
+      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+        <div class="dropdown-header">
+          <div class="d-flex mb-1">
+            <div class="flex-shrink-0">
+              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
             </div>
+            <div class="flex-grow-1 ms-3">
+              <h6 class="mb-1">{{ user.prenom }} {{ user.nom }}</h6>
+              <span>GymTown</span>
+            </div>
+            
+            <a  href="{{ path('app_login') }}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
+          </div>
+        </div>
+        <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="drp-t1"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-1"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-1"
+              aria-selected="true"
+              ><i class="ti ti-user"></i> Profile</button
+            >
           </li>
-          <li class="pc-h-item d-none d-md-inline-flex">
-            <form class="header-search">
-              <i data-feather="search" class="icon-search"></i>
-              <input type="search" class="form-control" placeholder="Recherche ici...">
-            </form>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="drp-t2"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-2"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-2"
+              aria-selected="false"
+              ><i class="ti ti-settings"></i> Setting</button
+            >
           </li>
         </ul>
-      </div>
-      <div class="ms-auto">
-        <ul class="list-unstyled">
-          <li class="dropdown pc-h-item">
-            <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-              <i class="ti ti-mail"></i>
+        <div class="tab-content" id="mysrpTabContent">
+          <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-edit-circle"></i>
+              <span>Edit Profile</span>
             </a>
-            <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
-              <div class="dropdown-header d-flex align-items-center justify-content-between">
-                <h5 class="m-0">Messages</h5>
-                <a href="#!" class="pc-head-link bg-transparent"><i class="ti ti-x text-danger"></i></a>
-              </div>
-              <div class="dropdown-divider"></div>
-              <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative" style="max-height: calc(100vh - 215px)">
-                <div class="list-group list-group-flush w-100">
-                  <a class="list-group-item list-group-item-action">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0">
-                        <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-                      </div>
-                      <div class="flex-grow-1 ms-1">
-                        <span class="float-end text-muted">3:00 AM</span>
-                        <p class="text-body mb-1">C'est l'anniversaire de <b>Cristina Danny</b> aujourd'hui.</p>
-                        <span class="text-muted">Il y a 2 min</span>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="list-group-item list-group-item-action">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0">
-                        <img src="../assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar">
-                      </div>
-                      <div class="flex-grow-1 ms-1">
-                        <span class="float-end text-muted">6:00 PM</span>
-                        <p class="text-body mb-1"><b>Aida Burg</b> a commenté votre post.</p>
-                        <span class="text-muted">5 août</span>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="list-group-item list-group-item-action">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0">
-                        <img src="../assets/images/user/avatar-3.jpg" alt="user-image" class="user-avtar">
-                      </div>
-                      <div class="flex-grow-1 ms-1">
-                        <span class="float-end text-muted">2:45 PM</span>
-                        <p class="text-body mb-1"><b>Il y a eu un échec de votre configuration.</b></p>
-                        <span class="text-muted">Il y a 7 heures</span>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="list-group-item list-group-item-action">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0">
-                        <img src="../assets/images/user/avatar-4.jpg" alt="user-image" class="user-avtar">
-                      </div>
-                      <div class="flex-grow-1 ms-1">
-                        <span class="float-end text-muted">9:10 PM</span>
-                        <p class="text-body mb-1"><b>Cristina Danny</b> vous a invité à rejoindre <b>la réunion.</b></p>
-                        <span class="text-muted">Temps de réunion quotidien</span>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="dropdown-divider"></div>
-              <div class="text-center py-2">
-                <a href="#!" class="link-primary">Voir tous</a>
-              </div>
-            </div>
-          </li>
-          <li class="dropdown pc-h-item header-user-profile">
-            <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
-              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-              <span>Stebin Ben</span>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>View Profile</span>
             </a>
-            <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
-              <div class="dropdown-header">
-                <div class="d-flex mb-1">
-                  <div class="flex-shrink-0">
-                    <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
-                  </div>
-                  <div class="flex-grow-1 ms-3">
-                    <h6 class="mb-1">Stebin Ben</h6>
-                    <span>UI/UX Designer</span>
-                  </div>
-                  <a href="#!" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
-                </div>
-              </div>
-              <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="drp-t1" data-bs-toggle="tab" data-bs-target="#drp-tab-1" type="button" role="tab" aria-controls="drp-tab-1" aria-selected="true"><i class="ti ti-user"></i> Profil</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="drp-t2" data-bs-toggle="tab" data-bs-target="#drp-tab-2" type="button" role="tab" aria-controls="drp-tab-2" aria-selected="false"><i class="ti ti-settings"></i> Paramètres</button>
-                </li>
-              </ul>
-              <div class="tab-content" id="mysrpTabContent">
-                <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-edit-circle"></i>
-                    <span>Modifier le Profil</span>
-                  </a>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-user"></i>
-                    <span>Voir le Profil</span>
-                  </a>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-clipboard-list"></i>
-                    <span>Profil Social</span>
-                  </a>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-wallet"></i>
-                    <span>Facturation</span>
-                  </a>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-power"></i>
-                    <span>Déconnexion</span>
-                  </a>
-                </div>
-                <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-help"></i>
-                    <span>Support</span>
-                  </a>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-user"></i>
-                    <span>Paramètres du Compte</span>
-                  </a>
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-lock"></i>
-                    <span>Centre de Confidentialité</span>
-                  </a>
-                 
-                  <a href="#!" class="dropdown-item">
-                    <i class="ti ti-list"></i>
-                    <span>Historique</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-clipboard-list"></i>
+              <span>Social Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-wallet"></i>
+              <span>Billing</span>
+            </a>
+            <a href="{{ path('app_login') }}" class="dropdown-item">
+              <i class="ti ti-power"></i>
+              <span>  <a href="" class="pc-link">
+         </span>
+            </a>
+          </div>
+          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-help"></i>
+              <span>Support</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>Account Settings</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-lock"></i>
+              <span>Privacy Center</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-messages"></i>
+              <span>Feedback</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-list"></i>
+              <span>History</span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </header>
+    </li>
+  </ul>
+</div>
+ </div>
+ </header>
+<!-- [ Header ] end -->
+{% block body %}
   <!-- [ Header ] end -->
 
-  {% block stylesheets %}
+ 
+  <div class="pc-container">
+      <div class="pc-content">
+          <div class="page-header">
+              <div class="page-block">
+                  <div class="row align-items-center">
+                  <div class="row mb-4">
+    <div class="col-md-6">
+        <input type="text" id="global-search" class="form-control" placeholder="Rechercher dans tous les champs...">
+    </div>
+</div>
+                      <div class="col-md-6">
+                          <h1 class="mb-0">Liste des Événements</h1>
+                      </div>
+                      
+                      <div class="col-md-6 text-end">
+                          <a class="btn-nouveau" href="{{ path('app_evenement_new') }}">
+                              <i class="ti ti-plus"></i> Créer un Nouvel Événement
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="table-responsive-container">
+                              <table class="event-table">
+                                  <thead>
+                                      <tr>
+                                       <th>
+                <a href="{{ path('app_evenement_index', {'sort_by': 'nom', 'direction': sort_by == 'nom' and direction == 'asc' ? 'desc' : 'asc'}) }}" class="sortable-header">
+                    Nom {% if sort_by == 'nom' %}({{ direction == 'asc' ? '↑' : '↓' }}){% endif %}
+                </a>
+            </th>
+                                          
+                                          <th>Description</th>
+                                          <th>Date Début</th>
+                                          <th>Date Fin</th>
+                                          <th>Localisation</th>
+                                          <th>Frais</th>
+                                          <th>Places</th>
+                                          <th>Actions</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for evenement in evenements %}
+                                          <tr>
+                                              <td>{{ evenement.nom }}</td>
+                                              <td title="{{ evenement.description }}">{{ evenement.description }}</td>
+                                              <td>{{ evenement.dateDebut|date('d/m/Y') }}</td>
+                                              <td>{{ evenement.dateFin|date('d/m/Y') }}</td>
+                                              <td>{{ evenement.localisation }}</td>
+                                              <td>{{ evenement.frais }} dt</td>
+                                              <td>{{ evenement.nombreDePlaces }}</td>
+                                              <td>
+                                                  <div class="button-container">
+                                                      <a class="btn-modifier" href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">
+                                                          <i class="ti ti-edit"></i> Modifier
+                                                      </a>
+                                                      <button class="btn-supprimer" onclick="confirmDelete('{{ path('app_evenement_delete', {'id': evenement.id}) }}', '{{ csrf_token('delete' ~ evenement.id) }}')">
+                                                          <i class="ti ti-trash"></i> Supprimer
+                                                      </button>
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                      {% else %}
+                                          <tr>
+                                              <td colspan="8" style="text-align:center;">Aucun événement trouvé</td>
+                                          </tr>
+                                      {% endfor %}
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endblock %}
+  <!-- [Page Specific JS] start -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pages/dashboard-default.js') }}"></script>
+  <!-- [Page Specific JS] end -->
+
+  <!-- Required Js -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/popper.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/fonts/custom-font.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pcoded.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/feather.min.js') }}"></script>
+
+
+  
+  
+  
+  
+  <script>layout_change('light');</script>
+  
+  
+  
+  
+  <script>change_box_container('false');</script>
+  
+  
+  
+  <script>layout_rtl_change('false');</script>
+  
+  
+  <script>preset_change("preset-1");</script>
+  
+  
+  <script>font_change("Public-Sans");</script>
+  
+  <script>
+  // Ajoutez en haut de votre fichier JavaScript
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
+// Puis modifiez votre écouteur d'événement
+document.getElementById('global-search').addEventListener('input', debounce(function() {
+    const query = this.value.trim();
+    const container = document.querySelector('.event-table tbody');
+    
+    if (query.length < 2) {
+        if (query.length === 0) {
+            location.reload();
+        }
+        return;
+    }
+
+    // Afficher un indicateur de chargement
+    container.innerHTML = '<tr><td colspan="8" class="text-center"><i class="fas fa-spinner fa-spin"></i> Recherche en cours...</td></tr>';
+    
+    fetch(`{{ path('app_evenement_search_index') }}?query=${encodeURIComponent(query)}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (!data.success) {
+            throw new Error(data.message || 'Erreur lors de la recherche');
+        }
+
+        container.innerHTML = '';
+        
+        if (!data.events || data.events.length === 0) {
+            container.innerHTML = '<tr><td colspan="8" class="text-center">Aucun résultat trouvé</td></tr>';
+            return;
+        }
+
+        data.events.forEach(event => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${event.nom}</td>
+                <td title="${event.description}">${event.description.substring(0, 50)}${event.description.length > 50 ? '...' : ''}</td>
+                <td>${event.dateDebut}</td>
+                <td>${event.dateFin}</td>
+                <td>${event.localisation}</td>
+                <td>${event.frais} dt</td>
+                <td>${event.nombreDePlaces}</td>
+                <td>
+                    <div class="button-container">
+                        <a class="btn-modifier" href="/evenement/${event.id}/edit">
+                            <i class="ti ti-edit"></i> Modifier
+                        </a>
+                        <button class="btn-supprimer" onclick="confirmDelete('/evenement/${event.id}', '{{ csrf_token('delete') }}')">
+                            <i class="ti ti-trash"></i> Supprimer
+                        </button>
+                    </div>
+                </td>`;
+            container.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Search error:', error);
+        container.innerHTML = `<tr><td colspan="8" class="text-center text-danger">${error.message}</td></tr>`;
+    });
+}, 300)); // 300ms de délai
+    function confirmDelete(url, token) {
+        Swal.fire({
+    title: 'Confirmation de Suppression',
+    text: "Êtes-vous certain de vouloir supprimer cet événement ? Cette action est irréversible.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Oui, supprimer cet événement',
+    cancelButtonText: 'Non, annuler'
+}).then((result) => {
+    if (result.isConfirmed) {
+        // Créez un formulaire dynamiquement pour soumettre la demande de suppression
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = url;
+
+        // Créez un champ caché pour le token CSRF
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = '_token';
+        csrfInput.value = token;
+        form.appendChild(csrfInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+}); 
+    }
+   
+    // Fonction pour trier le tableau
+    function sortTable(columnIndex, isDateColumn = false) {
+        const table = document.querySelector('.event-table');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const header = table.querySelectorAll('th')[columnIndex];
+        
+        // Déterminer la direction du tri
+        const isAscending = !header.classList.contains('asc');
+        
+        // Supprimer les classes de tri des autres colonnes
+        table.querySelectorAll('th').forEach(th => {
+            if (th !== header) {
+                th.classList.remove('asc', 'desc');
+            }
+        });
+        
+        // Trier les lignes
+        rows.sort((a, b) => {
+            const aText = a.cells[columnIndex].textContent.trim();
+            const bText = b.cells[columnIndex].textContent.trim();
+            
+            if (isDateColumn) {
+                // Tri des dates (format dd/mm/yyyy)
+                const [aDay, aMonth, aYear] = aText.split('/');
+                const [bDay, bMonth, bYear] = bText.split('/');
+                const aDate = new Date(${aYear}-${aMonth}-${aDay});
+                const bDate = new Date(${bYear}-${bMonth}-${bDay});
+                
+                return isAscending ? aDate - bDate : bDate - aDate;
+            } else if (columnIndex === 5) { // Colonne Frais (nombre)
+                const aNum = parseFloat(aText);
+                const bNum = parseFloat(bText);
+                return isAscending ? aNum - bNum : bNum - aNum;
+            } else if (columnIndex === 6) { // Colonne Places (nombre)
+                const aNum = parseInt(aText);
+                const bNum = parseInt(bText);
+                return isAscending ? aNum - bNum : bNum - aNum;
+            } else {
+                // Tri alphabétique
+                return isAscending 
+                    ? aText.localeCompare(bText) 
+                    : bText.localeCompare(aText);
+            }
+        });
+        
+        // Mettre à jour la classe de l'en-tête
+        header.classList.toggle('asc', isAscending);
+        header.classList.toggle('desc', !isAscending);
+        
+        // Réinsérer les lignes triées
+        rows.forEach(row => tbody.appendChild(row));
+    }
+    
+    // Ajouter les écouteurs d'événements aux en-têtes
+    document.addEventListener('DOMContentLoaded', () => {
+        const headers = document.querySelectorAll('.event-table th');
+        headers.forEach((header, index) => {
+            // Ne pas ajouter de tri pour la colonne Actions
+            if (index !== headers.length - 1) {
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', () => {
+                    const isDateColumn = index === 2 || index === 3; // Colonnes Date Début et Date Fin
+                    sortTable(index, isDateColumn);
+                });
+            }
+        });
+    });
+
+document.getElementById('global-search').addEventListener('input', function() {
+    const query = this.value.trim();
+    const container = document.querySelector('.event-table tbody');
+    
+    if (query.length < 2) {
+        if (query.length === 0) {
+            // Recharger les données originales si la recherche est vide
+            location.reload();
+        }
+        return;
+    }
+
+    // Afficher un indicateur de chargement
+    container.innerHTML = <tr><td colspan="8" class="text-center"><i class="fas fa-spinner fa-spin"></i> Recherche en cours...</td></tr>;
+    
+    fetch({{ path('app_evenement_search_index') }}?query=${encodeURIComponent(query)})
+    .then(response => {
+        if (!response.ok) throw new Error(Erreur ${response.status});
+        return response.json();
+    })
+    .then(data => {
+        container.innerHTML = '';
+        
+        if (data.length === 0) {
+            container.innerHTML = <tr><td colspan="8" class="text-center">Aucun résultat trouvé</td></tr>;
+            return;
+        }
+
+        data.forEach(event => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${event.nom}</td>
+                <td title="${event.description}">${event.description}</td>
+                <td>${event.dateDebut}</td>
+                <td>${event.dateFin}</td>
+                <td>${event.localisation}</td>
+                <td>${event.frais} dt</td>
+                <td>${event.nombreDePlaces}</td>
+                <td>
+                    <div class="button-container">
+                        <a class="btn-modifier" href="/evenement/${event.id}/edit">
+                            <i class="ti ti-edit"></i> Modifier
+                        </a>
+                        <button class="btn-supprimer" onclick="confirmDelete('/evenement/${event.id}', '{{ csrf_token('delete') }}')">
+                            <i class="ti ti-trash"></i> Supprimer
+                        </button>
+                    </div>
+                </td>`;
+            container.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Search error:', error);
+        container.innerHTML = <tr><td colspan="8" class="text-center text-danger">Erreur lors de la recherche</td></tr>;
+    });
+});
+
+
+
+// Variables pour le glissement
+let isDraggingTable = false;
+let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+const draggableTable = document.getElementById('draggableTable');
+
+// Position initiale
+draggableTable.style.left = initialXTable + 'px';
+draggableTable.style.top = initialYTable + 'px';
+
+// Événements
+draggableTable.addEventListener('mousedown', startDraggingTable);
+document.addEventListener('mousemove', dragTable);
+document.addEventListener('mouseup', stopDraggingTable);
+
+// Gestion tactile
+draggableTable.addEventListener('touchstart', (e) => {
+    startDraggingTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchmove', (e) => {
+    dragTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchend', stopDraggingTable);
+
+function startDraggingTable(e) {
+    isDraggingTable = true;
+    startXTable = e.clientX - initialXTable;
+    startYTable = e.clientY - initialYTable;
+    draggableTable.style.transition = 'none';
+    draggableTable.classList.add('dragging');
+}
+
+function editCategorieDetails(id) {
+    fetch(/categorie/${id}/edit-modal)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const modal = new bootstrap.Modal(document.getElementById('editCategorieModal'));
+            modal.show();
+            
+            // Nouveau code pour gérer la soumission
+            const form = document.getElementById('editForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (response.status === 422) {
+                            return response.text().then(html => {
+                                document.getElementById('editCategorieContent').innerHTML = html;
+                                const newForm = document.getElementById('editForm');
+                                if (newForm) {
+                                    newForm.addEventListener('submit', arguments.callee);
+                                }
+                            });
+                        }
+                        if (response.ok) {
+                            window.location.reload();
+                            modal.hide();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function handleEditSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        if (response.status === 422) { // Erreur de validation
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const newForm = document.getElementById('editForm');
+            if (newForm) newForm.addEventListener('submit', handleEditSubmit);
+        } else if (response.ok) {
+            window.location.reload();
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
+}
+function dragTable(e) {
+    if (!isDraggingTable) return;
+    
+    const newX = e.clientX - startXTable;
+    const newY = e.clientY - startYTable;
+
+    // Limites de la fenêtre
+    const maxX = window.innerWidth - draggableTable.offsetWidth;
+    const maxY = window.innerHeight - draggableTable.offsetHeight;
+
+    initialXTable = Math.max(0, Math.min(newX, maxX));
+    initialYTable = Math.max(0, Math.min(newY, maxY));
+
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+
+function stopDraggingTable() {
+    isDraggingTable = false;
+    draggableTable.style.transition = 'transform 0.3s ease';
+    draggableTable.classList.remove('dragging');
+}
+
+function resetTablePosition() {
+    initialXTable = 300;
+    initialYTable = 180;
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+</script>
+ {% block stylesheets %}
   <style>
       /* Conteneur principal avec défilement */
       .table-responsive-container {
@@ -764,6 +977,17 @@
       .event-table tr:nth-child(odd) {
           background-color: #f8fafc;
       }
+      .fa-spinner {
+    margin-right: 8px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-danger {
+    color: #f5365c;
+}
 
       /* Style pour le header du tableau */
       .pc-content h1 {
@@ -773,111 +997,3 @@
       }
   </style>
   {% endblock %}
-
-  {% block body %}
-  <div class="pc-container">
-      <div class="pc-content">
-          <div class="page-header">
-              <div class="page-block">
-                  <div class="row align-items-center">
-                      <div class="col-md-6">
-                          <h1 class="mb-0">Liste des Événements</h1>
-                      </div>
-                      <div class="col-md-6 text-end">
-                          <a class="btn-nouveau" href="{{ path('app_evenement_new') }}">
-                              <i class="ti ti-plus"></i> Créer un Nouvel Événement
-                          </a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="col-sm-12">
-                  <div class="card">
-                      <div class="card-body">
-                          <div class="table-responsive-container">
-                              <table class="event-table">
-                                  <thead>
-                                      <tr>
-                                          <th>Nom</th>
-                                          <th>Description</th>
-                                          <th>Date Début</th>
-                                          <th>Date Fin</th>
-                                          <th>Localisation</th>
-                                          <th>Frais</th>
-                                          <th>Places</th>
-                                          <th>Actions</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      {% for evenement in evenements %}
-                                          <tr>
-                                              <td>{{ evenement.nom }}</td>
-                                              <td title="{{ evenement.description }}">{{ evenement.description }}</td>
-                                              <td>{{ evenement.dateDebut|date('d/m/Y') }}</td>
-                                              <td>{{ evenement.dateFin|date('d/m/Y') }}</td>
-                                              <td>{{ evenement.localisation }}</td>
-                                              <td>{{ evenement.frais }} dt</td>
-                                              <td>{{ evenement.nombreDePlaces }}</td>
-                                              <td>
-                                                  <div class="button-container">
-                                                      <a class="btn-modifier" href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">
-                                                          <i class="ti ti-edit"></i> Modifier
-                                                      </a>
-                                                      <button class="btn-supprimer" onclick="confirmDelete('{{ path('app_evenement_delete', {'id': evenement.id}) }}', '{{ csrf_token('delete' ~ evenement.id) }}')">
-                                                          <i class="ti ti-trash"></i> Supprimer
-                                                      </button>
-                                                  </div>
-                                              </td>
-                                          </tr>
-                                      {% else %}
-                                          <tr>
-                                              <td colspan="8" style="text-align:center;">Aucun événement trouvé</td>
-                                          </tr>
-                                      {% endfor %}
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  {% endblock %}
-
-  <script>
-    function confirmDelete(url, token) {
-        Swal.fire({
-    title: 'Confirmation de Suppression',
-    text: "Êtes-vous certain de vouloir supprimer cet événement ? Cette action est irréversible.",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Oui, supprimer cet événement',
-    cancelButtonText: 'Non, annuler'
-}).then((result) => {
-    if (result.isConfirmed) {
-        // Créez un formulaire dynamiquement pour soumettre la demande de suppression
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = url;
-
-        // Créez un champ caché pour le token CSRF
-        const csrfInput = document.createElement('input');
-        csrfInput.type = 'hidden';
-        csrfInput.name = '_token';
-        csrfInput.value = token;
-        form.appendChild(csrfInput);
-
-        document.body.appendChild(form);
-        form.submit();
-    }
-}); 
-    }
-</script>
-</body>
-<!-- [Body] end -->
-</html>

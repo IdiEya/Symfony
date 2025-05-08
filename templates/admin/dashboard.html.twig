@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- [Head] start -->
+
+<head>
+  <title>{% block title %} Home | Mantis Bootstrap 5 Admin Template {% endblock %}</title>
+  <!-- [Meta] -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Mantis is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
+  <meta name="keywords" content="Mantis, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template">
+  <meta name="author" content="CodedThemes">
+ 
+
+    <link rel="stylesheet" href="{{ asset('assets/css/admin-dashboard.css') }}">
+    <script>
+    let users = {{ users|json_encode|raw }};
+    const csrfToken = '{{ csrf_token("user_edit") }}'; // adjust the token ID as per your Symfony form config
+</script>
+</head>
+{% block css %}
+  <!-- [Favicon] icon -->
+  <!-- [Favicon] icon -->
+<link rel="icon" href="{{ asset('assets/back/dist/assets/images/favicon.svg') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
+
+<!-- [Google Font] Family -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+
+<!-- [Tabler Icons] https://tablericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/tabler-icons.min.css') }}">
+
+<!-- [Feather Icons] https://feathericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/feather.css') }}">
+
+<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/fontawesome.css') }}">
+
+<!-- [Material Icons] https://fonts.google.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/material.css') }}">
+
+<!-- [Template CSS Files] -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/admin.css') }}" id="main-style-link">
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style-preset.css') }}">
+
+
+{% endblock %}
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
+  
+  <!-- [ Pre-loader ] start -->
+<div class="loader-bg">
+  <div class="loader-track">
+    <div class="loader-fill"></div>
+  </div>
+</div>
+<!-- [ Pre-loader ] End -->
+ <!-- [ Sidebar Menu ] start -->
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+   
+      <!-- ========   Change your logo from here   ============ -->
+        <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:200px; length:200px; margin-left:20px;">
+    
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+        <li class="pc-item">
+          <a href="../dashboard/index.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Utilsateurs</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('admin_dashboard') }}" class="pc-link">
+         
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Utilisateurs</span>
+          </a>
+        </li>
+    
+
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Produits</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('app_categorie_index') }}" class="pc-link">
+          
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Categories</span>
+          </a>
+        </li>
+        <li class="pc-item">
+           <a href="{{ path('app_produits_index') }}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-box"></i></i></span>
+            <span class="pc-mtext">Liste Des Produits</span>
+          </a>
+        </li>
+        <li class="pc-item">
+            <a href="{{ path('app_commande_index') }}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-shopping-cart"></i></span>
+            <span class="pc-mtext">Liste Des Commandes</span>
+          </a>
+        </li>
+
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Evenements</label>
+          <i class="ti ti-news"></i>
+        </li>
+         <li class="pc-item">
+            <a href="{{ path('app_evenement_index') }}" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-calendar-event"></i>
+</span>
+              <span class="pc-mtext">Liste Des événements</span>
+            </a>
+          </li>
+          <li class="pc-item">
+            <a href="{{ path('app_participation_index') }}" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-color-swatch"></i></span>
+              <span class="pc-mtext">Liste Des participations</span>
+            </a>
+          </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Cours</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('cour_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-notebook"></i></span>
+    <span class="pc-mtext">Liste des Cours</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('salle_index') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('reservation_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-calendar-time"></i></span>
+    <span class="pc-mtext">Liste des Réservations</span>
+  </a>
+</li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Salles de Sport</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('app_gym_index') }}" class="pc-link">
+       <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('app_abonnement_index') }}" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-id"></i></span>
+    <span class="pc-mtext">Liste des Abonnements</span>
+  </a>
+</li>
+
+
+
+
+
+
+        <li class="pc-item pc-caption">
+        
+          <i class="ti ti-brand-chrome"></i>
+        </li>
+        <li class="pc-item pc-hasmenu">
+    
+          <ul class="pc-submenu">
+         
+            <li class="pc-item pc-hasmenu">
+           
+              <ul class="pc-submenu">
+            
+                <li class="pc-item pc-hasmenu">
+               
+                  <ul class="pc-submenu">
+                   
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="pc-item pc-hasmenu">
+             
+              <ul class="pc-submenu">
+               
+                <li class="pc-item pc-hasmenu">
+                
+                  <ul class="pc-submenu">
+                  
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="pc-item">
+          <a href="../other/sample-page.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+           
+          </a>
+        </li>
+      </ul>
+      <div class="card text-center">
+        <div class="card-body">
+          <img src="../assets/images/img-navbar-card.png" alt="images" class="img-fluid mb-2">
+      
+       
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
+<header class="pc-header" 
+        style="position: fixed; 
+               top: 0; 
+               left: 40; 
+              ">
+  <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
+<div class="me-auto pc-mob-drp">
+  <ul class="list-unstyled">
+    <!-- ======= Menu collapse Icon ===== -->
+    <li class="pc-h-item pc-sidebar-collapse">
+      <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="pc-h-item pc-sidebar-popup">
+      <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="dropdown pc-h-item d-inline-flex d-md-none">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none m-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        aria-expanded="false"
+      >
+        <i class="ti ti-search"></i>
+      </a>
+      <div class="dropdown-menu pc-h-dropdown drp-search">
+        <form class="px-3">
+          <div class="form-group mb-0 d-flex align-items-center">
+            <i data-feather="search"></i>
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="pc-h-item d-none d-md-inline-flex">
+      <form class="header-search">
+        <i data-feather="search" class="icon-search"></i>
+        <input type="search" class="form-control" placeholder="Search here. . .">
+      </form>
+    </li>
+  </ul>
+</div>
+
+    <li class="dropdown pc-h-item header-user-profile">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none me-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >             <div class="flex-shrink-0">
+    <!-- Vérification de la photo de l'utilisateur -->
+    <img src="{{ user.photo ? asset(user.photo) : asset('uploads/profiles') }}" 
+         alt="user-image" class="user-avtar">
+</div>
+       <span>{{ user.prenom }} {{ user.nom }}</span>
+
+      </a>
+      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+        <div class="dropdown-header">
+          <div class="d-flex mb-1">
+            <div class="flex-shrink-0">
+              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <h6 class="mb-1">{{ user.prenom }} {{ user.nom }}</h6>
+              <span>GymTown</span>
+            </div>
+            
+            <a  href="{{ path('app_login') }}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
+          </div>
+        </div>
+        <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="drp-t1"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-1"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-1"
+              aria-selected="true"
+              ><i class="ti ti-user"></i> Profile</button
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="drp-t2"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-2"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-2"
+              aria-selected="false"
+              ><i class="ti ti-settings"></i> Setting</button
+            >
+          </li>
+        </ul>
+        <div class="tab-content" id="mysrpTabContent">
+          <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-edit-circle"></i>
+              <span>Edit Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>View Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-clipboard-list"></i>
+              <span>Social Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-wallet"></i>
+              <span>Billing</span>
+            </a>
+            <a href="{{ path('app_login') }}"  class="dropdown-item">
+              <i class="ti ti-power"></i>
+              <span>  <a href="" class="pc-link">
+         </span>
+            </a>
+          </div>
+          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-help"></i>
+              <span>Support</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>Account Settings</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-lock"></i>
+              <span>Privacy Center</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-messages"></i>
+              <span>Feedback</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-list"></i>
+              <span>History</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+ </div>
+ </header>
+<!-- [ Header ] end -->
+{% block body %}
+
+<body  style="position: absolute; 
+               top: 100px; 
+               left: 400px;
+               cursor: move;
+               width: 1100px;
+               z-index: 1000;">
+    <!-- Header -->
+
+    
+    <!-- Admin Dashboard -->
+    <div class="admin-container"  style="position: absolute; 
+               top: 100px; 
+               left: 400px;
+               cursor: move;
+               width: 1100px;
+               z-index: 1000;">
+        <h2 class="dashboard-title">User Management</h2>
+        
+        <!-- Stats Section -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-title">Total Users</div>
+                <div class="stat-value">278</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-title">Admins</div>
+                <div class="stat-value">8</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-title">Clients</div>
+                <div class="stat-value">245</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-title">Mechanics</div>
+                <div class="stat-value">25</div>
+            </div>
+        </div>
+        
+        <!-- User Controls -->
+        <div class="user-controls">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Search users...">
+            </div>
+            
+            <select class="filter-select">
+                 <option value="admin">Admin</option>
+                        <option value="coach">Coach</option>
+                        <option value="responsable">Responsable Salle</option>
+                         <option value="sportif">Sportif</option>
+
+            </select>
+            
+        </div>
+        
+        <!-- Users Table -->
+        <div class="users-table-container">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Role</th>
+                        <th>Téléphone</th>
+                        <th>Addresse</th>
+                        <th>Specialté</th>
+                        <th>Note</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+    {% for user in users %}
+        <tr>
+            <td class="user-name">
+                <img src="{{ asset('uploads/profiles/' ~ user.photo) }}" alt="User Photo" class="user-photo">
+                <div class="name-details">
+                    <span class="user-fullname">{{ user.prenom ~ ' ' ~ user.nom }}</span>
+                    <span class="user-email">{{ user.email }}</span>
+                </div>
+            </td>
+            <td>
+                <span class="user-role role-{{ user.role|lower }}">{{ user.role }}</span>
+            </td>
+            <td>{{ user.telephone }}</td>
+            <td>{{ user.adresse }}</td>
+            <td>{{ user.specialite ?? '-' }}</td>
+            <td><span class="user-note">{{ user.note ?? '-' }}</span></td>
+            <td class="actions">
+                  <button class="action-btn edit-btn" onclick="openEditModal({{ user.id }}, '{{ user.role }}', {{ user.note|default('null') }}, '{{ user.prenom }}', '{{ user.nom }}', '{{ user.email }}', '{{ user.telephone }}', '{{ user.adresse }}', '{{ user.specialite|default('') }}')">Edit</button>
+                <button class="action-btn delete-btn" onclick="openDeleteModal({{ user.id }})">Delete</button>
+            </td>
+        </tr>
+        <div class="modal-backdrop" id="editModalBackdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit User</h3>
+                <button class="close-modal" onclick="closeModal('editModalBackdrop')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" id="userId" value="">
+                    
+                    <div class="form-group">
+                        <label for="userRole" class="form-label">Role</label>
+                        <select id="userRole" class="form-select">
+                            <option value="admin">Admin</option>
+                            <option value="coach">Coach</option>
+                            <option value="mechanic">responsabble salle</option>
+                            <option value="client">sportif</option>
+                          
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userRating" class="form-label">Note (1-5)</label>
+                        <input type="number" id="userRating" class="form-input" min="1" max="5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userFirstName" class="form-label">Nom</label>
+                        <input type="text" id="userFirstName" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userLastName" class="form-label">Prénom</label>
+                        <input type="text" id="userLastName" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userEmail" class="form-label">Mail</label>
+                        <input type="email" id="userEmail" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userPhone" class="form-label">Téléphone</label>
+                        <input type="tel" id="userPhone" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userAddress" class="form-label">Addresse</label>
+                        <input type="text" id="userAddress" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userSpecialty" class="form-label">Specialté</label>
+                        <input type="text" id="userSpecialty" class="form-input">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel-btn" onclick="closeModal('editModalBackdrop')">Annuler</button>
+                <button class="modal-btn save-btn" onclick="saveUserChanges({{user.id}})">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete User Modal -->
+    <div class="modal-backdrop" id="deleteModalBackdrop">
+        <div class="modal delete-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete User</h3>
+                <button class="close-modal" onclick="closeModal('deleteModalBackdrop')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-text">Are you sure you want to delete this user?</div>
+                <div class="warning-subtext">This action cannot be undone.</div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel-btn" onclick="closeModal('deleteModalBackdrop')">Cancel</button>
+                <form method="post" action="{{ path('admin_user_delete', {'id': user.id}) }}">
+                    <button class="modal-btn delete-confirm-btn" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <tr>
+            <td colspan="7">No users found.</td>
+        </tr>
+    {% endfor %}
+</tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn">«</button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <button class="pagination-btn">»</button>
+        </div>
+    </div>
+    
+    <!-- Edit User Modal -->
+    
+    
+    <!-- Footer -->
+       {% endblock %}
+      {# Inclusion de Font Awesome pour les icônes #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+{% block js %}
+  <!-- [Page Specific JS] start -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pages/dashboard-default.js') }}"></script>
+  <!-- [Page Specific JS] end -->
+
+  <!-- Required Js -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/popper.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/fonts/custom-font.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pcoded.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/feather.min.js') }}"></script>
+
+
+  
+  
+  
+    <script src="{{ asset('assets/js/admin-dashboard.js') }}"></script>
+
+  
+  <script>layout_change('light');</script>
+  
+  
+  
+  
+  <script>change_box_container('false');</script>
+  
+  
+  
+  <script>layout_rtl_change('false');</script>
+  
+  
+  <script>preset_change("preset-1");</script>
+  
+  
+  <script>font_change("Public-Sans");</script>
+  <script>
+  let currentUserId = null;
+
+function openEditModal(userId, role, note, prenom, nom, email, telephone, adresse, specialite) {
+    currentUserId = userId;
+    document.getElementById('userId').value = userId;
+    document.getElementById('userRole').value = role;
+    document.getElementById('userRating').value = note || '';
+    document.getElementById('userFirstName').value = prenom;
+    document.getElementById('userLastName').value = nom;
+    document.getElementById('userEmail').value = email;
+    document.getElementById('userPhone').value = telephone;
+    document.getElementById('userAddress').value = adresse;
+    document.getElementById('userSpecialty').value = specialite || '';
+    document.getElementById('editModalBackdrop').style.display = 'block';
+}
+
+async function saveUserChanges() {
+    const userId = currentUserId;
+    const data = {
+        id: userId,
+        role: document.getElementById('userRole').value,
+        note: document.getElementById('userRating').value || null,
+        prenom: document.getElementById('userFirstName').value,
+        nom: document.getElementById('userLastName').value,
+        email: document.getElementById('userEmail').value,
+        telephone: document.getElementById('userPhone').value,
+        adresse: document.getElementById('userAddress').value,
+        specialite: document.getElementById('userSpecialty').value,
+        _token: csrfToken
+    };
+
+    try {
+        const response = await fetch("{{ path('admin_user_edit') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            alert(error.error || 'Failed to save changes.');
+            return;
+        }
+
+        location.reload(); // Refresh to see changes
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while saving changes.');
+    }
+}
+// Variables pour le glissement
+let isDraggingTable = false;
+let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+const draggableTable = document.getElementById('draggableTable');
+
+// Position initiale
+draggableTable.style.left = initialXTable + 'px';
+draggableTable.style.top = initialYTable + 'px';
+
+// Événements
+draggableTable.addEventListener('mousedown', startDraggingTable);
+document.addEventListener('mousemove', dragTable);
+document.addEventListener('mouseup', stopDraggingTable);
+
+// Gestion tactile
+draggableTable.addEventListener('touchstart', (e) => {
+    startDraggingTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchmove', (e) => {
+    dragTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchend', stopDraggingTable);
+
+function startDraggingTable(e) {
+    isDraggingTable = true;
+    startXTable = e.clientX - initialXTable;
+    startYTable = e.clientY - initialYTable;
+    draggableTable.style.transition = 'none';
+    draggableTable.classList.add('dragging');
+}
+
+function editCategorieDetails(id) {
+    fetch(`/categorie/${id}/edit-modal`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const modal = new bootstrap.Modal(document.getElementById('editCategorieModal'));
+            modal.show();
+            
+            // Nouveau code pour gérer la soumission
+            const form = document.getElementById('editForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (response.status === 422) {
+                            return response.text().then(html => {
+                                document.getElementById('editCategorieContent').innerHTML = html;
+                                const newForm = document.getElementById('editForm');
+                                if (newForm) {
+                                    newForm.addEventListener('submit', arguments.callee);
+                                }
+                            });
+                        }
+                        if (response.ok) {
+                            window.location.reload();
+                            modal.hide();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function handleEditSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        if (response.status === 422) { // Erreur de validation
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const newForm = document.getElementById('editForm');
+            if (newForm) newForm.addEventListener('submit', handleEditSubmit);
+        } else if (response.ok) {
+            window.location.reload();
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
+}
+function dragTable(e) {
+    if (!isDraggingTable) return;
+    
+    const newX = e.clientX - startXTable;
+    const newY = e.clientY - startYTable;
+
+    // Limites de la fenêtre
+    const maxX = window.innerWidth - draggableTable.offsetWidth;
+    const maxY = window.innerHeight - draggableTable.offsetHeight;
+
+    initialXTable = Math.max(0, Math.min(newX, maxX));
+    initialYTable = Math.max(0, Math.min(newY, maxY));
+
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+
+function stopDraggingTable() {
+    isDraggingTable = false;
+    draggableTable.style.transition = 'transform 0.3s ease';
+    draggableTable.classList.remove('dragging');
+}
+
+function resetTablePosition() {
+    initialXTable = 300;
+    initialYTable = 180;
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+
+// Variables pour le glissement
+let isDraggingTable = false;
+let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+const draggableTable = document.getElementById('draggableTable');
+
+// Position initiale
+draggableTable.style.left = initialXTable + 'px';
+draggableTable.style.top = initialYTable + 'px';
+
+// Événements
+draggableTable.addEventListener('mousedown', startDraggingTable);
+document.addEventListener('mousemove', dragTable);
+document.addEventListener('mouseup', stopDraggingTable);
+
+// Gestion tactile
+draggableTable.addEventListener('touchstart', (e) => {
+    startDraggingTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchmove', (e) => {
+    dragTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchend', stopDraggingTable);
+
+function startDraggingTable(e) {
+    isDraggingTable = true;
+    startXTable = e.clientX - initialXTable;
+    startYTable = e.clientY - initialYTable;
+    draggableTable.style.transition = 'none';
+    draggableTable.classList.add('dragging');
+}
+
+function editCategorieDetails(id) {
+    fetch(`/categorie/${id}/edit-modal`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const modal = new bootstrap.Modal(document.getElementById('editCategorieModal'));
+            modal.show();
+            
+            // Nouveau code pour gérer la soumission
+            const form = document.getElementById('editForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (response.status === 422) {
+                            return response.text().then(html => {
+                                document.getElementById('editCategorieContent').innerHTML = html;
+                                const newForm = document.getElementById('editForm');
+                                if (newForm) {
+                                    newForm.addEventListener('submit', arguments.callee);
+                                }
+                            });
+                        }
+                        if (response.ok) {
+                            window.location.reload();
+                            modal.hide();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function handleEditSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        if (response.status === 422) { // Erreur de validation
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const newForm = document.getElementById('editForm');
+            if (newForm) newForm.addEventListener('submit', handleEditSubmit);
+        } else if (response.ok) {
+            window.location.reload();
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
+}
+function dragTable(e) {
+    if (!isDraggingTable) return;
+    
+    const newX = e.clientX - startXTable;
+    const newY = e.clientY - startYTable;
+
+    // Limites de la fenêtre
+    const maxX = window.innerWidth - draggableTable.offsetWidth;
+    const maxY = window.innerHeight - draggableTable.offsetHeight;
+
+    initialXTable = Math.max(0, Math.min(newX, maxX));
+    initialYTable = Math.max(0, Math.min(newY, maxY));
+
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+
+function stopDraggingTable() {
+    isDraggingTable = false;
+    draggableTable.style.transition = 'transform 0.3s ease';
+    draggableTable.classList.remove('dragging');
+}
+
+function resetTablePosition() {
+    initialXTable = 300;
+    initialYTable = 180;
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+
+       
+</script>
+ <style>
+    .modal .modal-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.modal .form-group {
+    flex: 1 1 calc(50% - 20px); /* Deux colonnes avec espace entre elles */
+    display: flex;
+    flex-direction: column;
+}
+
+.modal .form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal .form-group input,
+.modal .form-group select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-btn {
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+}
+
+.save-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+ 
+/* Style général du tableau */
+/* Modification des couleurs des boutons */
+/* Boutons */
+.btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+
+/* Style général du tableau */
+/* Modification des couleurs des boutons */
+/* Boutons */
+.btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+</style>
+    {% endblock %}
+
+</body>
+<!-- [Body] end -->
+
+</html>

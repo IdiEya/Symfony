@@ -52,7 +52,7 @@
 		<!-- Welcome Hero -->
 		  <section id="home" class="welcome-hero">
     {% block body %}
-    <div class="top-area" style=" background-color: #e1bee7 ; ">
+    <div class="top-area" style=" background-color: #e1bee7 ;">
         <div class="header-area" style=" background-color: #e1bee7 ;">
             <!-- Navbar Bootstrap 5 -->
            <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" 
@@ -70,25 +70,28 @@
                     <!-- Menu à droite du logo -->
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="navbar-nav ms-auto" style="display: flex; gap: 20px;">
-                           
-       <li class="nav-item">
-        <a class="nav-link " href="{{ path('app_produituser_index') }}">Produits</a>
+     <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_produituser_index') }}">Produits</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_commandeuser_index') }}">Panier</a>
     </li>
-     <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link" href="{{ path('app_client_events') }}"> Evenement</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_mes_participations') }}">Participations</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_client_events') }}">BRANDS</a>
+  
+       <li class="nav-item">
+    <a class="nav-link" href="{{ path('planning_index') }}"> Cours</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_client_events') }}">CONTACT</a>
+        <a class="nav-link" href="{{ path('app_coach1_index') }}"> Coachs</a></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_gym_grille') }}">Salles des sports</a>
     </li>
+     
                     </div>
                 </div>
             </nav>
@@ -98,7 +101,7 @@
 
 			<!-- Fin top-area -->
 
-		<div style="length:3000px;" >
+	<div style="length:3000px;" >
   <div  style="background-image: url('{{ asset('img/GYM4.jpeg') }}'); width:1500px;   height:600px; background-size: cover; background-position: center; padding: 100px; color: white;">
    <h2 style="font-size: 3em; margin: 0 auto 30px; max-width: 800px; text-align: center; color: black;">
     GymTown t’accompagne à chaque étape de ton parcours sportif !
@@ -109,7 +112,10 @@
   </div>
 </div>
 
+
+
 		</section>
+
 		<!-- Fin Welcome Hero -->
 {% block stylesheets %}
   

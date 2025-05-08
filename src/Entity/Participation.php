@@ -9,17 +9,23 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ParticipationRepository::class)]
 class Participation
 {
+
+
+        // Define the 'user' property for the relationship with User entity
+        #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'participations')]
+        #[ORM\JoinColumn(name: 'utilisateur_id', referencedColumnName: 'id')]
+        private ?User $user = null;
+
+
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue] // Cette ligne est cruciale
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'participations', cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $utilisateur = null;
+ 
 
     #[ORM\ManyToOne(targetEntity: Evenement::class, inversedBy: 'participations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')] // Ajout de onDelete
     private ?Evenement $evenement = null;
 
     #[ORM\Column(name: 'statutP', type: 'string', length: 50)]
@@ -53,16 +59,7 @@ private ?int $nombreDePlacesReservees = null; // Changez ici
         return $this;
     }
 
-    public function getUtilisateur(): ?User
-    {
-        return $this->utilisateur;
-    }
-    
-    public function setUtilisateur(?User $utilisateur): self
-    {
-        $this->utilisateur = $utilisateur;
-        return $this;
-    }
+ 
 
     public function getEvenement(): ?Evenement 
     {
@@ -105,6 +102,16 @@ private ?int $nombreDePlacesReservees = null; // Changez ici
 public function setNombreDePlacesReservees(?int $nombreDePlacesReservees): self
 {
     $this->nombreDePlacesReservees = $nombreDePlacesReservees;
+    return $this;
+}
+public function getUser(): ?User
+{
+    return $this->user;
+}
+
+public function setUser(?User $user): self
+{
+    $this->user = $user;
     return $this;
 }
 }

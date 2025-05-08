@@ -16,7 +16,8 @@ class SalleType extends AbstractType
             ->add('specialite')
             ->add('capacite')
             ->add('description')
-            ->add('nom');
+            ->add('nom')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

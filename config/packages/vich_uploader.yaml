@@ -1,0 +1,10 @@
+# config/packages/vich_uploader.yaml
+vich_uploader:
+    db_driver: orm
+    mappings:
+        gym_images:
+            uri_prefix: /uploads/gyms
+            upload_destination: '%kernel.project_dir%/public/uploads/gyms'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            delete_on_remove: true
+            delete_on_update: true

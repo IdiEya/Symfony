@@ -1,17 +1,17 @@
 <!doctype html>
 <html class="no-js" lang="en">
 
-<head>
-    <!-- meta data -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Les 3 meta tags doivent être placés en premier dans le head -->
-    {% block css %}
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Les 3 meta tags doivent être placés en premier dans le head -->
+{% block css %}
     <!-- Font-family -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
-        
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- Title of site -->
     <title>{% block title %} CarVilla {% endblock %}</title>
 
@@ -30,16 +30,145 @@
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/bootsnav.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/assets/css/responsive.css') }}">
+<style>
+    .custom-select-navbar {
+    background: transparent;
+    border: none;
+    color: #000;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    appearance: none;
+    outline: none;
+    box-shadow: none;
+}
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-    
-    <!-- Styles supplémentaires -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
+.custom-select-navbar:focus {
+    outline: none;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.custom-select-navbar option {
+    color: #000;
+}
+ /* Supprimer la marge gauche de l'image */
+  .btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+  
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
+    /* Ajoutez ce style pour la carte */
+        #event-map {
+            height: 400px; 
+            width: 100%; 
+            border-radius: 10px;
+            margin-top: 20px;
+            z-index: 0; /* Important pour que la carte s'affiche correctement */
+        }
+        .map-container {
+            position: relative;
+        }
+        .map-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
         /* Styles globaux */
         body {
             font-family: 'Roboto', sans-serif;
@@ -121,7 +250,44 @@
             margin-bottom: 30px;
             align-items: flex-start;
         }
+/* Styles pour la carte */
+    .map-container {
+        position: relative;
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 20px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    #event-map {
+    width: 100%;
+    height: 400px;
+}
 
+    
+    .map-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255,255,255,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+    }
+    
+    /* Correction pour l'affichage des tuiles */
+    .leaflet-container {
+        background: #f8f9fa !important;
+    }
+    
+    /* Ajustement responsive */
+    @media (max-width: 768px) {
+        
+    }
         .event-image-container {
             flex: 1;
             min-width: 300px;
@@ -252,67 +418,77 @@
             }
         }
     </style>
-    {% endblock %}
-
-    <!-- HTML5 shim and Respond.js for IE8 support (facultatif) -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-	
-<body>
-    <!--[if lte IE 9]>
-        <p class="browserupgrade">Vous utilisez un navigateur <strong>obsolète</strong>. Merci de <a href="https://browsehappy.com/">mettre à jour votre navigateur</a> pour améliorer votre expérience et votre sécurité.</p>
-    <![endif]-->
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    {% block body %}
-    <!-- Welcome Hero -->
-    <section id="home" class="welcome-hero">
-        <div class="top-area" style="background-color: #e1bee7 ;">
-            <div class="header-area" style="background-color: #e1bee7 ;">
-                <!-- Navbar Bootstrap 5 -->
-                <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" style="background-color: #e1bee7 ;">
-                    <div class="container" style="display: flex; align-items: center;">
-                        <!-- Logo à gauche -->
-                        <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:150px; height:auto;">
-                        
-                        <!-- Bouton de toggler pour mobile -->
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" 
-                            aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+{% endblock %}
 
-                        <!-- Menu à droite du logo -->
-                        <div class="collapse navbar-collapse" id="navbar-menu">
-                            <ul class="navbar-nav ms-auto" style="display: flex; gap: 20px;">
-                                <li class="nav-item">
+        <!-- HTML5 shim and Respond.js for IE8 support (facultatif) -->
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+	
+	<body>
+		<!--[if lte IE 9]>
+            <p class="browserupgrade">Vous utilisez un navigateur <strong>obsolète</strong>. Merci de <a href="https://browsehappy.com/">mettre à jour votre navigateur</a> pour améliorer votre expérience et votre sécurité.</p>
+        <![endif]-->
+	
+		<!-- Welcome Hero -->
+		  <section id="home" class="welcome-hero">
+    {% block body %}
+    <div class="top-area" style=" background-color: #e1bee7 ;">
+        <div class="header-area" style=" background-color: #e1bee7 ;">
+            <!-- Navbar Bootstrap 5 -->
+           <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" 
+     style="background-color: #e1bee7 ;">
+                <div class="container" style="display: flex; align-items: center;">
+                    <!-- Logo à gauche -->
+                  <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:150px; length:200px;">
+                    
+                    <!-- Bouton de toggler pour mobile -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" 
+                        aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Menu à droite du logo -->
+                    <div class="collapse navbar-collapse" id="navbar-menu">
+                        <ul class="navbar-nav ms-auto" style="display: flex; gap: 20px;">
+     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_produituser_index') }}">Produits</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_commandeuser_index') }}">Panier</a>
     </li>
-     <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link" href="{{ path('app_client_events') }}"> Evenement</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_mes_participations') }}">Participations</a>
     </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_mes_participations') }}">BRANDS</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_mes_participations') }}">CONTACT</a>
-                                </li>
-                            </ul>
-                        </div>
+  
+       <li class="nav-item">
+    <a class="nav-link" href="{{ path('planning_index') }}"> Cours</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_coach1_index') }}"> Coachs</a></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_gym_grille') }}">Salles des sports</a>
+    </li>
+     
                     </div>
-                </nav>
-            </div>
-            <div class="clearfix"></div>
+                </div>
+            </nav>
         </div>
+        <div class="clearfix"></div>
+    </div>
 
-      <div style="length:3000px;" >
+			<!-- Fin top-area -->
+
+	<div style="length:3000px;" >
   <div  style="background-image: url('{{ asset('img/GYM4.jpeg') }}'); width:1500px;   height:600px; background-size: cover; background-position: center; padding: 100px; color: white;">
    <h2 style="font-size: 3em; margin: 0 auto 30px; max-width: 800px; text-align: center; color: black;">
     GymTown t’accompagne à chaque étape de ton parcours sportif !
@@ -322,7 +498,12 @@
 </p>
   </div>
 </div>
-    </section>
+
+
+
+		</section>
+<!-- [ Header ] end -->
+
     <!-- Fin Welcome Hero -->
 
     <!-- Contenu principal -->
@@ -435,7 +616,7 @@
                                                 {% set userAlreadyRegistered = false %}
                                                 {% if app.user %}
                                                     {% for participation in evenement.participations %}
-                                                        {% if participation.utilisateur.id == app.user.id %}
+                                                        {% if participation.user.id == app.user.id %}
                                                             {% set userAlreadyRegistered = true %}
                                                         {% endif %}
                                                     {% endfor %}
@@ -463,7 +644,54 @@
             </div>
         </div>
     </div>
+<div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Localisation</h4>
+                <div class="map-container">
+                    <div id="event-map" style="width: 100%; height: 400px;"></div>
 
+                    <div class="map-loading" id="map-loading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Chargement de la carte...</span>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-muted">Adresse: {{ evenement.localisation }}</small>
+            </div>
+        </div>
+    </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const address = "{{ evenement.localisation|escape('js') }}";
+    const map = L.map('map').setView([34, 9], 6); // Vue par défaut centrée sur la Tunisie
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Géocodage de l'adresse
+    if (address) {
+        fetch(https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&countrycodes=tn)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lon = parseFloat(data[0].lon);
+                    
+                    map.setView([lat, lon], 15);
+                    
+                    L.marker([lat, lon])
+                        .addTo(map)
+                        .bindPopup(<b>{{ evenement.nom|escape('js') }}</b><br>${address});
+                }
+            })
+            .catch(error => {
+                console.error('Erreur de géocodage:', error);
+            });
+    }
+});
+</script>
     <!-- Footer / Contact -->
    	<footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
 
@@ -569,138 +797,97 @@
     {% endblock %}
 
     {% block js %}
-    <!-- Bootstrap 5 Bundle (incluant Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap 5 Bundle (incluant Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialisation de la carte
+    initMap();
+});
+
+function initMap() {
+    const address = "{{ evenement.localisation|escape('js') }}";
+    const loadingElement = document.getElementById('map-loading');
+    const mapElement = document.getElementById('event-map');
     
-    <script>
-        // Gestion du menu fixe
-        let lastScroll = 0;
-        const navbar = document.querySelector('.navbar');
-        const navbarHeight = navbar.offsetHeight;
+    if (!mapElement) {
+        console.error("L'élément #event-map n'existe pas");
+        if (loadingElement) loadingElement.style.display = 'none';
+        return;
+    }
 
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > lastScroll && currentScroll > navbarHeight) {
-                // Scroll vers le bas - cacher
-                navbar.classList.add('navbar-hidden');
-            } else {
-                // Scroll vers le haut - afficher
-                navbar.classList.remove('navbar-hidden');
-                navbar.classList.add('navbar-visible');
+    // Initialiser la carte avec vue par défaut sur l'Europe
+    const map = L.map(mapElement).setView([46.2276, 2.2137], 5); // Centré sur la France
+    
+    // Ajouter les tuiles OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+        minZoom: 2
+    }).addTo(map);
+
+    if (address) {
+        if (loadingElement) loadingElement.style.display = 'flex';
+        
+        // Géocodage avec Nominatim (sans restriction de pays)
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`, {
+            headers: {
+                'User-Agent': 'GymTownApp/1.0 (contact@example.com)' // Obligatoire
             }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Ajustement initial pour le contenu
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.style.paddingTop = navbarHeight + 'px';
-        });
-
-        // Script pour la recherche
-        document.getElementById('search')?.addEventListener('input', function() {
-            const query = this.value.trim();
-            const container = document.getElementById('events-container');
-            
-            if (query.length < 2) {
-                if (query.length === 0) {
-                    location.reload();
-                }
-                return;
-            }
-
-            fetch({{ path('app_client_events') }}?query=${encodeURIComponent(query)})
-            .then(response => {
-                if (!response.ok) throw new Error(Erreur ${response.status});
-                return response.json();
-            })
-            .then(data => {
-                container.innerHTML = '';
+        })
+        .then(response => {
+            if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
                 
-                if (data.length === 0) {
-                    container.innerHTML = `
-                        <div class="no-events">
-                            <i class="far fa-calendar-alt fa-3x mb-3"></i>
-                            <h3>Aucun résultat</h3>
-                            <p>Essayez un autre terme de recherche</p>
-                        </div>`;
-                    return;
-                }
-
-                data.forEach(event => {
-                    const dateDebut = new Date(event.dateDebut);
-                    const dateFin = new Date(event.dateFin);
-                    const placesDispo = event.nombreDePlaces !== null 
-                        ? ${event.nombreDePlaces - event.placesReservees}/${event.nombreDePlaces}
-                        : 'Places illimitées';
-                    
-                    const statusClass = event.statut === 'COMPLET' ? 'status-complet' : 
-                                      event.statut === 'TERMINE' ? 'status-termine' : 'status-avenir';
-                    
-                    // Construction des URLs directement avec les IDs
-                    const participateUrl = /participation/new/${event.id};
-                    const detailsUrl = /evenement/${event.id};
-                    
-                    container.innerHTML += `
-                        <div class="event-card" data-id="${event.id}">
-                            <div class="event-status ${statusClass}">
-                                ${event.statut}
-                            </div>
-                            
-                            <div class="event-img-container">
-                                <img src="${event.photo ? '{{ asset('uploads/images/') }}' + event.photo : '{{ asset('images/event-default.jpg') }}'}" 
-                                     alt="${event.nom}" 
-                                     class="event-img"
-                                     loading="lazy">
-                            </div>
-                            
-                            <div class="event-details">
-                                <h2 class="event-title">${event.nom}</h2>
-                                
-                                <div class="event-date">
-                                    <i class="far fa-calendar-alt fa-icon"></i>
-                                    Du ${dateDebut.toLocaleDateString('fr-FR')} au ${dateFin.toLocaleDateString('fr-FR')}
-                                </div>
-                                
-                                <div class="event-location">
-                                    <i class="fas fa-map-marker-alt fa-icon"></i>
-                                    ${event.localisation}
-                                </div>
-                                
-                                <div class="event-places">
-                                    <i class="fas fa-users fa-icon"></i>
-                                    Places: ${placesDispo}
-                                </div>
-                                
-                                <div class="event-actions">
-                                    <a href="${participateUrl}" 
-                                       class="btn ${event.statut !== 'A_VENIR' ? 'btn-disabled' : 'btn-participate'}">
-                                        <i class="fas fa-user-plus"></i> 
-                                        ${event.statut === 'COMPLET' ? 'Complet' : 
-                                         event.statut === 'TERMINE' ? 'Terminé' : 'Participer'}
-                                    </a>
-                                    
-                                    <a href="${detailsUrl}" 
-                                       class="btn btn-details">
-                                        <i class="fas fa-eye"></i> Détails
-                                    </a>
-                                </div>
-                            </div>
-                        </div>`;
-                });
-            })
-            .catch(error => {
-                console.error('Search error:', error);
-                container.innerHTML = `
-                    <div class="no-events">
-                        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
-                        <h3>Erreur de recherche</h3>
-                        <p>Veuillez réessayer</p>
-                    </div>`;
-            });
+                map.setView([lat, lon], 15);
+                
+                L.marker([lat, lon])
+                    .addTo(map)
+                    .bindPopup(`<b>{{ evenement.nom|escape('js') }}</b><br>${address}`)
+                    .openPopup();
+            } else {
+                // Si l'adresse n'est pas trouvée, afficher un message
+                map.setView([46.2276, 2.2137], 6); // Recentrer sur la France
+                L.marker([46.2276, 2.2137])
+                    .addTo(map)
+                    .bindPopup(`Adresse non trouvée: ${address}`)
+                    .openPopup();
+            }
+        })
+        .catch(error => {
+            console.error('Erreur de géocodage:', error);
+            map.setView([46.2276, 2.2137], 6);
+            L.marker([46.2276, 2.2137])
+                .addTo(map)
+                .bindPopup(`Erreur: ${error.message || 'Impossible de charger la carte'}`)
+                .openPopup();
+        })
+        .finally(() => {
+            if (loadingElement) loadingElement.style.display = 'none';
+            setTimeout(() => map.invalidateSize(), 100);
         });
-    </script>
-    {% endblock %}
+    } else {
+        if (loadingElement) loadingElement.style.display = 'none';
+        L.marker([46.2276, 2.2137])
+            .addTo(map)
+            .bindPopup('Aucune adresse fournie')
+            .openPopup();
+    }
+    
+    window.addEventListener('resize', () => map.invalidateSize());
+}
+</script>
+{% endblock %}
+
+  
 </body>
 </html>

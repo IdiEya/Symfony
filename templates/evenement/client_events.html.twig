@@ -52,7 +52,7 @@
 		<!-- Welcome Hero -->
 		  <section id="home" class="welcome-hero">
     {% block body %}
-    <div class="top-area" style=" background-color:#e1bee7 ;">
+    <div class="top-area" style=" background-color: #e1bee7 ;">
         <div class="header-area" style=" background-color: #e1bee7 ;">
             <!-- Navbar Bootstrap 5 -->
            <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" 
@@ -70,9 +70,8 @@
                     <!-- Menu à droite du logo -->
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="navbar-nav ms-auto" style="display: flex; gap: 20px;">
-                           
-       <li class="nav-item">
-        <a class="nav-link " href="{{ path('app_produituser_index') }}">Produits</a>
+     <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_produituser_index') }}">Produits</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_commandeuser_index') }}">Panier</a>
@@ -83,12 +82,16 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_mes_participations') }}">Participations</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_client_events') }}">BRANDS</a>
+  
+       <li class="nav-item">
+    <a class="nav-link" href="{{ path('planning_index') }}"> Cours</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_client_events') }}">CONTACT</a>
+        <a class="nav-link" href="{{ path('app_coach1_index') }}"> Coachs</a></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_gym_grille') }}">Salles des sports</a>
     </li>
+     
                     </div>
                 </div>
             </nav>
@@ -109,12 +112,143 @@
   </div>
 </div>
 
+
+
 		</section>
+
+
+        
 		<!-- Fin Welcome Hero -->
 {% block stylesheets %}
   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+    .custom-select-navbar {
+    background: transparent;
+    border: none;
+    color: #000;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    appearance: none;
+    outline: none;
+    box-shadow: none;
+}
+.btn-like.active {
+    background-color: #4CAF50 !important;
+    color: white !important;
+}
+
+.btn-dislike.active {
+    background-color: #f44336 !important;
+    color: white !important;
+}
+.custom-select-navbar:focus {
+    outline: none;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.custom-select-navbar option {
+    color: #000;
+}
+ /* Supprimer la marge gauche de l'image */
+  .btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+   /* Ajustement du contenu sous la navbar fixe */
+   .container.py-5 {
+       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+   }
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
         body {
             background-color: #f9f7ff;
             color: #333;
@@ -225,7 +359,46 @@
             font-size: 0.75rem;
             margin-bottom: 5px;
         }
+        .social-share {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
 
+.btn-facebook, .btn-instagram {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white !important;
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s;
+}
+
+.btn-facebook:hover, .btn-instagram:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+.btn-facebook {
+    background-color: #3b5998 !important;
+}
+
+.btn-instagram {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d) !important;
+}
+.event-description {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
         .event-actions {
             display: flex;
             gap: 8px;
@@ -306,75 +479,166 @@
             border-color: #3B2E65;
             box-shadow: 0 0 5px rgba(61, 79, 141, 0.5);
         }
+        .event-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 10px;
+}
+
+.event-main-info {
+    margin-bottom: 10px;
+}
+
+.event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.event-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.event-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.event-votes {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-vote {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-like {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.btn-like:hover {
+    background-color: #c8e6c9;
+}
+
+.btn-dislike {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.btn-dislike:hover {
+    background-color: #ffcdd2;
+}
+
+@media (max-width: 768px) {
+    .event-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .action-buttons {
+        width: 100%;
+    }
+    
+    .btn {
+        flex: 1;
+    }
+    
+    .event-votes {
+        width: 100%;
+        justify-content: center;
+    }
+}
     </style>
 {% endblock %}
 
 
     <div class="container py-4">
-        <h1 class="page-title">Nos Événements</h1>
+    <h1 class="page-title">Nos Événements</h1>
 
-        <input type="text" id="search" placeholder="Rechercher un événement..." class="form-control mb-4">
+    <input type="text" id="search" placeholder="Rechercher un événement..." class="form-control mb-4">
 
-        <div class="events-scroll-container" id="events-container">
-            {% if evenements is not empty %}
-                {% for evenement in evenements %}
-                    <div class="event-card" data-id="{{ evenement.id }}">
-                        <div class="event-status 
-                            {% if evenement.statut == 'COMPLET' %}status-complet
-                            {% elseif evenement.statut == 'TERMINE' %}status-termine
-                            {% else %}status-avenir{% endif %}">
-                            {{ evenement.statut }}
-                        </div>
-                        
-                        <div class="event-img-container">
-                            {% if evenement.photo %}
-                                <img src="{{ asset('uploads/images/' ~ evenement.photo) }}" 
-                                     alt="{{ evenement.nom }}" 
-                                     class="event-img"
-                                     loading="lazy">
-                            {% else %}
-                                <img src="{{ asset('images/event-default.jpg') }}" 
-                                     alt="Événement par défaut" 
-                                     class="event-img"
-                                     loading="lazy">
-                            {% endif %}
-                        </div>
-                        
-                        <div class="event-details">
+    <div class="events-scroll-container" id="events-container">
+        {% if evenements is not empty %}
+            {% for evenement in evenements %}
+                <div class="event-card" data-id="{{ evenement.id }}">
+                    <div class="event-status 
+                        {% if evenement.statut == 'COMPLET' %}status-complet
+                        {% elseif evenement.statut == 'TERMINE' %}status-termine
+                        {% else %}status-avenir{% endif %}">
+                        {{ evenement.statut }}
+                    </div>
+                    
+                    <div class="event-img-container">
+                        {% if evenement.photo %}
+                            <img src="{{ asset('uploads/images/' ~ evenement.photo) }}" 
+                                 alt="{{ evenement.nom }}" 
+                                 class="event-img"
+                                 loading="lazy">
+                        {% else %}
+                            <img src="{{ asset('images/event-default.jpg') }}" 
+                                 alt="Événement par défaut" 
+                                 class="event-img"
+                                 loading="lazy">
+                        {% endif %}
+                    </div>
+                    
+                    <div class="event-content">
+                        <div class="event-main-info">
                             <h2 class="event-title">{{ evenement.nom }}</h2>
-                            
-                            <div class="event-date">
-                                <i class="far fa-calendar-alt fa-icon"></i>
-                                Du {{ evenement.dateDebut|date('d/m/Y') }} au {{ evenement.dateFin|date('d/m/Y') }}
+                            <div class="event-meta">
+                                <span class="event-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    {{ evenement.dateDebut|date('d/m/Y') }} - {{ evenement.dateFin|date('d/m/Y') }}
+                                </span>
+                                <span class="event-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {{ evenement.localisation }}
+                                </span>
+                                <span class="event-places">
+                                    <i class="fas fa-users"></i>
+                                    {% if evenement.nombreDePlaces is not null %}
+                                        {{ evenement.nombreDePlaces - evenement.placesReservees }}/{{ evenement.nombreDePlaces }}
+                                    {% else %}
+                                        Places illimitées
+                                    {% endif %}
+                                </span>
                             </div>
-                            
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt fa-icon"></i>
-                                {{ evenement.localisation }}
-                            </div>
-                            
-                            {% if evenement.nombreDePlaces is not null %}
-                                <div class="event-places">
-                                    <i class="fas fa-users fa-icon"></i>
-                                    Places: {{ evenement.nombreDePlaces - evenement.placesReservees }}/{{ evenement.nombreDePlaces }}
-                                </div>
-                            {% else %}
-                                <div class="event-places">
-                                    <i class="fas fa-users fa-icon"></i>
-                                    Places illimitées
-                                </div>
+                        </div>
+                        
+                        <div class="event-actions">
+                            {% set userAlreadyRegistered = false %}
+                            {% if app.user %}
+                                {% for participation in evenement.participations %}
+                                    {% if participation.user.id == app.user.id %}
+                                        {% set userAlreadyRegistered = true %}
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                             
-                            <div class="event-actions">
-                                {% set userAlreadyRegistered = false %}
-                                {% if app.user %}
-                                    {% for participation in evenement.participations %}
-                                        {% if participation.utilisateur.id == app.user.id %}
-                                            {% set userAlreadyRegistered = true %}
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                                
+                            <div class="action-buttons">
                                 {% if userAlreadyRegistered %}
                                     <a href="#" class="btn btn-disabled">
                                         <i class="fas fa-check"></i> Inscrit
@@ -399,125 +663,256 @@
                                     <i class="fas fa-eye"></i> Détails
                                 </a>
                             </div>
-                        </div>
+                            
+                            <div class="event-votes">
+                               <form action="{{ path('app_evenement_like', {'id': evenement.id}) }}" method="post" class="d-inline">
+    <input type="hidden" name="_token" value="{{ csrf_token('like') }}">
+    <button type="submit" class="btn-vote btn-like">
+        <i class="far fa-thumbs-up"></i> {{ evenement.likes }}
+    </button>
+</form>
+
+<form action="{{ path('app_evenement_dislike', {'id': evenement.id}) }}" method="post" class="d-inline">
+    <input type="hidden" name="_token" value="{{ csrf_token('dislike') }}">
+    <button type="submit" class="btn-vote btn-dislike">
+        <i class="far fa-thumbs-down"></i> {{ evenement.dislikes }}
+    </button>
+</form>
+                            </div>
+                        <div class="social-share">
+    <!-- Bouton Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.scheme ~ '://' ~ app.request.host ~ path('app_evenement_show', {'id': evenement.id}) }}" 
+   target="_blank" 
+   class="btn btn-sm btn-facebook"
+   style="background-color: #3b5998; color: white; margin-right: 5px;">
+    <i class="fab fa-facebook-f"></i>
+</a>
+    
+</div>
                     </div>
-                {% endfor %}
-            {% else %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+    <div class="no-events">
+        <i class="far fa-calendar-alt fa-3x mb-3"></i>
+        <h3>Aucun événement disponible</h3>
+        <p>Revenez plus tard pour découvrir nos prochains événements</p>
+    </div>
+{% endif %}  {# This closing tag was missing #}
+ </div>
+    </div>
+   <script>
+
+      document.querySelectorAll('.btn-vote').forEach(button => {
+    button.addEventListener('click', async function(e) {
+        e.preventDefault();
+        const form = this.closest('form');
+        const url = form.action;
+        const formData = new FormData(form);
+        
+        // Désactiver le bouton pendant l'appel
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // Indique que c'est une requête AJAX
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Erreur réseau');
+            }
+
+            const data = await response.json();
+            
+            // Mettre à jour les compteurs
+            const voteContainer = form.closest('.event-votes');
+            const likeBtn = voteContainer.querySelector('.btn-like');
+            const dislikeBtn = voteContainer.querySelector('.btn-dislike');
+            
+            if (form.action.includes('like')) {
+                likeBtn.innerHTML = `<i class="far fa-thumbs-up"></i> ${data.likes}`;
+                dislikeBtn.innerHTML = `<i class="far fa-thumbs-down"></i> ${data.dislikes}`;
+            } else {
+                dislikeBtn.innerHTML = `<i class="far fa-thumbs-down"></i> ${data.dislikes}`;
+                likeBtn.innerHTML = `<i class="far fa-thumbs-up"></i> ${data.likes}`;
+            }
+            
+            // Mettre à jour les styles si nécessaire
+            if (data.userVote === 1) {
+                likeBtn.classList.add('active');
+                dislikeBtn.classList.remove('active');
+            } else if (data.userVote === -1) {
+                dislikeBtn.classList.add('active');
+                likeBtn.classList.remove('active');
+            } else {
+                likeBtn.classList.remove('active');
+                dislikeBtn.classList.remove('active');
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Une erreur est survenue lors du vote');
+        } finally {
+            button.disabled = false;
+            // Restaurer l'icône originale
+            if (form.action.includes('like')) {
+                button.innerHTML = `<i class="far fa-thumbs-up"></i> ${button.textContent.match(/\d+/)[0]}`;
+            } else {
+                button.innerHTML = `<i class="far fa-thumbs-down"></i> ${button.textContent.match(/\d+/)[0]}`;
+            }
+        }
+    });
+});
+   // Define the search URL using Twig's path function
+   const searchUrl = "{{ path('app_client_events_search') }}";
+const assetUploads = "{{ asset('uploads/images/') }}";
+const assetDefault = "{{ asset('images/event-default.jpg') }}";
+        const searchEventsUrl = "{{ path('app_client_events_search') }}";
+        const assetUploadsDir = "{{ asset('uploads/images/') }}";
+        const assetDefaultEvent = "{{ asset('images/event-default.jpg') }}";
+        const csrfTokenLike = "{{ csrf_token('like') }}"; // Pass a generic token for like
+        const csrfTokenDislike = "{{ csrf_token('dislike') }}"; // Pass a generic token for dislike
+   document.getElementById('search').addEventListener('input', function() {
+    const query = this.value.trim();
+    const container = document.getElementById('events-container');
+    
+    // Si la recherche est vide, recharger la page
+    if (query.length === 0) {
+        window.location.href = "{{ path('app_client_events') }}";
+        return;
+    }
+    
+    // Si moins de 2 caractères, ne rien faire
+    if (query.length < 2) {
+        return;
+    }
+
+    // Afficher un indicateur de chargement
+    container.innerHTML = '<div class="text-center py-4">Recherche en cours...</div>';
+
+    fetch(`${searchUrl}?query=${encodeURIComponent(query)}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        container.innerHTML = '';
+        
+        if (!data.events || data.events.length === 0) {
+            container.innerHTML = `
                 <div class="no-events">
                     <i class="far fa-calendar-alt fa-3x mb-3"></i>
-                    <h3>Aucun événement à venir pour le moment</h3>
-                    <p>Revenez plus tard pour découvrir nos prochains événements</p>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-
-   <script>
-    document.getElementById('search').addEventListener('input', function() {
-        const query = this.value.trim();
-        const container = document.getElementById('events-container');
-        
-        if (query.length < 2) {
-            if (query.length === 0) {
-                location.reload();
-            }
+                    <h3>Aucun résultat</h3>
+                    <p>Essayez un autre terme de recherche</p>
+                </div>`;
             return;
         }
 
-        fetch(`{{ path('app_client_events') }}?query=${encodeURIComponent(query)}`)
-        .then(response => {
-            if (!response.ok) throw new Error(`Erreur ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            container.innerHTML = '';
+        // Générer le HTML pour chaque événement
+        data.events.forEach(event => {
+            const dateDebut = new Date(event.dateDebut);
+            const dateFin = new Date(event.dateFin);
+            const placesDispo = event.nombreDePlaces !== null 
+                ? `${event.nombreDePlaces - event.placesReservees}/${event.nombreDePlaces}`
+                : 'Places illimitées';
             
-            if (data.length === 0) {
-                container.innerHTML = `
-                    <div class="no-events">
-                        <i class="far fa-calendar-alt fa-3x mb-3"></i>
-                        <h3>Aucun résultat</h3>
-                        <p>Essayez un autre terme de recherche</p>
-                    </div>`;
-                return;
-            }
+            const statusClass = event.statut === 'COMPLET' ? 'status-complet' : 
+                              event.statut === 'TERMINE' ? 'status-termine' : 'status-avenir';
 
-            data.forEach(event => {
-                const dateDebut = new Date(event.dateDebut);
-                const dateFin = new Date(event.dateFin);
-                const placesDispo = event.nombreDePlaces !== null 
-                    ? `${event.nombreDePlaces - event.placesReservees}/${event.nombreDePlaces}`
-                    : 'Places illimitées';
-                
-                const statusClass = event.statut === 'COMPLET' ? 'status-complet' : 
-                                  event.statut === 'TERMINE' ? 'status-termine' : 'status-avenir';
-                
-                // Construction des URLs directement avec les IDs
-                const participateUrl = `/participation/new/${event.id}`;
-                const detailsUrl = `/evenement/${event.id}`;
-                
-                container.innerHTML += `
-                    <div class="event-card" data-id="${event.id}">
-                        <div class="event-status ${statusClass}">
-                            ${event.statut}
-                        </div>
-                        
-                        <div class="event-img-container">
-                            <img src="${event.photo ? '{{ asset('uploads/images/') }}' + event.photo : '{{ asset('images/event-default.jpg') }}'}" 
-                                 alt="${event.nom}" 
-                                 class="event-img"
-                                 loading="lazy">
-                        </div>
-                        
-                        <div class="event-details">
+            container.innerHTML += `
+                <div class="event-card" data-id="${event.id}">
+                    <div class="event-status ${statusClass}">
+                        ${event.statut}
+                    </div>
+                    
+                    <div class="event-img-container">
+                        <img src="${event.photo ? assetUploads + event.photo : assetDefault}" 
+                             alt="${event.nom}" 
+                             class="event-img"
+                             loading="lazy">
+                    </div>
+                    
+                    <div class="event-content">
+                        <div class="event-main-info">
                             <h2 class="event-title">${event.nom}</h2>
-                            
-                            <div class="event-date">
-                                <i class="far fa-calendar-alt fa-icon"></i>
-                                Du ${dateDebut.toLocaleDateString('fr-FR')} au ${dateFin.toLocaleDateString('fr-FR')}
+                            <p class="event-description">
+                                ${event.description.length > 100 ? 
+                                 event.description.substring(0, 100) + '...' : 
+                                 event.description}
+                            </p>
+                            <div class="event-meta">
+                                <span class="event-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    ${dateDebut.toLocaleDateString('fr-FR')} - ${dateFin.toLocaleDateString('fr-FR')}
+                                </span>
+                                <span class="event-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    ${event.localisation}
+                                </span>
+                                <span class="event-places">
+                                    <i class="fas fa-users"></i>
+                                    ${placesDispo}
+                                </span>
                             </div>
-                            
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt fa-icon"></i>
-                                ${event.localisation}
-                            </div>
-                            
-                            <div class="event-places">
-                                <i class="fas fa-users fa-icon"></i>
-                                Places: ${placesDispo}
-                            </div>
-                            
-                            <div class="event-actions">
-                                <a href="${participateUrl}" 
+                        </div>
+                        
+                        <div class="event-actions">
+                            <div class="action-buttons">
+                                <a href="/participation/new/${event.id}" 
                                    class="btn ${event.statut !== 'A_VENIR' ? 'btn-disabled' : 'btn-participate'}">
                                     <i class="fas fa-user-plus"></i> 
                                     ${event.statut === 'COMPLET' ? 'Complet' : 
                                      event.statut === 'TERMINE' ? 'Terminé' : 'Participer'}
                                 </a>
                                 
-                                <a href="${detailsUrl}" 
+                                <a href="/evenement/${event.id}" 
                                    class="btn btn-details">
                                     <i class="fas fa-eye"></i> Détails
                                 </a>
                             </div>
-                        </div>
-                    </div>`;
-            });
-        })
-        .catch(error => {
-            console.error('Search error:', error);
-            container.innerHTML = `
-                <div class="no-events">
-                    <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
-                    <h3>Erreur de recherche</h3>
-                    <p>Veuillez réessayer</p>
+                            
+                                                        <div class="event-votes">
+                                <form action="/evenement/${event.id}/like" method="post" class="d-inline vote-form like-form">
+                                    <input type="hidden" name="_token" value="${csrfTokenLike}">
+                                    <button type="submit" class="btn-vote btn-like">
+                                        <i class="far fa-thumbs-up"></i> <span class="like-count">${event.likes || 0}</span>
+                                    </button>
+                                </form>
+
+                                <form action="/evenement/${event.id}/dislike" method="post" class="d-inline vote-form dislike-form">
+                                    <input type="hidden" name="_token" value="${csrfTokenDislike}">
+                                    <button type="submit" class="btn-vote btn-dislike">
+                                        <i class="far fa-thumbs-down"></i> <span class="dislike-count">${event.dislikes || 0}</span>
+                                    </button>
+                                </form>
+                            </div>
                 </div>`;
         });
+    })
+    .catch(error => {
+        console.error('Erreur de recherche:', error);
+        container.innerHTML = `
+            <div class="no-events">
+                <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                <h3>Erreur de recherche</h3>
+                <p>${error.message}</p>
+            </div>`;
     });
+});
+    
+    
     </script>
-<!-- Footer / Contact -->
-		
-			<footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
+
+    <!-- Footer / Contact -->
+   	<footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
 
     <div class="container"  style="color: black;">
 
@@ -617,230 +1012,206 @@
         </div>
     </div>
 </footer>
-		<!-- Fin Footer / Contact -->
-{% endblock %}
+    <!-- Fin Footer / Contact -->
+    {% endblock %}
 
-<style>
- /* Supprimer la marge gauche de l'image */
-  
-
-   /* Menu fixe avec apparition au scroll */
-   .navbar {
-       position: fixed !important;
-       top: 0;
-       width: 100%;
-       z-index: 1000;
-       transition: transform 0.3s ease-in-out;
-	    background-color: rgb(195, 177, 229); 
-   }
-
-   .navbar-hidden {
-       transform: translateY(-100%);
-   }
-
-   .navbar-visible {
-       transform: translateY(0);
-   }
-
-   /* Ajustement du contenu sous la navbar fixe */
-   .container.py-5 {
-       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
-   }
-   /* Ajustement pour la navbar */
-   .navbar-nav.ms-auto {
-        margin-left: auto !important;
-   }
-   .navbar-nav {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center;
-   }
-   .navbar-nav > li {
-        margin: 0 15px;
-        position: relative;
-   }
-   .navbar-nav > li > a {
-        padding: 15px 10px !important;
-        text-transform: capitalize;
-   }
-   @media (max-width: 768px) {
-        .navbar-nav {
-            flex-direction: column !important;
-            padding: 0;
-        }
-        .navbar-nav > li {
-            margin: 3px 0;
-            width: 100%;
-            text-align: center;
-        }
-   }
-</style>
-
-{% block js %}
-<script>
-// Gestion du menu fixe
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
-const navbarHeight = navbar.offsetHeight;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
+    {% block js %}
+    <!-- Bootstrap 5 Bundle (incluant Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    if (currentScroll > lastScroll && currentScroll > navbarHeight) {
-        // Scroll vers le bas - cacher
-        navbar.classList.add('navbar-hidden');
-    } else {
-        // Scroll vers le haut - afficher
-        navbar.classList.remove('navbar-hidden');
-        navbar.classList.add('navbar-visible');
-    }
-    
-    lastScroll = currentScroll;
-});
+    <script>
+        // Gestion du menu fixe
+        let lastScroll = 0;
+        const navbar = document.querySelector('.navbar');
+        const navbarHeight = navbar.offsetHeight;
+ const csrfTokenLike = "{{ csrf_like_token | escape('js') }}";
+    const csrfTokenDislike = "{{ csrf_dislike_token | escape('js') }}";
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > navbarHeight) {
+                // Scroll vers le bas - cacher
+                navbar.classList.add('navbar-hidden');
+            } else {
+                // Scroll vers le haut - afficher
+                navbar.classList.remove('navbar-hidden');
+                navbar.classList.add('navbar-visible');
+            }
+            
+            lastScroll = currentScroll;
+        });
+document.addEventListener('DOMContentLoaded', function() {
+        // Remplacez ces coordonnées par celles de votre événement
+        const lat = 35.6895; // Exemple de latitude
+        const lon = 139.6917; // Exemple de longitude
+        
+        // Initialisez la carte
+        const map = L.map('map').setView([lat, lon], 15);  // Positionnez sur l'événement
 
-// Ajustement initial pour le contenu
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.style.paddingTop = navbarHeight + 'px';
-});
-    document.addEventListener('DOMContentLoaded', () => {
-    const prix = parseFloat(document.getElementById('prix').value);
-    const quantiteInput = document.getElementById('commande_nombre');
-    const totalOutput = document.getElementById('total');
-    
-    quantiteInput.addEventListener('input', () => {
-        const quantite = parseInt(quantiteInput.value);
-        const total = prix * quantite;
-        totalOutput.value = total.toFixed(2) + ' €';
+        // Ajouter une couche de carte
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Ajoutez un marqueur
+        L.marker([lat, lon]).addTo(map)
+            .bindPopup('Localisation de l\'événement')
+            .openPopup();
     });
-});
+        // Ajustement initial pour le contenu
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.paddingTop = navbarHeight + 'px';
+        });
 
-    function orderProduct(button) {
-        const url = button.getAttribute('data-url');
-        fetch(url)
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('orderProductContent').innerHTML = html;
-                const modal = new bootstrap.Modal(document.getElementById('orderProductModal'));
-                modal.show();
-                 initCommandeForm();
+        // Script pour la recherche
+        document.getElementById('search')?.addEventListener('input', function() {
+            const query = this.value.trim();
+            const container = document.getElementById('events-container');
+            
+            if (query.length < 2) {
+                if (query.length === 0) {
+                    location.reload();
+                }
+                return;
+            }
+
+            fetch({{ path('app_client_events') }}?query=${encodeURIComponent(query)})
+            .then(response => {
+                if (!response.ok) throw new Error(Erreur ${response.status});
+                return response.json();
             })
-            .catch(error => console.error('Error loading product:', error));
-    }
+            .then(data => {
+                container.innerHTML = '';
+                
+                if (data.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-events">
+                            <i class="far fa-calendar-alt fa-3x mb-3"></i>
+                            <h3>Aucun résultat</h3>
+                            <p>Essayez un autre terme de recherche</p>
+                        </div>`;
+                    return;
+                }
 
-
-function initCommandeForm() {
-    const prix = parseFloat(document.getElementById('prix')?.value || 0);
-    const quantiteInput = document.getElementById('commande_nombre');
-    const totalOutput = document.getElementById('total');
-
-    const updateTotal = () => {
-        const quantite = parseInt(quantiteInput?.value) || 0;
-        if(totalOutput) totalOutput.value = (prix * quantite).toFixed(2) + ' €';
-    };
-
-    quantiteInput?.addEventListener('input', updateTotal);
-    updateTotal();
-
-    
-}
-
-
-
-    // Gestion dynamique de la suppression
-    document.querySelectorAll('.delete-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const form = deleteModal.querySelector('form');
-            form.action = this.dataset.url;
-            form.querySelector('input[name="_token"]').value = this.dataset.token;
-        });
-    });
-
-    function showProductDetails(button) {
-        const url = button.getAttribute('data-url');
-        fetch(url)
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('showProductContent').innerHTML = html;
-                const modal = new bootstrap.Modal(document.getElementById('showProductModal'));
-                modal.show();
-            })
-            .catch(error => console.error('Error loading product:', error));
-    }
-
-    // Glisser-déposer pour un élément (exemple)
-    let isDraggingTable = false;
-    let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
-
-    const draggableTable = document.getElementById('draggableTable');
-    if (draggableTable) {
-        draggableTable.style.left = initialXTable + 'px';
-        draggableTable.style.top = initialYTable + 'px';
-
-        draggableTable.addEventListener('mousedown', startDraggingTable);
-        document.addEventListener('mousemove', dragTable);
-        document.addEventListener('mouseup', stopDraggingTable);
-
-        // Événements pour le tactile
-        draggableTable.addEventListener('touchstart', (e) => {
-            startDraggingTable(e.touches[0]);
-        });
-        draggableTable.addEventListener('touchmove', (e) => {
-            dragTable(e.touches[0]);
-        });
-        draggableTable.addEventListener('touchend', stopDraggingTable);
-    }
-
-    function startDraggingTable(e) {
-        isDraggingTable = true;
-        startXTable = e.clientX - initialXTable;
-        startYTable = e.clientY - initialYTable;
-        draggableTable.style.transition = 'none';
-        draggableTable.classList.add('dragging');
-    }
-    function dragTable(e) {
-        if (!isDraggingTable) return;
-        const newX = e.clientX - startXTable;
-        const newY = e.clientY - startYTable;
-        const maxX = window.innerWidth - draggableTable.offsetWidth;
-        const maxY = window.innerHeight - draggableTable.offsetHeight;
-        initialXTable = Math.max(0, Math.min(newX, maxX));
-        initialYTable = Math.max(0, Math.min(newY, maxY));
-        draggableTable.style.left = initialXTable + 'px';
-        draggableTable.style.top = initialYTable + 'px';
-    }
-    function stopDraggingTable() {
-        isDraggingTable = false;
-        if (draggableTable) {
-            draggableTable.style.transition = 'transform 0.3s ease';
-            draggableTable.classList.remove('dragging');
-        }
-    }
-    function resetTablePosition() {
-        initialXTable = 300;
-        initialYTable = 180;
-        if (draggableTable) {
-            draggableTable.style.left = initialXTable + 'px';
-            draggableTable.style.top = initialYTable + 'px';
-        }
-    }
-
-    document.querySelectorAll('.show-modal-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const url = btn.getAttribute('data-url');
-            fetch(url)
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById('modalContent').innerHTML = html;
-                    const modal = new bootstrap.Modal(document.getElementById('productModal'));
-                    modal.show();
+                data.forEach(event => {
+                    const dateDebut = new Date(event.dateDebut);
+                    const dateFin = new Date(event.dateFin);
+                    const placesDispo = event.nombreDePlaces !== null 
+                        ? ${event.nombreDePlaces - event.placesReservees}/${event.nombreDePlaces}
+                        : 'Places illimitées';
+                    
+                    const statusClass = event.statut === 'COMPLET' ? 'status-complet' : 
+                                      event.statut === 'TERMINE' ? 'status-termine' : 'status-avenir';
+                    
+                    // Construction des URLs directement avec les IDs
+                    const participateUrl = /participation/new/${event.id};
+                    const detailsUrl = /evenement/${event.id};
+                    
+                    container.innerHTML += `
+                        <div class="event-card" data-id="${event.id}">
+                            <div class="event-status ${statusClass}">
+                                ${event.statut}
+                            </div>
+                            
+                            <div class="event-img-container">
+                                <img src="${event.photo ? '{{ asset('uploads/images/') }}' + event.photo : '{{ asset('images/event-default.jpg') }}'}" 
+                                     alt="${event.nom}" 
+                                     class="event-img"
+                                     loading="lazy">
+                            </div>
+                            
+                            <div class="event-details">
+                                <h2 class="event-title">${event.nom}</h2>
+                                
+                                <div class="event-date">
+                                    <i class="far fa-calendar-alt fa-icon"></i>
+                                    Du ${dateDebut.toLocaleDateString('fr-FR')} au ${dateFin.toLocaleDateString('fr-FR')}
+                                </div>
+                                
+                                <div class="event-location">
+                                    <i class="fas fa-map-marker-alt fa-icon"></i>
+                                    ${event.localisation}
+                                </div>
+                                
+                                <div class="event-places">
+                                    <i class="fas fa-users fa-icon"></i>
+                                    Places: ${placesDispo}
+                                </div>
+                                
+                                <div class="event-actions">
+                                    <a href="${participateUrl}" 
+                                       class="btn ${event.statut !== 'A_VENIR' ? 'btn-disabled' : 'btn-participate'}">
+                                        <i class="fas fa-user-plus"></i> 
+                                        ${event.statut === 'COMPLET' ? 'Complet' : 
+                                         event.statut === 'TERMINE' ? 'Terminé' : 'Participer'}
+                                    </a>
+                                    
+                                    <a href="${detailsUrl}" 
+                                       class="btn btn-details">
+                                        <i class="fas fa-eye"></i> Détails
+                                    </a>
+                                </div>
+                            </div>
+                        </div>`;
                 });
+            })
+            .catch(error => {
+                console.error('Search error:', error);
+                container.innerHTML = `
+                    <div class="no-events">
+                        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+                        <h3>Erreur de recherche</h3>
+                        <p>Veuillez réessayer</p>
+                    </div>`;
+            });
+        });
+         document.querySelectorAll('.like-form, .dislike-form').forEach(form => {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('button');
+            button.disabled = true;
+            
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: new FormData(this)
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                
+                // Mettre à jour les compteurs
+                this.closest('.event-votes').querySelector('.like-count').textContent = data.likes;
+                this.closest('.event-votes').querySelector('.dislike-count').textContent = data.dislikes;
+                
+                // Mettre à jour le style des boutons
+                const likeBtn = this.closest('.event-votes').querySelector('.btn-like');
+                const dislikeBtn = this.closest('.event-votes').querySelector('.btn-dislike');
+                
+                if (this.classList.contains('like-form')) {
+                    likeBtn.classList.toggle('active', data.userVote === 1);
+                    dislikeBtn.classList.remove('active');
+                } else {
+                    dislikeBtn.classList.toggle('active', data.userVote === -1);
+                    likeBtn.classList.remove('active');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Une erreur est survenue');
+            } finally {
+                button.disabled = false;
+            }
         });
     });
-</script>
 
-<!-- Bootstrap 5 Bundle (incluant Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Vous pouvez retirer jQuery si vous n'en avez plus besoin dans vos scripts personnalisés -->
-{% endblock %}
-    </body>
+    </script>
+    {% endblock %}
+</body>
 </html>

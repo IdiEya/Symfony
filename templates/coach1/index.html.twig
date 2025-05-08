@@ -5,21 +5,24 @@
         font-family: Arial, sans-serif;
         background-color: #6A455D;
         color: #fff;
-        padding: 20px;
+        padding: 0px;
     }
 
     h1 {
         font-size: 2rem;
         color: #ffffff;
-        margin-top: 20px;
+        margin-top: 40px;
         text-align: center;
     }
 
     table {
-        width: 100%;
+        width: 95%;
         border-collapse: collapse;
         background-color: #fff;
         color: #000;
+        margin-top:100px;
+        margin-left:50px;
+        
     }
 
     table, th, td {
@@ -80,7 +83,6 @@
     }
 </style>
 
-
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -135,11 +137,11 @@
 		<!-- Welcome Hero -->
 		  <section id="home" class="welcome-hero">
     {% block body %}
-    <div class="top-area" style=" background-color:#e1bee7 ">
-        <div class="header-area" style=" background-color:#e1bee7 ">
+    <div class="top-area" style=" background-color: #e1bee7 ;">
+        <div class="header-area" style=" background-color: #e1bee7 ;">
             <!-- Navbar Bootstrap 5 -->
            <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" 
-     style=" background-color:#e1bee7 ">
+     style="background-color: #e1bee7 ;">
                 <div class="container" style="display: flex; align-items: center;">
                     <!-- Logo à gauche -->
                   <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:150px; length:200px;">
@@ -167,13 +169,14 @@
     </li>
   
        <li class="nav-item">
-    <a class="nav-link" href="{{ path('app_reserver') }}"> Cours</a>
+    <a class="nav-link" href="{{ path('planning_index') }}"> Cours</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_coach1_index') }}"> Coachs</a></li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('planning_index') }}">Planning</a>
+        <a class="nav-link" href="{{ path('app_gym_grille') }}">Salles des sports</a>
     </li>
+     
                     </div>
                 </div>
             </nav>
@@ -183,8 +186,7 @@
 
 			<!-- Fin top-area -->
 
-		
-		<div style="length:3000px; margin-top:80px;" >
+	<div style="length:3000px;" >
   <div  style="background-image: url('{{ asset('img/GYM4.jpeg') }}'); width:1500px;   height:600px; background-size: cover; background-position: center; padding: 100px; color: white;">
    <h2 style="font-size: 3em; margin: 0 auto 30px; max-width: 800px; text-align: center; color: black;">
     GymTown t’accompagne à chaque étape de ton parcours sportif !
@@ -194,64 +196,119 @@
 </p>
   </div>
 </div>
+
+
+
 		</section>
 		<!-- Fin Welcome Hero -->
   <div class="page-container">
     <div class="content-card">
-    <h1>Liste des Coachs</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Spécialité</th>
-                <th>Téléphone</th>
-                <th>Email</th>
-                <th>Photo</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% set found = false %}
-            {% for user in users %}
-                {% if user.role == 'coach' %}
-                    {% set found = true %}
+        <h1>Liste des Coachs</h1>
+    
+        <table id="coachsTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Nom <span id="nom-arrow"></span></th>
+                    <th onclick="sortTable(1)">Prénom <span id="prenom-arrow"></span></th>
+                    <th onclick="sortTable(2)">Spécialité <span id="specialite-arrow"></span></th>
+                    <th onclick="sortTable(3)">Téléphone <span id="telephone-arrow"></span></th>
+                    <th onclick="sortTable(4)">Email <span id="email-arrow"></span></th>
+                    
+                    <th>Photo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set found = false %}
+                {% for user in users %}
+                    {% if user.role == 'coach' %}
+                        {% set found = true %}
+                        <tr>
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.prenom }}</td>
+                            <td>{{ user.specialite }}</td>
+                            <td>{{ user.telephone }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <img src="{{ asset('images/john_doe.jpg') }}" alt="Photo de {{ user.nom }}" class="user-photo">
+                            </td>
+                            <td class="action-icons">
+                                <a href="{{ path('app_coach1_show', {'id': user.id}) }}">
+                                    <i class="fas fa-eye"></i> Voir
+                                </a> |
+                                <a href="{{ path('app_reservation_new', {'id': user.id}) }}" class="btn btn-success">
+                                    <i class="fas fa-calendar-plus"></i> Réserver à domicile 
+                                </a>
+                                <a href="{{ path('app_reserver') }}" class="btn btn-success">
+                                    Réserver le lieu 
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+    
+                {% if not found %}
                     <tr>
-                        <td>{{ user.nom }}</td>
-                        <td>{{ user.prenom }}</td>
-                        <td>{{ user.specialite }}</td>
-                        <td>{{ user.telephone }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                            <img src="{{ asset('images/john_doe.jpg') }}" alt="Photo de {{ user.nom }}" class="user-photo">
-                        </td>
-                        <td class="action-icons">
-                            <a href="{{ path('app_coach1_show', {'id': user.id}) }}">
-                                <i class="fas fa-eye"></i> Voir
-                            </a> |
-                            <a href="{{ path('app_reservation_new', {'id': user.id}) }}" class="btn btn-success">
-                                <i class="fas fa-calendar-plus"></i> Réserver a domicile 
-                            </a>
-                            <a href="{{ path('app_reserver') }}" class="btn btn-success">
-                                Réserver le lieu 
-                            </a>
-                            
-                        </td>
+                        <td colspan="7">Aucun coach trouvé</td>
                     </tr>
                 {% endif %}
-            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <script>
+       let currentSortColumn = null;
+let currentSortDirection = 'asc';
 
-            {% if not found %}
-                <tr>
-                    <td colspan="8">Aucun coach trouvé</td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
-{% endblock %}
+function sortTable(n) {
+    let table = document.getElementById("coachsTable");
+    let rows = Array.from(table.rows).slice(1); // Exclure l'en-tête
+    let dir = currentSortColumn === n && currentSortDirection === 'asc' ? 'desc' : 'asc';
+    let arrow = document.getElementById(getColumnArrowId(n));
 
-<footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
+    // Trier les lignes en fonction de la colonne sélectionnée
+    rows.sort((rowA, rowB) => {
+        let cellA = rowA.cells[n].innerText.trim().toLowerCase();
+        let cellB = rowB.cells[n].innerText.trim().toLowerCase();
+
+        if (dir === 'asc') {
+            return cellA < cellB ? -1 : cellA > cellB ? 1 : 0;
+        } else {
+            return cellA > cellB ? -1 : cellA < cellB ? 1 : 0;
+        }
+    });
+
+    // Réinsérer les lignes triées dans le tableau
+    rows.forEach(row => table.appendChild(row));
+
+    // Mettre à jour l'état du tri
+    currentSortColumn = n;
+    currentSortDirection = dir;
+
+    // Mettre à jour les flèches de tri
+    updateArrows();
+    arrow.innerText = dir === 'asc' ? '↑' : '↓';
+}
+
+
+function getColumnArrowId(columnIndex) {
+    const columnNames = ['nom', 'prenom', 'specialite', 'telephone', 'email'];
+    return columnNames[columnIndex] + '-arrow';
+}
+
+function updateArrows() {
+    const arrows = ['nom', 'prenom', 'specialite', 'telephone', 'email'];
+    arrows.forEach(col => {
+        let arrow = document.getElementById(col + '-arrow');
+        arrow.innerText = '';
+    });
+}
+
+    </script>
+    
+    
+    {% endblock %}
+	<footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
 
     <div class="container"  style="color: black;">
 
@@ -351,63 +408,180 @@
         </div>
     </div>
 </footer>
+		<!-- Fin Footer / Contact -->
 
-<!-- Fin Footer / Contact -->
 
 <style>
-/* Supprimer la marge gauche de l'image */
-
-
-/* Menu fixe avec apparition au scroll */
-.navbar {
-position: fixed !important;
-top: 0;
-width: 100%;
-z-index: 1000;
-transition: transform 0.3s ease-in-out;
-background-color: rgb(195, 177, 229); 
+ /* Supprimer la marge gauche de l'image */
+  
+.custom-select-navbar {
+    background: transparent;
+    border: none;
+    color: #000;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    appearance: none;
+    outline: none;
+    box-shadow: none;
 }
 
-.navbar-hidden {
-transform: translateY(-100%);
+.custom-select-navbar:focus {
+    outline: none;
+    box-shadow: none;
+    font-weight: bold;
 }
 
-.navbar-visible {
-transform: translateY(0);
+.custom-select-navbar option {
+    color: #000;
+}
+ /* Supprimer la marge gauche de l'image */
+  .btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
 }
 
-/* Ajustement du contenu sous la navbar fixe */
-.container.py-5 {
-margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
 }
-/* Ajustement pour la navbar */
-.navbar-nav.ms-auto {
-margin-left: auto !important;
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
 }
-.navbar-nav {
-display: flex !important;
-flex-direction: row !important;
-align-items: center;
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
 }
-.navbar-nav > li {
-margin: 0 15px;
-position: relative;
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
 }
-.navbar-nav > li > a {
-padding: 15px 10px !important;
-text-transform: capitalize;
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
 }
-@media (max-width: 768px) {
-.navbar-nav {
-    flex-direction: column !important;
-    padding: 0;
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
 }
-.navbar-nav > li {
-    margin: 3px 0;
-    width: 100%;
-    text-align: center;
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
 }
-}
+
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+   /* Ajustement du contenu sous la navbar fixe */
+   .container.py-5 {
+       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+   }
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+   /* Ajustement du contenu sous la navbar fixe */
+   .container.py-5 {
+       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+   }
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
 </style>
 
 {% block js %}
@@ -418,165 +592,163 @@ const navbar = document.querySelector('.navbar');
 const navbarHeight = navbar.offsetHeight;
 
 window.addEventListener('scroll', () => {
-const currentScroll = window.pageYOffset;
-
-if (currentScroll > lastScroll && currentScroll > navbarHeight) {
-// Scroll vers le bas - cacher
-navbar.classList.add('navbar-hidden');
-} else {
-// Scroll vers le haut - afficher
-navbar.classList.remove('navbar-hidden');
-navbar.classList.add('navbar-visible');
-}
-
-lastScroll = currentScroll;
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > lastScroll && currentScroll > navbarHeight) {
+        // Scroll vers le bas - cacher
+        navbar.classList.add('navbar-hidden');
+    } else {
+        // Scroll vers le haut - afficher
+        navbar.classList.remove('navbar-hidden');
+        navbar.classList.add('navbar-visible');
+    }
+    
+    lastScroll = currentScroll;
 });
 
 // Ajustement initial pour le contenu
 document.addEventListener('DOMContentLoaded', () => {
-document.body.style.paddingTop = navbarHeight + 'px';
+    document.body.style.paddingTop = navbarHeight + 'px';
 });
-document.addEventListener('DOMContentLoaded', () => {
-const prix = parseFloat(document.getElementById('prix').value);
-const quantiteInput = document.getElementById('commande_nombre');
-const totalOutput = document.getElementById('total');
+    document.addEventListener('DOMContentLoaded', () => {
+    const prix = parseFloat(document.getElementById('prix').value);
+    const quantiteInput = document.getElementById('commande_nombre');
+    const totalOutput = document.getElementById('total');
+    
+    quantiteInput.addEventListener('input', () => {
+        const quantite = parseInt(quantiteInput.value);
+        const total = prix * quantite;
+        totalOutput.value = total.toFixed(2) + ' €';
+    });
+});
 
-quantiteInput.addEventListener('input', () => {
-const quantite = parseInt(quantiteInput.value);
-const total = prix * quantite;
-totalOutput.value = total.toFixed(2) + ' DT';
-});
-});
-
-function orderProduct(button) {
-const url = button.getAttribute('data-url');
-fetch(url)
-    .then(response => response.text())
-    .then(html => {
-        document.getElementById('orderProductContent').innerHTML = html;
-        const modal = new bootstrap.Modal(document.getElementById('orderProductModal'));
-        modal.show();
-         initCommandeForm();
-    })
-    .catch(error => console.error('Error loading product:', error));
-}
+    function orderProduct(button) {
+        const url = button.getAttribute('data-url');
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('orderProductContent').innerHTML = html;
+                const modal = new bootstrap.Modal(document.getElementById('orderProductModal'));
+                modal.show();
+                 initCommandeForm();
+            })
+            .catch(error => console.error('Error loading product:', error));
+    }
 
 
 function initCommandeForm() {
-const prix = parseFloat(document.getElementById('prix')?.value || 0);
-const quantiteInput = document.getElementById('commande_nombre');
-const totalOutput = document.getElementById('total');
+    const prix = parseFloat(document.getElementById('prix')?.value || 0);
+    const quantiteInput = document.getElementById('commande_nombre');
+    const totalOutput = document.getElementById('total');
 
-const updateTotal = () => {
-const quantite = parseInt(quantiteInput?.value) || 0;
-if(totalOutput) totalOutput.value = (prix * quantite).toFixed(2) + ' DT';
-};
+    const updateTotal = () => {
+        const quantite = parseInt(quantiteInput?.value) || 0;
+        if(totalOutput) totalOutput.value = (prix * quantite).toFixed(2) + ' €';
+    };
 
-quantiteInput?.addEventListener('input', updateTotal);
-updateTotal();
+    quantiteInput?.addEventListener('input', updateTotal);
+    updateTotal();
 
-
+    
 }
 
 
 
-// Gestion dynamique de la suppression
-document.querySelectorAll('.delete-btn').forEach(button => {
-button.addEventListener('click', function() {
-    const form = deleteModal.querySelector('form');
-    form.action = this.dataset.url;
-    form.querySelector('input[name="_token"]').value = this.dataset.token;
-});
-});
-
-function showProductDetails(button) {
-const url = button.getAttribute('data-url');
-fetch(url)
-    .then(response => response.text())
-    .then(html => {
-        document.getElementById('showProductContent').innerHTML = html;
-        const modal = new bootstrap.Modal(document.getElementById('showProductModal'));
-        modal.show();
-    })
-    .catch(error => console.error('Error loading product:', error));
-}
-
-// Glisser-déposer pour un élément (exemple)
-let isDraggingTable = false;
-let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
-
-const draggableTable = document.getElementById('draggableTable');
-if (draggableTable) {
-draggableTable.style.left = initialXTable + 'px';
-draggableTable.style.top = initialYTable + 'px';
-
-draggableTable.addEventListener('mousedown', startDraggingTable);
-document.addEventListener('mousemove', dragTable);
-document.addEventListener('mouseup', stopDraggingTable);
-
-// Événements pour le tactile
-draggableTable.addEventListener('touchstart', (e) => {
-    startDraggingTable(e.touches[0]);
-});
-draggableTable.addEventListener('touchmove', (e) => {
-    dragTable(e.touches[0]);
-});
-draggableTable.addEventListener('touchend', stopDraggingTable);
-}
-
-function startDraggingTable(e) {
-isDraggingTable = true;
-startXTable = e.clientX - initialXTable;
-startYTable = e.clientY - initialYTable;
-draggableTable.style.transition = 'none';
-draggableTable.classList.add('dragging');
-}
-function dragTable(e) {
-if (!isDraggingTable) return;
-const newX = e.clientX - startXTable;
-const newY = e.clientY - startYTable;
-const maxX = window.innerWidth - draggableTable.offsetWidth;
-const maxY = window.innerHeight - draggableTable.offsetHeight;
-initialXTable = Math.max(0, Math.min(newX, maxX));
-initialYTable = Math.max(0, Math.min(newY, maxY));
-draggableTable.style.left = initialXTable + 'px';
-draggableTable.style.top = initialYTable + 'px';
-}
-function stopDraggingTable() {
-isDraggingTable = false;
-if (draggableTable) {
-    draggableTable.style.transition = 'transform 0.3s ease';
-    draggableTable.classList.remove('dragging');
-}
-}
-function resetTablePosition() {
-initialXTable = 300;
-initialYTable = 180;
-if (draggableTable) {
-    draggableTable.style.left = initialXTable + 'px';
-    draggableTable.style.top = initialYTable + 'px';
-}
-}
-
-document.querySelectorAll('.show-modal-btn').forEach(btn => {
-btn.addEventListener('click', function () {
-    const url = btn.getAttribute('data-url');
-    fetch(url)
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('modalContent').innerHTML = html;
-            const modal = new bootstrap.Modal(document.getElementById('productModal'));
-            modal.show();
+    // Gestion dynamique de la suppression
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const form = deleteModal.querySelector('form');
+            form.action = this.dataset.url;
+            form.querySelector('input[name="_token"]').value = this.dataset.token;
         });
-});
-});
+    });
+
+    function showProductDetails(button) {
+        const url = button.getAttribute('data-url');
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('showProductContent').innerHTML = html;
+                const modal = new bootstrap.Modal(document.getElementById('showProductModal'));
+                modal.show();
+            })
+            .catch(error => console.error('Error loading product:', error));
+    }
+
+    // Glisser-déposer pour un élément (exemple)
+    let isDraggingTable = false;
+    let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+    const draggableTable = document.getElementById('draggableTable');
+    if (draggableTable) {
+        draggableTable.style.left = initialXTable + 'px';
+        draggableTable.style.top = initialYTable + 'px';
+
+        draggableTable.addEventListener('mousedown', startDraggingTable);
+        document.addEventListener('mousemove', dragTable);
+        document.addEventListener('mouseup', stopDraggingTable);
+
+        // Événements pour le tactile
+        draggableTable.addEventListener('touchstart', (e) => {
+            startDraggingTable(e.touches[0]);
+        });
+        draggableTable.addEventListener('touchmove', (e) => {
+            dragTable(e.touches[0]);
+        });
+        draggableTable.addEventListener('touchend', stopDraggingTable);
+    }
+
+    function startDraggingTable(e) {
+        isDraggingTable = true;
+        startXTable = e.clientX - initialXTable;
+        startYTable = e.clientY - initialYTable;
+        draggableTable.style.transition = 'none';
+        draggableTable.classList.add('dragging');
+    }
+    function dragTable(e) {
+        if (!isDraggingTable) return;
+        const newX = e.clientX - startXTable;
+        const newY = e.clientY - startYTable;
+        const maxX = window.innerWidth - draggableTable.offsetWidth;
+        const maxY = window.innerHeight - draggableTable.offsetHeight;
+        initialXTable = Math.max(0, Math.min(newX, maxX));
+        initialYTable = Math.max(0, Math.min(newY, maxY));
+        draggableTable.style.left = initialXTable + 'px';
+        draggableTable.style.top = initialYTable + 'px';
+    }
+    function stopDraggingTable() {
+        isDraggingTable = false;
+        if (draggableTable) {
+            draggableTable.style.transition = 'transform 0.3s ease';
+            draggableTable.classList.remove('dragging');
+        }
+    }
+    function resetTablePosition() {
+        initialXTable = 300;
+        initialYTable = 180;
+        if (draggableTable) {
+            draggableTable.style.left = initialXTable + 'px';
+            draggableTable.style.top = initialYTable + 'px';
+        }
+    }
+
+    document.querySelectorAll('.show-modal-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const url = btn.getAttribute('data-url');
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('modalContent').innerHTML = html;
+                    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+                    modal.show();
+                });
+        });
+    });
 </script>
 
 <!-- Bootstrap 5 Bundle (incluant Popper) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Vous pouvez retirer jQuery si vous n'en avez plus besoin dans vos scripts personnalisés -->
 {% endblock %}
-</body>
+    </body>
 </html>
-
-

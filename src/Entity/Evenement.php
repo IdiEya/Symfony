@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 use App\Entity\Statut;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EvenementRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+
 #[ORM\Entity(repositoryClass: EvenementRepository::class)]
 class Evenement
 {
@@ -74,15 +78,11 @@ class Evenement
     )]
     private ?File $imageFile = null;
 
-    
+
     public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
 
-        if (null !== $imageFile) {
-           
-            $this->updatedAt = new \DateTimeImmutable();
-        }
     }
 
     public function getImageFile(): ?File
@@ -276,7 +276,84 @@ public function updateStatut(): void
         }
     }
 }
+// src/Entity/Evenement.php
 
+#[ORM\Column(type: 'integer', options: ['default' => 0])]
+private int $likes = 0;
+
+#[ORM\Column(type: 'integer', options: ['default' => 0])]
+private int $dislikes = 0;
+
+// ... (dans la même classe)
+
+public function getLikes(): int
+{
+    return $this->likes;
+}
+
+public function setLikes(int $likes): self
+{
+    $this->likes = $likes;
+    return $this;
+}
+
+public function getDislikes(): int
+{
+    return $this->dislikes;
+}
+
+public function setDislikes(int $dislikes): self
+{
+    $this->dislikes = $dislikes;
+    return $this;
+}
+
+public function incrementLikes(): self
+{
+    $this->likes++;
+    return $this;
+}
+
+public function decrementLikes(): self
+{
+    $this->likes = max(0, $this->likes - 1);
+    return $this;
+}
+
+public function incrementDislikes(): self
+{
+    $this->dislikes++;
+    return $this;
+}
+
+public function decrementDislikes(): self
+{
+    $this->dislikes = max(0, $this->dislikes - 1);
+    return $this;
+}
+
+
+// src/Entity/Evenement.php
+
+public function userHasLiked(User $user): bool
+{
+    foreach ($this->votes as $vote) {
+        if ($vote->getUser() === $user && $vote->getVote() === 1) {
+            return true;
+        }
+    }
+    return false;
+}
+
+public function userHasDisliked(User $user): bool
+{
+    foreach ($this->votes as $vote) {
+        if ($vote->getUser() === $user && $vote->getVote() === -1) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 }

@@ -43,6 +43,49 @@ public function findByName(string $name): array
         ->getQuery()
         ->getResult();
 }
+
+public function searchByNameAndDescription(string $query): array
+{
+    return $this->createQueryBuilder('e')
+        ->where('e.nom LIKE :query')
+        ->orWhere('e.description LIKE :query')
+        ->setParameter('query', '%'.$query.'%')
+        ->getQuery()
+        ->getResult();
+}
+public function findAllSorted(string $sortBy = 'nom', string $direction = 'asc'): array
+{
+    $validSorts = ['nom', 'dateDebut', 'dateFin', 'localisation', 'frais', 'nombreDePlaces'];
+    $validDirections = ['asc', 'desc'];
+    
+    if (!in_array($sortBy, $validSorts)) {
+        $sortBy = 'nom';
+    }
+    
+    if (!in_array($direction, $validDirections)) {
+        $direction = 'asc';
+    }
+    
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.'.$sortBy, $direction)
+        ->getQuery()
+        ->getResult();
+}
+public function advancedSearch(string $query): array
+{
+    $qb = $this->createQueryBuilder('e');
+    
+    return $qb
+        ->where($qb->expr()->orX(
+            $qb->expr()->like('e.nom', ':query'),
+            $qb->expr()->like('e.description', ':query'),
+            $qb->expr()->like('e.localisation', ':query'),
+            $qb->expr()->like('e.statut', ':query')
+        ))
+        ->setParameter('query', '%'.addcslashes($query, '%_').'%')
+        ->getQuery()
+        ->getResult();
+}
     //    /**
     //     * @return Evenement[] Returns an array of Evenement objects
     //     */

@@ -26,6 +26,21 @@
             "./migrations/.gitignore"
         ]
     },
+    "endroid/qr-code-bundle": {
+        "version": "4.1.0"
+    },
+    "fresh/doctrine-enum-bundle": {
+        "version": "9.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "6.0",
+            "ref": "fab86661c13bc12e4f14f706c86af09912d55bfb"
+        }
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.8.0"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -306,5 +321,14 @@
     },
     "twig/extra-bundle": {
         "version": "v3.20.0"
+    },
+    "vich/uploader-bundle": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.13",
+            "ref": "1b3064c2f6b255c2bc2f56461aaeb76b11e07e36"
+        }
     }
 }

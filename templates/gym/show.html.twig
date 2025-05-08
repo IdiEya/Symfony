@@ -1,0 +1,730 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+        <!-- meta data -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Les 3 meta tags doivent être placés en premier dans le head -->
+{% block css %}
+    <!-- Font-family -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+        
+    <!-- Title of site -->
+    <title>{% block title %} CarVilla {% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href="{{ asset('assets/front/assets/logo/favicon.png') }}"/>
+
+    <!-- Font-awesome et autres icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Autres CSS personnalisés ou de plugins -->
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/linearicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/bootsnav.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/assets/css/responsive.css') }}">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+{% endblock %}
+
+        <!-- HTML5 shim and Respond.js for IE8 support (facultatif) -->
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+	
+	<body>
+		<!--[if lte IE 9]>
+            <p class="browserupgrade">Vous utilisez un navigateur <strong>obsolète</strong>. Merci de <a href="https://browsehappy.com/">mettre à jour votre navigateur</a> pour améliorer votre expérience et votre sécurité.</p>
+        <![endif]-->
+	
+		<!-- Welcome Hero -->
+		  <section id="home" class="welcome-hero">
+    {% block body %}
+    <div class="top-area" style=" background-color: #e1bee7 ;">
+        <div class="header-area" style=" background-color: #e1bee7 ;">
+            <!-- Navbar Bootstrap 5 -->
+           <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" 
+     style="background-color: #e1bee7 ;">
+                <div class="container" style="display: flex; align-items: center;">
+                    <!-- Logo à gauche -->
+                  <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:150px; length:200px;">
+                    
+                    <!-- Bouton de toggler pour mobile -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" 
+                        aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Menu à droite du logo -->
+                    <div class="collapse navbar-collapse" id="navbar-menu">
+                        <ul class="navbar-nav ms-auto" style="display: flex; gap: 20px;">
+     <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_produituser_index') }}">Produits</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_commandeuser_index') }}">Panier</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_client_events') }}"> Evenement</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_mes_participations') }}">Participations</a>
+    </li>
+  
+       <li class="nav-item">
+    <a class="nav-link" href="{{ path('planning_index') }}"> Cours</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_coach1_index') }}"> Coachs</a></li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_gym_grille') }}">Salles des sports</a>
+    </li>
+     
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+			<!-- Fin top-area -->
+
+	<div style="length:3000px;" >
+  <div  style="background-image: url('{{ asset('img/GYM4.jpeg') }}'); width:1500px;   height:600px; background-size: cover; background-position: center; padding: 100px; color: white;">
+   <h2 style="font-size: 3em; margin: 0 auto 30px; max-width: 800px; text-align: center; color: black;">
+    GymTown t’accompagne à chaque étape de ton parcours sportif !
+</h2>
+<p style="font-size: 1.5em; max-width: 1000px; line-height: 1.6; margin: 0 auto; text-align: center; color: black;">
+    Bienvenue sur GymTown, l’univers où le sport prend vie ! Réserve tes cours, découvre des coachs passionnés, explore des salles équipées et plonge dans une expérience sportive unique — tout cela en un seul clic.
+</p>
+  </div>
+</div>
+
+
+
+		</section>
+{% block stylesheets %}
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #faf9ff;
+        margin: 0;
+      
+        color: #444;
+    }
+    .detail-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 15px rgba(92, 64, 111, 0.1);
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    h1 {
+        color: #5C406F;
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 1.6rem;
+    }
+    .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .map-container {
+        height: 250px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #f3edff;
+        margin-bottom: 15px;
+    }
+    .info-item {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .info-label {
+        font-weight: 500;
+        color: #5C406F;
+        min-width: 120px;
+    }
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        min-width: 100px;
+        text-align: center;
+        border: none;
+    }
+    .btn-close {
+        background-color: #f3edff;
+        color: #5C406F;
+    }
+    .btn-action {
+        background: linear-gradient(135deg, #88659F, #9D77B8);
+        color: white;
+    }
+    .btn-action:hover {
+        background: linear-gradient(135deg, #9D77B8, #A882D4);
+    }
+    .photo-preview {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto 15px;
+    }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+{% endblock %}
+
+<div class="detail-container">
+    <h1>{{ gym.nom }}</h1>
+
+    {% if gym.photo %}
+        <img src="{{ gym.photo starts with 'http' ? gym.photo : asset('uploads/gyms/' ~ gym.photo) }}" 
+             alt="{{ gym.nom }}" 
+             class="photo-preview"
+             onerror="this.src='{{ asset('images/default-gym.jpg') }}'">
+    {% else %}
+        <img src="{{ asset('images/default-gym.jpg') }}" alt="Image par défaut" class="photo-preview">
+    {% endif %}
+
+    <div class="map-container" id="gymMap"></div>
+
+    <div class="detail-grid">
+        <div class="info-item">
+            <span class="info-label">Coordonnées:</span>
+            <span>{{ gym.latitude }}, {{ gym.longitude }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Services:</span>
+            <span>{{ gym.services }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Horaires:</span>
+            <span>{{ gym.horaires }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Contact:</span>
+            <span>{{ gym.contact }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Prix Mensuel:</span>
+            <span>{{ gym.prixMensuel }} DT</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Prix Trimestriel:</span>
+            <span>{{ gym.prixTrimestriel }} DT</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Prix Semestriel:</span>
+            <span>{{ gym.prixSemestriel }} DT</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Prix Annuel:</span>
+            <span>{{ gym.prixAnnuel }} DT</span>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button onclick="window.parent.postMessage('closeModal', '*')" class="btn btn-close">
+            Fermer
+        </button>
+       
+        <form method="post" action="{{ path('app_gym_delete', {'id': gym.id}) }}" 
+              onsubmit="return confirm('Confirmer la suppression ?')"
+              style="display: inline;">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ gym.id) }}">
+           
+        </form>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialisation de la carte
+        const lat = {{ gym.latitude ?? 0 }};
+        const lng = {{ gym.longitude ?? 0 }};
+        
+        if (lat && lng) {
+            const map = L.map('gymMap').setView([lat, lng], 15);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+            
+            L.marker([lat, lng]).addTo(map)
+              .bindPopup('<b>{{ gym.nom|e('js') }}</b>')
+              .openPopup();
+        } else {
+            document.getElementById('gymMap').style.display = 'none';
+        }
+    });
+</script>
+<footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
+
+    <div class="container"  style="color: black;">
+
+        <div class="footer-top"   style="color: black;">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo">
+                            <a href="index.html" style="font-size: 24px; font-weight: bold; color: black;">GYMTOWN</a>
+                        </div>
+                        <p style="color: black;">
+                            Votre partenaire fitness et bien-être. Rejoignez notre communauté pour atteindre vos objectifs sportifs !
+                        </p>
+                        <div class="footer-contact">
+                            <p style="color: black;">admin@gymtown.com</p>
+                            <p style="color: black;">+216 95 443 345</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2 style="color: black;">À propos</h2>
+                        <ul>
+
+                        
+                            <li style="color: black;"><a href="{{ path('app_produituser_index') }}" style="color: black;">Nos produits</a></li>
+                            <li style="color: black;"><a href="{{ path('app_commandeuser_index') }}" style="color: black;">Panier</a></li>
+                            <li style="color: black;"><a href="#" style="color: black;">Nos salles de sport</a></li>
+                            <li style="color: black;"><a href="#" style="color: black;">Notre cours</a></li>
+                            <li style="color: black;"><a href="{{ path('app_client_events') }}" style="color: black;">Nos évenement</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2 style="color: black;">Activités</h2>
+                        <div class="row">
+                            <div class="col-md-7 col-xs-6">
+                                <ul>
+                                    <li style="color: black;"><a href="#" style="color: black;">Musculation</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Cardio</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">CrossFit</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Zumba</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Yoga</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-5 col-xs-6">
+                                <ul>
+                                    <li style="color: black;"><a href="#" style="color: black;">Pilates</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Boxe</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">Cycling</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">TRX</a></li>
+                                    <li style="color: black;"><a href="#" style="color: black;">HIIT</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2 style="color: black;">Newsletter</h2>
+                        <div class="footer-newsletter">
+                            <p style="color: black;">
+                                Abonnez-vous pour recevoir les dernières actualités et offres spéciales !
+                            </p>
+                        </div>
+                         <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:1000px; length:1000px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p style="color: black;">
+                        &copy; 2025 GYMTOWN. Tous droits réservés.
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up" id="scroll-top" data-bs-toggle="tooltip" data-bs-placement="top" title="Retour en haut"></i>
+        </div>
+    </div>
+</footer>
+		<!-- Fin Footer / Contact -->
+
+
+<style>
+ /* Supprimer la marge gauche de l'image */
+  
+.custom-select-navbar {
+    background: transparent;
+    border: none;
+    color: #000;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    appearance: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.custom-select-navbar:focus {
+    outline: none;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.custom-select-navbar option {
+    color: #000;
+}
+ /* Supprimer la marge gauche de l'image */
+  .btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+   /* Ajustement du contenu sous la navbar fixe */
+   .container.py-5 {
+       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+   }
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+   /* Ajustement du contenu sous la navbar fixe */
+   .container.py-5 {
+       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+   }
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
+</style>
+
+{% block js %}
+<script>
+// Gestion du menu fixe
+let lastScroll = 0;
+const navbar = document.querySelector('.navbar');
+const navbarHeight = navbar.offsetHeight;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > lastScroll && currentScroll > navbarHeight) {
+        // Scroll vers le bas - cacher
+        navbar.classList.add('navbar-hidden');
+    } else {
+        // Scroll vers le haut - afficher
+        navbar.classList.remove('navbar-hidden');
+        navbar.classList.add('navbar-visible');
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Ajustement initial pour le contenu
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.paddingTop = navbarHeight + 'px';
+});
+    document.addEventListener('DOMContentLoaded', () => {
+    const prix = parseFloat(document.getElementById('prix').value);
+    const quantiteInput = document.getElementById('commande_nombre');
+    const totalOutput = document.getElementById('total');
+    
+    quantiteInput.addEventListener('input', () => {
+        const quantite = parseInt(quantiteInput.value);
+        const total = prix * quantite;
+        totalOutput.value = total.toFixed(2) + ' €';
+    });
+});
+
+    function orderProduct(button) {
+        const url = button.getAttribute('data-url');
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('orderProductContent').innerHTML = html;
+                const modal = new bootstrap.Modal(document.getElementById('orderProductModal'));
+                modal.show();
+                 initCommandeForm();
+            })
+            .catch(error => console.error('Error loading product:', error));
+    }
+
+
+function initCommandeForm() {
+    const prix = parseFloat(document.getElementById('prix')?.value || 0);
+    const quantiteInput = document.getElementById('commande_nombre');
+    const totalOutput = document.getElementById('total');
+
+    const updateTotal = () => {
+        const quantite = parseInt(quantiteInput?.value) || 0;
+        if(totalOutput) totalOutput.value = (prix * quantite).toFixed(2) + ' €';
+    };
+
+    quantiteInput?.addEventListener('input', updateTotal);
+    updateTotal();
+
+    
+}
+
+
+
+    // Gestion dynamique de la suppression
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const form = deleteModal.querySelector('form');
+            form.action = this.dataset.url;
+            form.querySelector('input[name="_token"]').value = this.dataset.token;
+        });
+    });
+
+    function showProductDetails(button) {
+        const url = button.getAttribute('data-url');
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('showProductContent').innerHTML = html;
+                const modal = new bootstrap.Modal(document.getElementById('showProductModal'));
+                modal.show();
+            })
+            .catch(error => console.error('Error loading product:', error));
+    }
+
+    // Glisser-déposer pour un élément (exemple)
+    let isDraggingTable = false;
+    let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+    const draggableTable = document.getElementById('draggableTable');
+    if (draggableTable) {
+        draggableTable.style.left = initialXTable + 'px';
+        draggableTable.style.top = initialYTable + 'px';
+
+        draggableTable.addEventListener('mousedown', startDraggingTable);
+        document.addEventListener('mousemove', dragTable);
+        document.addEventListener('mouseup', stopDraggingTable);
+
+        // Événements pour le tactile
+        draggableTable.addEventListener('touchstart', (e) => {
+            startDraggingTable(e.touches[0]);
+        });
+        draggableTable.addEventListener('touchmove', (e) => {
+            dragTable(e.touches[0]);
+        });
+        draggableTable.addEventListener('touchend', stopDraggingTable);
+    }
+
+    function startDraggingTable(e) {
+        isDraggingTable = true;
+        startXTable = e.clientX - initialXTable;
+        startYTable = e.clientY - initialYTable;
+        draggableTable.style.transition = 'none';
+        draggableTable.classList.add('dragging');
+    }
+    function dragTable(e) {
+        if (!isDraggingTable) return;
+        const newX = e.clientX - startXTable;
+        const newY = e.clientY - startYTable;
+        const maxX = window.innerWidth - draggableTable.offsetWidth;
+        const maxY = window.innerHeight - draggableTable.offsetHeight;
+        initialXTable = Math.max(0, Math.min(newX, maxX));
+        initialYTable = Math.max(0, Math.min(newY, maxY));
+        draggableTable.style.left = initialXTable + 'px';
+        draggableTable.style.top = initialYTable + 'px';
+    }
+    function stopDraggingTable() {
+        isDraggingTable = false;
+        if (draggableTable) {
+            draggableTable.style.transition = 'transform 0.3s ease';
+            draggableTable.classList.remove('dragging');
+        }
+    }
+    function resetTablePosition() {
+        initialXTable = 300;
+        initialYTable = 180;
+        if (draggableTable) {
+            draggableTable.style.left = initialXTable + 'px';
+            draggableTable.style.top = initialYTable + 'px';
+        }
+    }
+
+    document.querySelectorAll('.show-modal-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const url = btn.getAttribute('data-url');
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('modalContent').innerHTML = html;
+                    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+                    modal.show();
+                });
+        });
+    });
+</script>
+
+<!-- Bootstrap 5 Bundle (incluant Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Vous pouvez retirer jQuery si vous n'en avez plus besoin dans vos scripts personnalisés -->
+{% endblock %}
+{% endblock %}
+    </body>
+</html>

@@ -20,13 +20,28 @@ final class CategorieController extends AbstractController
 
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $categories = $entityManager
-            ->getRepository(Categorie::class)
-            ->findAll();
 
-        return $this->render('categorie/index.html.twig', [
-            'categories' => $categories
-        ]);
+        // Récupérer l'utilisateur connecté
+    $user = $this->getUser();
+    $categories = $entityManager
+    ->getRepository(Categorie::class)
+    ->findAll();
+    // Vérifier que l'utilisateur est connecté
+    if (!$user) {
+        // Si l'utilisateur n'est pas connecté, redirigez ou affichez une erreur
+        return $this->redirectToRoute('app_login'); // ou une autre route
+    }
+
+    // Passer l'utilisateur au template
+    return $this->render('categorie/index.html.twig', [
+        'user' => $user,
+        'categories' => $categories,
+    ]);
+
+
+      
+
+       
     }
     #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

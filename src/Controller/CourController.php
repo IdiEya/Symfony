@@ -17,6 +17,7 @@ class CourController extends AbstractController
     #[Route('/cour/new', name: 'cour_new')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
 {
+    $user = $this->getUser();
     $cour = new Cour();  // Création d'un nouvel objet Cour
     $form = $this->createForm(CourType::class, $cour);
     $form->handleRequest($request);
@@ -91,6 +92,7 @@ class CourController extends AbstractController
             
             return $this->render('cour/create.html.twig', [
                 'form' => $form->createView(),
+                'user' => $user,
             ]);
         }
     
@@ -105,6 +107,7 @@ class CourController extends AbstractController
 
     return $this->render('cour/create.html.twig', [
         'form' => $form->createView(),
+        'user' => $user,
     ]);
 }
 
@@ -112,6 +115,7 @@ class CourController extends AbstractController
     #[Route('/cour', name: 'cour_list')]
     public function list(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
         $search = $request->query->get('search');
     
         $qb = $entityManager->getRepository(Cour::class)->createQueryBuilder('c')
@@ -133,6 +137,7 @@ class CourController extends AbstractController
     
         return $this->render('cour/list.html.twig', [
             'cours' => $cours,
+            'user' => $user,
         ]);
     }
     
@@ -144,7 +149,7 @@ class CourController extends AbstractController
     {
         $form = $this->createForm(CourType::class, $cour);
         $form->handleRequest($request);
-
+        $user = $this->getUser();
         if ($form->isSubmitted()) {
 
             $localisation = $form->get('localisation')->getData();
@@ -230,6 +235,7 @@ class CourController extends AbstractController
         return $this->render('cour/edit.html.twig', [
             'form' => $form->createView(),
             'cour' => $cour,
+            'user' => $user,
         ]);
     }
 

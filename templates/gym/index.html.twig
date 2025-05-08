@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- [Head] start -->
+
+<head>
+  <title>{% block title %} Home | Mantis Bootstrap 5 Admin Template {% endblock %}</title>
+  <!-- [Meta] -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Mantis is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
+  <meta name="keywords" content="Mantis, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template">
+  <meta name="author" content="CodedThemes">
+{% block css %}
+  <!-- [Favicon] icon -->
+  <!-- [Favicon] icon -->
+<link rel="icon" href="{{ asset('assets/back/dist/assets/images/favicon.svg') }}" type="image/x-icon">
+<link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
+
+<!-- [Google Font] Family -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+
+<!-- [Tabler Icons] https://tablericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/tabler-icons.min.css') }}">
+
+<!-- [Feather Icons] https://feathericons.com -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/feather.css') }}">
+
+<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/fontawesome.css') }}">
+
+<!-- [Material Icons] https://fonts.google.com/icons -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/fonts/material.css') }}">
+
+<!-- [Template CSS Files] -->
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style.css') }}" id="main-style-link">
+<link rel="stylesheet" href="{{ asset('assets/back/dist/assets/css/style-preset.css') }}">
+
+
+{% endblock %}
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
+  
+  <!-- [ Pre-loader ] start -->
+<div class="loader-bg">
+  <div class="loader-track">
+    <div class="loader-fill"></div>
+  </div>
+</div>
+<!-- [ Pre-loader ] End -->
+ <!-- [ Sidebar Menu ] start -->
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+   
+      <!-- ========   Change your logo from here   ============ -->
+        <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:200px; length:200px; margin-left:20px;">
+    
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+        <li class="pc-item">
+          <a href="../dashboard/index.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Utilsateurs</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('admin_dashboard') }}" class="pc-link">
+         
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Utilisateurs</span>
+          </a>
+        </li>
+    
+
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Produits</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('app_categorie_index') }}" class="pc-link">
+          
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Categories</span>
+          </a>
+        </li>
+        <li class="pc-item">
+           <a href="{{ path('app_produits_index') }}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-box"></i></i></span>
+            <span class="pc-mtext">Liste Des Produits</span>
+          </a>
+        </li>
+        <li class="pc-item">
+            <a href="{{ path('app_commande_index') }}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-shopping-cart"></i></span>
+            <span class="pc-mtext">Liste Des Commandes</span>
+          </a>
+        </li>
+
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Evenements</label>
+          <i class="ti ti-news"></i>
+        </li>
+         <li class="pc-item">
+            <a href="{{ path('app_evenement_index') }}" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-calendar-event"></i>
+</span>
+              <span class="pc-mtext">Liste Des événements</span>
+            </a>
+          </li>
+          <li class="pc-item">
+            <a href="{{ path('app_participation_index') }}" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-color-swatch"></i></span>
+              <span class="pc-mtext">Liste Des participations</span>
+            </a>
+          </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Cours</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('cour_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-notebook"></i></span>
+    <span class="pc-mtext">Liste des Cours</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('salle_index') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('reservation_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-calendar-time"></i></span>
+    <span class="pc-mtext">Liste des Réservations</span>
+  </a>
+</li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Salles de Sport</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('app_gym_index') }}" class="pc-link">
+       <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('app_abonnement_index') }}" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-id"></i></span>
+    <span class="pc-mtext">Liste des Abonnements</span>
+  </a>
+</li>
+
+
+
+
+
+
+        <li class="pc-item pc-caption">
+        
+          <i class="ti ti-brand-chrome"></i>
+        </li>
+        <li class="pc-item pc-hasmenu">
+    
+          <ul class="pc-submenu">
+         
+            <li class="pc-item pc-hasmenu">
+           
+              <ul class="pc-submenu">
+            
+                <li class="pc-item pc-hasmenu">
+               
+                  <ul class="pc-submenu">
+                   
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="pc-item pc-hasmenu">
+             
+              <ul class="pc-submenu">
+               
+                <li class="pc-item pc-hasmenu">
+                
+                  <ul class="pc-submenu">
+                  
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="pc-item">
+          <a href="../other/sample-page.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+           
+          </a>
+        </li>
+      </ul>
+      <div class="card text-center">
+        <div class="card-body">
+          <img src="../assets/images/img-navbar-card.png" alt="images" class="img-fluid mb-2">
+      
+       
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
+<header class="pc-header" 
+        style="position: fixed; 
+               top: 0; 
+               left: 40; 
+              ">
+  <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
+<div class="me-auto pc-mob-drp">
+  <ul class="list-unstyled">
+    <!-- ======= Menu collapse Icon ===== -->
+    <li class="pc-h-item pc-sidebar-collapse">
+      <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="pc-h-item pc-sidebar-popup">
+      <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="dropdown pc-h-item d-inline-flex d-md-none">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none m-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        aria-expanded="false"
+      >
+        <i class="ti ti-search"></i>
+      </a>
+      <div class="dropdown-menu pc-h-dropdown drp-search">
+        <form class="px-3">
+          <div class="form-group mb-0 d-flex align-items-center">
+            <i data-feather="search"></i>
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="pc-h-item d-none d-md-inline-flex">
+      <form class="header-search">
+        <i data-feather="search" class="icon-search"></i>
+        <input type="search" class="form-control" placeholder="Search here. . .">
+      </form>
+    </li>
+  </ul>
+</div>
+
+    <li class="dropdown pc-h-item header-user-profile">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none me-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >             <div class="flex-shrink-0">
+    <!-- Vérification de la photo de l'utilisateur -->
+    <img src="{{ user.photo ? asset(user.photo) : asset('uploads/profiles') }}" 
+         alt="user-image" class="user-avtar">
+</div>
+       <span>{{ user.prenom }} {{ user.nom }}</span>
+
+      </a>
+      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+        <div class="dropdown-header">
+          <div class="d-flex mb-1">
+            <div class="flex-shrink-0">
+              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <h6 class="mb-1">{{ user.prenom }} {{ user.nom }}</h6>
+              <span>GymTown</span>
+            </div>
+            
+            <a  href="{{ path('app_login') }}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
+          </div>
+        </div>
+        <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="drp-t1"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-1"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-1"
+              aria-selected="true"
+              ><i class="ti ti-user"></i> Profile</button
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="drp-t2"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-2"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-2"
+              aria-selected="false"
+              ><i class="ti ti-settings"></i> Setting</button
+            >
+          </li>
+        </ul>
+        <div class="tab-content" id="mysrpTabContent">
+          <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-edit-circle"></i>
+              <span>Edit Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>View Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-clipboard-list"></i>
+              <span>Social Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-wallet"></i>
+              <span>Billing</span>
+            </a>
+            <a href="{{ path('app_login') }}" class="dropdown-item">
+              <i class="ti ti-power"></i>
+              <span>  <a href="" class="pc-link">
+         </span>
+            </a>
+          </div>
+          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-help"></i>
+              <span>Support</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>Account Settings</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-lock"></i>
+              <span>Privacy Center</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-messages"></i>
+              <span>Feedback</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-list"></i>
+              <span>History</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+ </div>
+ </header>
+<!-- [ Header ] end -->
+
+
+{% block body %}
+    <h1 style="position: absolute; 
+            top: 80px; 
+            left: 300px;
+            cursor: move;
+           right: 50px;
+            z-index: 1000;">Liste des salles de sport</h1>
+
+    <!-- Barre de recherche -->
+    <div class="search-bar" style="position: absolute; 
+            top: 130px; 
+            left: 300px;
+            cursor: move;
+           right: 50px;
+            z-index: 1000;">
+        <input type="text" id="searchInput" placeholder="Rechercher une salle..." onkeyup="searchTable()">
+    </div>
+
+    <div class="table-container" style="position: absolute; 
+            top: 200px; 
+            left: 300px;
+            cursor: move;
+           right: 50px;
+            z-index: 1000;">
+        <table class="table" id="gymTable">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Services</th>
+                    <th>Horaires</th>
+                    <th>Contact</th>
+                    <th>Mensuel</th>
+                    <th>Trimestriel</th>
+                    <th>Semestriel</th>
+                    <th>Annuel</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for gym in gyms %}
+                <tr>
+                    <td>{{ gym.nom }}</td>
+                    <td>{{ gym.services }}</td>
+                    <td>{{ gym.horaires }}</td>
+                    <td>{{ gym.contact }}</td>
+                    <td>{{ gym.prixMensuel }}</td>
+                    <td>{{ gym.prixTrimestriel }}</td>
+                    <td>{{ gym.prixSemestriel }}</td>
+                    <td>{{ gym.prixAnnuel }}</td>
+                  <td>
+                    <a href="javascript:void(0);" 
+                       onclick="openShowModal('{{ path('app_gym_show', {'id': gym.id}) }}')" 
+                       class="action-link">Voir</a>
+
+                    <a href="javascript:void(0);" 
+                       onclick="openEditModal('{{ path('app_gym_edit', {'id': gym.id}) }}')" 
+                       class="action-link">Modifier</a>
+
+                    <a href="#" 
+                       onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette salle?')) { document.getElementById('delete-form-{{ gym.id }}').submit(); }" 
+                       class="action-link" >Supprimer</a>
+                    
+                    <form id="delete-form-{{ gym.id }}" method="post" action="{{ path('app_gym_delete', {'id': gym.id}) }}" style="display: none;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ gym.id) }}">
+                    </form>
+                  </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="9">Aucun enregistrement trouvé</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+  <div id="btn-container" style="
+    position: absolute;
+    top: 130px;
+    left: 300px;
+    z-index: 1000;
+    cursor: move;
+">
+  <button class="btn-create" onclick="openCreateModal('{{ path('app_gym_new') }}')">
+    + Nouvelle salle
+  </button>
+</div>
+
+    <!-- Popup Modal -->
+    <div id="gymModal" class="modal">
+        <div class="modal-content">
+            <span onclick="closeModal()" class="close">&times;</span>
+            <iframe id="gymIframe" src="" width="100%" height="500px"></iframe>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+    const btn = document.getElementById('btn-container');
+  let isDragging = false;
+  let offsetX, offsetY;
+
+  btn.addEventListener('mousedown', function (e) {
+    isDragging = true;
+    offsetX = e.clientX - btn.offsetLeft;
+    offsetY = e.clientY - btn.offsetTop;
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (isDragging) {
+      btn.style.left = (e.clientX - offsetX) + 'px';
+      btn.style.top = (e.clientY - offsetY) + 'px';
+    }
+  });
+
+  document.addEventListener('mouseup', function () {
+    isDragging = false;
+  });
+        // Fonction de recherche de table
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("gymTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                var match = false;
+                for (var j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            match = true;
+                        }
+                    }
+                }
+                tr[i].style.display = match ? "" : "none";
+            }
+        }
+
+        // Fonction pour ouvrir le modal de création
+        function openCreateModal(url) {
+            const modal = document.getElementById('gymModal');
+            const iframe = document.getElementById('gymIframe');
+            iframe.src = url;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fonction pour ouvrir le modal de visualisation
+        function openShowModal(url) {
+            const modal = document.getElementById('gymModal');
+            const iframe = document.getElementById('gymIframe');
+            iframe.src = url;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fonction pour fermer le modal
+        function closeModal() {
+            const modal = document.getElementById('gymModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- [Page Specific JS] start -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pages/dashboard-default.js') }}"></script>
+  <!-- [Page Specific JS] end -->
+
+  <!-- Required Js -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/popper.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/fonts/custom-font.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pcoded.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/feather.min.js') }}"></script>
+
+
+  
+  
+  
+  
+  <script>layout_change('light');</script>
+  
+  
+  
+  
+  <script>change_box_container('false');</script>
+  
+  
+  
+  <script>layout_rtl_change('false');</script>
+  
+  
+  <script>preset_change("preset-1");</script>
+  
+  
+  <script>font_change("Public-Sans");</script>
+  <script>
+// Variables pour le glissement
+let isDraggingTable = false;
+let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+const draggableTable = document.getElementById('draggableTable');
+
+// Position initiale
+draggableTable.style.left = initialXTable + 'px';
+draggableTable.style.top = initialYTable + 'px';
+
+// Événements
+draggableTable.addEventListener('mousedown', startDraggingTable);
+document.addEventListener('mousemove', dragTable);
+document.addEventListener('mouseup', stopDraggingTable);
+
+// Gestion tactile
+draggableTable.addEventListener('touchstart', (e) => {
+    startDraggingTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchmove', (e) => {
+    dragTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchend', stopDraggingTable);
+
+function startDraggingTable(e) {
+    isDraggingTable = true;
+    startXTable = e.clientX - initialXTable;
+    startYTable = e.clientY - initialYTable;
+    draggableTable.style.transition = 'none';
+    draggableTable.classList.add('dragging');
+}
+
+function editCategorieDetails(id) {
+    fetch(`/categorie/${id}/edit-modal`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const modal = new bootstrap.Modal(document.getElementById('editCategorieModal'));
+            modal.show();
+            
+            // Nouveau code pour gérer la soumission
+            const form = document.getElementById('editForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (response.status === 422) {
+                            return response.text().then(html => {
+                                document.getElementById('editCategorieContent').innerHTML = html;
+                                const newForm = document.getElementById('editForm');
+                                if (newForm) {
+                                    newForm.addEventListener('submit', arguments.callee);
+                                }
+                            });
+                        }
+                        if (response.ok) {
+                            window.location.reload();
+                            modal.hide();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function handleEditSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        if (response.status === 422) { // Erreur de validation
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const newForm = document.getElementById('editForm');
+            if (newForm) newForm.addEventListener('submit', handleEditSubmit);
+        } else if (response.ok) {
+            window.location.reload();
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
+}
+function dragTable(e) {
+    if (!isDraggingTable) return;
+    
+    const newX = e.clientX - startXTable;
+    const newY = e.clientY - startYTable;
+
+    // Limites de la fenêtre
+    const maxX = window.innerWidth - draggableTable.offsetWidth;
+    const maxY = window.innerHeight - draggableTable.offsetHeight;
+
+    initialXTable = Math.max(0, Math.min(newX, maxX));
+    initialYTable = Math.max(0, Math.min(newY, maxY));
+
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+
+function stopDraggingTable() {
+    isDraggingTable = false;
+    draggableTable.style.transition = 'transform 0.3s ease';
+    draggableTable.classList.remove('dragging');
+}
+
+function resetTablePosition() {
+    initialXTable = 300;
+    initialYTable = 180;
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+</script>
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #faf9ff;
+            margin: 0;
+            padding: 0px;
+        }
+
+        h1 {
+            color: #5C406F;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(92, 64, 111, 0.1);
+            margin-bottom: 20px;
+            background-color: white;
+            max-width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .table th {
+            background-color: #725387;
+            color: white;
+            padding: 10px 12px;
+            font-weight: 500;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+
+        .table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #f3edff;
+            text-align: center;
+            color: #555;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tr:hover {
+            background-color: #fbf8ff;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn-create {
+            background-color: #88659F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(136, 101, 159, 0.2);
+        }
+
+        .btn-create:hover {
+            background-color: #9D77B8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(136, 101, 159, 0.3);
+        }
+
+        .action-link {
+            color: #725387;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 3px;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .action-link:hover {
+            background-color: #f3edff;
+            color: #5C406F;
+        }
+
+        .btn-delete {
+            color: #d32f2f;
+            background-color: #ffebee;
+            border: 1px solid #ef9a9a;
+            padding: 3px 6px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 3px;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background-color: #ffcdd2;
+            color: #b71c1c;
+        }
+
+        /* Colonne Contact élargie */
+        .table th:nth-child(5),
+        .table td:nth-child(5) {
+            width: 120px;
+            min-width: 120px;
+        }
+
+        /* Popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(61, 38, 76, 0.8);
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(61, 38, 76, 0.3);
+            overflow: hidden;
+            animation: slideDown 0.4s ease;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: #725387;
+        }
+
+        .modal iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .table-container {
+                max-width: 100%;
+            }
+            
+            .table th, .table td {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+            }
+            
+            .table th:nth-child(5),
+            .table td:nth-child(5) {
+                width: 100px;
+                min-width: 100px;
+            }
+            
+            .btn-create {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 15% auto;
+            }
+            
+            .modal iframe {
+                height: 400px;
+            }
+        }
+
+        /* Barre de recherche */
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 60%;
+            font-size: 1rem;
+        }
+
+   
+
+/* Style général du tableau */
+/* Modification des couleurs des boutons */
+/* Boutons */
+.btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+</style>
+    {% endblock %}
+   {% endblock %}
+</body>
+<!-- [Body] end -->
+
+</html>

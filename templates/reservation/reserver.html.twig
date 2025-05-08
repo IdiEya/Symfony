@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -53,11 +52,11 @@
 		<!-- Welcome Hero -->
 		  <section id="home" class="welcome-hero">
     {% block body %}
-    <div class="top-area" style=" background-color:#e1bee7 ">
-        <div class="header-area" style=" background-color:#e1bee7 ">
+    <div class="top-area" style=" background-color: #e1bee7 ;">
+        <div class="header-area" style=" background-color: #e1bee7 ;">
             <!-- Navbar Bootstrap 5 -->
            <nav class="navbar navbar-expand-lg navbar-light navbar-sticky navbar-scrollspy" 
-     style=" background-color:#e1bee7 ">
+     style="background-color: #e1bee7 ;">
                 <div class="container" style="display: flex; align-items: center;">
                     <!-- Logo à gauche -->
                   <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:150px; length:200px;">
@@ -83,15 +82,16 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_mes_participations') }}">Participations</a>
     </li>
-    
+  
        <li class="nav-item">
-    <a class="nav-link" href="{{ path('app_reserver') }}"> Cours</a>
+    <a class="nav-link" href="{{ path('planning_index') }}"> Cours</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_coach1_index') }}"> Coachs</a></li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('planning_index') }}">Planning</a>
+        <a class="nav-link" href="{{ path('app_gym_grille') }}">Salles des sports</a>
     </li>
+     
                     </div>
                 </div>
             </nav>
@@ -101,8 +101,7 @@
 
 			<!-- Fin top-area -->
 
-			
-		<div style="length:3000px; margin-top:80px;" >
+	<div style="length:3000px;" >
   <div  style="background-image: url('{{ asset('img/GYM4.jpeg') }}'); width:1500px;   height:600px; background-size: cover; background-position: center; padding: 100px; color: white;">
    <h2 style="font-size: 3em; margin: 0 auto 30px; max-width: 800px; text-align: center; color: black;">
     GymTown t’accompagne à chaque étape de ton parcours sportif !
@@ -113,38 +112,112 @@
   </div>
 </div>
 
+
+
 		</section>
-    <h1>Réserver une séance</h1>
+                <h1 style="text-align: center;">Réserver une séance</h1>
+            
+                <div class="reservation-form" style="display: flex; flex-direction: column; align-items: center;">
+                    {{ form_start(form) }}
+                        {{ form_row(form.nom) }}
+                        {{ form_row(form.prenom) }}
+                        {{ form_row(form.tel) }}
+                        {{ form_row(form.date_reservation) }}
+                        <label for="latitude">Latitude:</label>
+                        <input type="text" name="latitude" id="latitude" required>
+                        
+                        <label for="longitude">Longitude:</label>
+                        <input type="text" name="longitude" id="longitude" required>
+                        
+            
+            
+                        <!-- Champs cachés pour latitude et longitude -->
+                        <input type="hidden" id="latitude" name="latitude">
+                        <input type="hidden" id="longitude" name="longitude">
+            
+                        <!-- Carte -->
+                        <div id="map-container" style="height: 250px; width: 250px; margin: 20px 0; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
+                            <div id="map" style="height: 100%;"></div>
+                        </div>
+            
+                        <!-- Bouton de soumission -->
+                        <button type="submit" class="btn btn-primary">Réserver</button>
+                    {{ form_end(form) }}
+                </div>
+            
+                <hr>
+            
+                <h2 style="text-align: center; margin-top: 40px;">Liste des Réservations</h2>
+            
+                {% block stylesheets %}
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+                {% endblock %}
+            
+                {% block javascripts %}
+                    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+                    <script>
+                        // Initialisation de la carte avec une position par défaut
+                        // Initialisation de la carte avec une position par défaut
+// Initialisation de la carte avec une position par défaut
+var map = L.map('map').setView([36.8065, 10.1815], 12); // Position initiale (Tunis)
 
-    <div class="reservation-form">
-        {{ form_start(form) }}
-            {{ form_row(form.nom) }}
-            {{ form_row(form.prenom) }}
-            {{ form_row(form.tel) }}
-            {{ form_row(form.date_reservation) }}
-            {{ form_row(form.adresse) }}
+// Ajouter un fond de carte OpenStreetMap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-            <button type="submit" class="btn btn-primary">Réserver</button>
-        {{ form_end(form) }}
-    </div>
+var marker; // Variable pour gérer le marqueur
 
-    <hr>
+// Quand on clique sur la carte
+map.on('click', function(e) {
+    var lat = e.latlng.lat;
+    var lng = e.latlng.lng;
 
-    <h2 style="text-align:center; margin-top:40px;">Liste des Réservations</h2>
+    // Si un marqueur existe déjà, on le retire
+    if (marker) {
+        map.removeLayer(marker);
+    }
 
-   
-{% endblock %}
+    // Ajouter un nouveau marqueur
+    marker = L.marker([lat, lng]).addTo(map);
+
+    // Mettre à jour les champs cachés de latitude et longitude
+    document.getElementById('latitude').value = lat;
+    document.getElementById('longitude').value = lng;
+
+    // Récupérer l'adresse complète avec Nominatim
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.display_name) {
+                // Mettre à jour le champ d'adresse complète
+                document.getElementById('adresse_complete').value = data.display_name;
+            }
+        });
+});
 
 
 
+                    </script>
+                {% endblock %}
+          
+            
+    
 
-{% block stylesheets %}
+        
+        
+        
+            
+            
+            
+            
+            
+        {% endblock %}
 <style>
+
     body {
         font-family: Arial, sans-serif;
         background-color: #fbfbfb;
         color: #fff;
-        padding: 20px;
+       
     }
 
     h1 {
@@ -232,8 +305,6 @@
         background-color: #5a6268;
     }
 </style>
-{% endblock %}
-
 <footer id="contact" class="contact" style="background-color: #e1bee7; color: black;">
 
     <div class="container"  style="color: black;">
@@ -334,63 +405,180 @@
         </div>
     </div>
 </footer>
+		<!-- Fin Footer / Contact -->
 
-<!-- Fin Footer / Contact -->
 
 <style>
-/* Supprimer la marge gauche de l'image */
-
-
-/* Menu fixe avec apparition au scroll */
-.navbar {
-position: fixed !important;
-top: 0;
-width: 100%;
-z-index: 1000;
-transition: transform 0.3s ease-in-out;
-background-color: rgb(195, 177, 229); 
+ /* Supprimer la marge gauche de l'image */
+  
+.custom-select-navbar {
+    background: transparent;
+    border: none;
+    color: #000;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    appearance: none;
+    outline: none;
+    box-shadow: none;
 }
 
-.navbar-hidden {
-transform: translateY(-100%);
+.custom-select-navbar:focus {
+    outline: none;
+    box-shadow: none;
+    font-weight: bold;
 }
 
-.navbar-visible {
-transform: translateY(0);
+.custom-select-navbar option {
+    color: #000;
+}
+ /* Supprimer la marge gauche de l'image */
+  .btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
 }
 
-/* Ajustement du contenu sous la navbar fixe */
-.container.py-5 {
-margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
 }
-/* Ajustement pour la navbar */
-.navbar-nav.ms-auto {
-margin-left: auto !important;
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
 }
-.navbar-nav {
-display: flex !important;
-flex-direction: row !important;
-align-items: center;
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
 }
-.navbar-nav > li {
-margin: 0 15px;
-position: relative;
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
 }
-.navbar-nav > li > a {
-padding: 15px 10px !important;
-text-transform: capitalize;
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
 }
-@media (max-width: 768px) {
-.navbar-nav {
-    flex-direction: column !important;
-    padding: 0;
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
 }
-.navbar-nav > li {
-    margin: 3px 0;
-    width: 100%;
-    text-align: center;
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
 }
-}
+
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+   /* Ajustement du contenu sous la navbar fixe */
+   .container.py-5 {
+       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+   }
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
+   /* Menu fixe avec apparition au scroll */
+   .navbar {
+       position: fixed !important;
+       top: 0;
+       width: 100%;
+       z-index: 1000;
+       transition: transform 0.3s ease-in-out;
+	    background-color: rgb(195, 177, 229); 
+   }
+
+   .navbar-hidden {
+       transform: translateY(-100%);
+   }
+
+   .navbar-visible {
+       transform: translateY(0);
+   }
+
+   /* Ajustement du contenu sous la navbar fixe */
+   .container.py-5 {
+       margin-top: 150px; /* Ajuster selon la hauteur de votre navbar */
+   }
+   /* Ajustement pour la navbar */
+   .navbar-nav.ms-auto {
+        margin-left: auto !important;
+   }
+   .navbar-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center;
+   }
+   .navbar-nav > li {
+        margin: 0 15px;
+        position: relative;
+   }
+   .navbar-nav > li > a {
+        padding: 15px 10px !important;
+        text-transform: capitalize;
+   }
+   @media (max-width: 768px) {
+        .navbar-nav {
+            flex-direction: column !important;
+            padding: 0;
+        }
+        .navbar-nav > li {
+            margin: 3px 0;
+            width: 100%;
+            text-align: center;
+        }
+   }
 </style>
 
 {% block js %}
@@ -401,164 +589,164 @@ const navbar = document.querySelector('.navbar');
 const navbarHeight = navbar.offsetHeight;
 
 window.addEventListener('scroll', () => {
-const currentScroll = window.pageYOffset;
-
-if (currentScroll > lastScroll && currentScroll > navbarHeight) {
-// Scroll vers le bas - cacher
-navbar.classList.add('navbar-hidden');
-} else {
-// Scroll vers le haut - afficher
-navbar.classList.remove('navbar-hidden');
-navbar.classList.add('navbar-visible');
-}
-
-lastScroll = currentScroll;
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > lastScroll && currentScroll > navbarHeight) {
+        // Scroll vers le bas - cacher
+        navbar.classList.add('navbar-hidden');
+    } else {
+        // Scroll vers le haut - afficher
+        navbar.classList.remove('navbar-hidden');
+        navbar.classList.add('navbar-visible');
+    }
+    
+    lastScroll = currentScroll;
 });
 
 // Ajustement initial pour le contenu
 document.addEventListener('DOMContentLoaded', () => {
-document.body.style.paddingTop = navbarHeight + 'px';
+    document.body.style.paddingTop = navbarHeight + 'px';
 });
-document.addEventListener('DOMContentLoaded', () => {
-const prix = parseFloat(document.getElementById('prix').value);
-const quantiteInput = document.getElementById('commande_nombre');
-const totalOutput = document.getElementById('total');
+    document.addEventListener('DOMContentLoaded', () => {
+    const prix = parseFloat(document.getElementById('prix').value);
+    const quantiteInput = document.getElementById('commande_nombre');
+    const totalOutput = document.getElementById('total');
+    
+    quantiteInput.addEventListener('input', () => {
+        const quantite = parseInt(quantiteInput.value);
+        const total = prix * quantite;
+        totalOutput.value = total.toFixed(2) + ' €';
+    });
+});
 
-quantiteInput.addEventListener('input', () => {
-const quantite = parseInt(quantiteInput.value);
-const total = prix * quantite;
-totalOutput.value = total.toFixed(2) + ' DT';
-});
-});
-
-function orderProduct(button) {
-const url = button.getAttribute('data-url');
-fetch(url)
-    .then(response => response.text())
-    .then(html => {
-        document.getElementById('orderProductContent').innerHTML = html;
-        const modal = new bootstrap.Modal(document.getElementById('orderProductModal'));
-        modal.show();
-         initCommandeForm();
-    })
-    .catch(error => console.error('Error loading product:', error));
-}
+    function orderProduct(button) {
+        const url = button.getAttribute('data-url');
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('orderProductContent').innerHTML = html;
+                const modal = new bootstrap.Modal(document.getElementById('orderProductModal'));
+                modal.show();
+                 initCommandeForm();
+            })
+            .catch(error => console.error('Error loading product:', error));
+    }
 
 
 function initCommandeForm() {
-const prix = parseFloat(document.getElementById('prix')?.value || 0);
-const quantiteInput = document.getElementById('commande_nombre');
-const totalOutput = document.getElementById('total');
+    const prix = parseFloat(document.getElementById('prix')?.value || 0);
+    const quantiteInput = document.getElementById('commande_nombre');
+    const totalOutput = document.getElementById('total');
 
-const updateTotal = () => {
-const quantite = parseInt(quantiteInput?.value) || 0;
-if(totalOutput) totalOutput.value = (prix * quantite).toFixed(2) + ' DT';
-};
+    const updateTotal = () => {
+        const quantite = parseInt(quantiteInput?.value) || 0;
+        if(totalOutput) totalOutput.value = (prix * quantite).toFixed(2) + ' €';
+    };
 
-quantiteInput?.addEventListener('input', updateTotal);
-updateTotal();
+    quantiteInput?.addEventListener('input', updateTotal);
+    updateTotal();
 
-
+    
 }
 
 
 
-// Gestion dynamique de la suppression
-document.querySelectorAll('.delete-btn').forEach(button => {
-button.addEventListener('click', function() {
-    const form = deleteModal.querySelector('form');
-    form.action = this.dataset.url;
-    form.querySelector('input[name="_token"]').value = this.dataset.token;
-});
-});
-
-function showProductDetails(button) {
-const url = button.getAttribute('data-url');
-fetch(url)
-    .then(response => response.text())
-    .then(html => {
-        document.getElementById('showProductContent').innerHTML = html;
-        const modal = new bootstrap.Modal(document.getElementById('showProductModal'));
-        modal.show();
-    })
-    .catch(error => console.error('Error loading product:', error));
-}
-
-// Glisser-déposer pour un élément (exemple)
-let isDraggingTable = false;
-let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
-
-const draggableTable = document.getElementById('draggableTable');
-if (draggableTable) {
-draggableTable.style.left = initialXTable + 'px';
-draggableTable.style.top = initialYTable + 'px';
-
-draggableTable.addEventListener('mousedown', startDraggingTable);
-document.addEventListener('mousemove', dragTable);
-document.addEventListener('mouseup', stopDraggingTable);
-
-// Événements pour le tactile
-draggableTable.addEventListener('touchstart', (e) => {
-    startDraggingTable(e.touches[0]);
-});
-draggableTable.addEventListener('touchmove', (e) => {
-    dragTable(e.touches[0]);
-});
-draggableTable.addEventListener('touchend', stopDraggingTable);
-}
-
-function startDraggingTable(e) {
-isDraggingTable = true;
-startXTable = e.clientX - initialXTable;
-startYTable = e.clientY - initialYTable;
-draggableTable.style.transition = 'none';
-draggableTable.classList.add('dragging');
-}
-function dragTable(e) {
-if (!isDraggingTable) return;
-const newX = e.clientX - startXTable;
-const newY = e.clientY - startYTable;
-const maxX = window.innerWidth - draggableTable.offsetWidth;
-const maxY = window.innerHeight - draggableTable.offsetHeight;
-initialXTable = Math.max(0, Math.min(newX, maxX));
-initialYTable = Math.max(0, Math.min(newY, maxY));
-draggableTable.style.left = initialXTable + 'px';
-draggableTable.style.top = initialYTable + 'px';
-}
-function stopDraggingTable() {
-isDraggingTable = false;
-if (draggableTable) {
-    draggableTable.style.transition = 'transform 0.3s ease';
-    draggableTable.classList.remove('dragging');
-}
-}
-function resetTablePosition() {
-initialXTable = 300;
-initialYTable = 180;
-if (draggableTable) {
-    draggableTable.style.left = initialXTable + 'px';
-    draggableTable.style.top = initialYTable + 'px';
-}
-}
-
-document.querySelectorAll('.show-modal-btn').forEach(btn => {
-btn.addEventListener('click', function () {
-    const url = btn.getAttribute('data-url');
-    fetch(url)
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('modalContent').innerHTML = html;
-            const modal = new bootstrap.Modal(document.getElementById('productModal'));
-            modal.show();
+    // Gestion dynamique de la suppression
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const form = deleteModal.querySelector('form');
+            form.action = this.dataset.url;
+            form.querySelector('input[name="_token"]').value = this.dataset.token;
         });
-});
-});
+    });
+
+    function showProductDetails(button) {
+        const url = button.getAttribute('data-url');
+        fetch(url)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('showProductContent').innerHTML = html;
+                const modal = new bootstrap.Modal(document.getElementById('showProductModal'));
+                modal.show();
+            })
+            .catch(error => console.error('Error loading product:', error));
+    }
+
+    // Glisser-déposer pour un élément (exemple)
+    let isDraggingTable = false;
+    let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+    const draggableTable = document.getElementById('draggableTable');
+    if (draggableTable) {
+        draggableTable.style.left = initialXTable + 'px';
+        draggableTable.style.top = initialYTable + 'px';
+
+        draggableTable.addEventListener('mousedown', startDraggingTable);
+        document.addEventListener('mousemove', dragTable);
+        document.addEventListener('mouseup', stopDraggingTable);
+
+        // Événements pour le tactile
+        draggableTable.addEventListener('touchstart', (e) => {
+            startDraggingTable(e.touches[0]);
+        });
+        draggableTable.addEventListener('touchmove', (e) => {
+            dragTable(e.touches[0]);
+        });
+        draggableTable.addEventListener('touchend', stopDraggingTable);
+    }
+
+    function startDraggingTable(e) {
+        isDraggingTable = true;
+        startXTable = e.clientX - initialXTable;
+        startYTable = e.clientY - initialYTable;
+        draggableTable.style.transition = 'none';
+        draggableTable.classList.add('dragging');
+    }
+    function dragTable(e) {
+        if (!isDraggingTable) return;
+        const newX = e.clientX - startXTable;
+        const newY = e.clientY - startYTable;
+        const maxX = window.innerWidth - draggableTable.offsetWidth;
+        const maxY = window.innerHeight - draggableTable.offsetHeight;
+        initialXTable = Math.max(0, Math.min(newX, maxX));
+        initialYTable = Math.max(0, Math.min(newY, maxY));
+        draggableTable.style.left = initialXTable + 'px';
+        draggableTable.style.top = initialYTable + 'px';
+    }
+    function stopDraggingTable() {
+        isDraggingTable = false;
+        if (draggableTable) {
+            draggableTable.style.transition = 'transform 0.3s ease';
+            draggableTable.classList.remove('dragging');
+        }
+    }
+    function resetTablePosition() {
+        initialXTable = 300;
+        initialYTable = 180;
+        if (draggableTable) {
+            draggableTable.style.left = initialXTable + 'px';
+            draggableTable.style.top = initialYTable + 'px';
+        }
+    }
+
+    document.querySelectorAll('.show-modal-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const url = btn.getAttribute('data-url');
+            fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('modalContent').innerHTML = html;
+                    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+                    modal.show();
+                });
+        });
+    });
 </script>
 
 <!-- Bootstrap 5 Bundle (incluant Popper) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Vous pouvez retirer jQuery si vous n'en avez plus besoin dans vos scripts personnalisés -->
 {% endblock %}
-</body>
-</html>
 
+    </body>
+</html>

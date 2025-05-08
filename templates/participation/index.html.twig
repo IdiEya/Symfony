@@ -38,8 +38,837 @@
 
 
 {% endblock %}
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
 
+<body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
+  
+  <!-- [ Pre-loader ] start -->
+<div class="loader-bg">
+  <div class="loader-track">
+    <div class="loader-fill"></div>
+  </div>
+</div>
+<!-- [ Pre-loader ] End -->
+ <!-- [ Sidebar Menu ] start -->
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+   
+      <!-- ========   Change your logo from here   ============ -->
+        <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:200px; length:200px; margin-left:20px;">
+    
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+        <li class="pc-item">
+          <a href="../dashboard/index.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Utilsateurs</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('admin_dashboard') }}" class="pc-link">
+         
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Utilisateurs</span>
+          </a>
+        </li>
+    
+
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Produits</label>
+          <i class="ti ti-dashboard"></i>
+        </li>
+         <li class="pc-item">
+          <a href="{{ path('app_categorie_index') }}" class="pc-link">
+          
+            <span class="pc-micon"><i class="ti ti-folder"></i>
+</span>
+            <span class="pc-mtext">Liste Des Categories</span>
+          </a>
+        </li>
+        <li class="pc-item">
+           <a href="{{ path('app_produits_index') }}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-box"></i></i></span>
+            <span class="pc-mtext">Liste Des Produits</span>
+          </a>
+        </li>
+        <li class="pc-item">
+            <a href="{{ path('app_commande_index') }}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-shopping-cart"></i></span>
+            <span class="pc-mtext">Liste Des Commandes</span>
+          </a>
+        </li>
+
+        <li class="pc-item pc-caption">
+          <label>Gestion Des Evenements</label>
+          <i class="ti ti-news"></i>
+        </li>
+         <li class="pc-item">
+            <a href="{{ path('app_evenement_index') }}" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-calendar-event"></i>
+</span>
+              <span class="pc-mtext">Liste Des événements</span>
+            </a>
+          </li>
+          <li class="pc-item">
+            <a href="{{ path('app_participation_index') }}" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-color-swatch"></i></span>
+              <span class="pc-mtext">Liste Des participations</span>
+            </a>
+          </li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Cours</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('cour_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-notebook"></i></span>
+    <span class="pc-mtext">Liste des Cours</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('salle_index') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('reservation_list') }}" class="pc-link">
+    <span class="pc-micon"><i class="ti ti-calendar-time"></i></span>
+    <span class="pc-mtext">Liste des Réservations</span>
+  </a>
+</li>
+<li class="pc-item pc-caption">
+          <label>Gestion Des Salles de Sport</label>
+          <i class="ti ti-news"></i>
+        </li>
+ <li class="pc-item">
+  <a href="{{ path('app_gym_index') }}" class="pc-link">
+       <span class="pc-micon"><i class="ti ti-building"></i></span>
+    <span class="pc-mtext">Liste des Salles</span>
+  </a>
+</li>
+<li class="pc-item">
+  <a href="{{ path('app_abonnement_index') }}" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-id"></i></span>
+    <span class="pc-mtext">Liste des Abonnements</span>
+  </a>
+</li>
+
+
+
+
+
+
+        <li class="pc-item pc-caption">
+        
+          <i class="ti ti-brand-chrome"></i>
+        </li>
+        <li class="pc-item pc-hasmenu">
+    
+          <ul class="pc-submenu">
+         
+            <li class="pc-item pc-hasmenu">
+           
+              <ul class="pc-submenu">
+            
+                <li class="pc-item pc-hasmenu">
+               
+                  <ul class="pc-submenu">
+                   
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="pc-item pc-hasmenu">
+             
+              <ul class="pc-submenu">
+               
+                <li class="pc-item pc-hasmenu">
+                
+                  <ul class="pc-submenu">
+                  
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="pc-item">
+          <a href="../other/sample-page.html" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+           
+          </a>
+        </li>
+      </ul>
+      <div class="card text-center">
+        <div class="card-body">
+          <img src="../assets/images/img-navbar-card.png" alt="images" class="img-fluid mb-2">
+      
+       
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
+<header class="pc-header" 
+        style="position: fixed; 
+               top: 0; 
+               left: 40; 
+              ">
+  <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
+<div class="me-auto pc-mob-drp">
+  <ul class="list-unstyled">
+    <!-- ======= Menu collapse Icon ===== -->
+    <li class="pc-h-item pc-sidebar-collapse">
+      <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="pc-h-item pc-sidebar-popup">
+      <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+    <li class="dropdown pc-h-item d-inline-flex d-md-none">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none m-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        aria-expanded="false"
+      >
+        <i class="ti ti-search"></i>
+      </a>
+      <div class="dropdown-menu pc-h-dropdown drp-search">
+        <form class="px-3">
+          <div class="form-group mb-0 d-flex align-items-center">
+            <i data-feather="search"></i>
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="pc-h-item d-none d-md-inline-flex">
+      <form class="header-search">
+        <i data-feather="search" class="icon-search"></i>
+        <input type="search" class="form-control" placeholder="Search here. . .">
+      </form>
+    </li>
+  </ul>
+</div>
+
+    <li class="dropdown pc-h-item header-user-profile">
+      <a
+        class="pc-head-link dropdown-toggle arrow-none me-0"
+        data-bs-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="false"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >             <div class="flex-shrink-0">
+    <!-- Vérification de la photo de l'utilisateur -->
+    <img src="{{ user.photo ? asset(user.photo) : asset('uploads/profiles') }}" 
+         alt="user-image" class="user-avtar">
+</div>
+       <span>{{ user.prenom }} {{ user.nom }}</span>
+
+      </a>
+      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+        <div class="dropdown-header">
+          <div class="d-flex mb-1">
+            <div class="flex-shrink-0">
+              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <h6 class="mb-1">{{ user.prenom }} {{ user.nom }}</h6>
+              <span>GymTown</span>
+            </div>
+            
+            <a  href="{{ path('app_login') }}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
+          </div>
+        </div>
+        <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="drp-t1"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-1"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-1"
+              aria-selected="true"
+              ><i class="ti ti-user"></i> Profile</button
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="drp-t2"
+              data-bs-toggle="tab"
+              data-bs-target="#drp-tab-2"
+              type="button"
+              role="tab"
+              aria-controls="drp-tab-2"
+              aria-selected="false"
+              ><i class="ti ti-settings"></i> Setting</button
+            >
+          </li>
+        </ul>
+        <div class="tab-content" id="mysrpTabContent">
+          <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-edit-circle"></i>
+              <span>Edit Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>View Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-clipboard-list"></i>
+              <span>Social Profile</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-wallet"></i>
+              <span>Billing</span>
+            </a>
+            <a href="{{ path('app_login') }}" class="dropdown-item">
+              <i class="ti ti-power"></i>
+              <span>  <a href="" class="pc-link">
+         </span>
+            </a>
+          </div>
+          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-help"></i>
+              <span>Support</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-user"></i>
+              <span>Account Settings</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-lock"></i>
+              <span>Privacy Center</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-messages"></i>
+              <span>Feedback</span>
+            </a>
+            <a href="#!" class="dropdown-item">
+              <i class="ti ti-list"></i>
+              <span>History</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+ </div>
+ </header>
+<!-- [ Header ] end -->
+{% block body %}
+    <div class="pc-container">
+        <div class="pc-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h1 class="mb-0">Liste des participations</h1>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+ <!-- Formulaire de filtrage -->
+            <div class="card mb-4">
+    <div class="card-body">
+        <form method="get" action="{{ path('app_participation_index') }}" class="row g-3" id="filterForm">
+            <div class="col-md-3">
+                <label for="user" class="form-label">Utilisateur</label>
+                <select name="user" id="user" class="form-select">
+                    <option value="">Tous les utilisateurs</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}" {{ currentFilters.user == user.id ? 'selected' : '' }}>
+                            {{ user.prenom }} {{ user.nom }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="event" class="form-label">Événement</label>
+                <select name="event" id="event" class="form-select">
+                    <option value="">Tous les événements</option>
+                    {% for event in events %}
+                        <option value="{{ event.id }}" {{ currentFilters.event == event.id ? 'selected' : '' }}>
+                            {{ event.nom }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="dateFrom" class="form-label">Date de début</label>
+                <input type="date" name="dateFrom" id="dateFrom" 
+                       value="{{ currentFilters.dateFrom }}" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <label for="dateTo" class="form-label">Date de fin</label>
+                <input type="date" name="dateTo" id="dateTo" 
+                       value="{{ currentFilters.dateTo }}" class="form-control">
+            </div>
+        </form>
+    </div>
+</div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="participations-card">
+                                {% if participations is not empty %}
+                                    <table class="participations-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nom et Prénom d'utilisateur</th>
+                                                <th>Événement</th>
+                                                <th>Places réservées</th>
+                                                <th>Places restantes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for participation in participations %}
+                                                <tr>
+                                                    <td>
+                                                        {% if participation.user%}
+                                                            {{ participation.user.prenom }} {{ participation.user.nom }}
+                                                        {% else %}
+                                                            Utilisateur inconnu
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        {% if participation.evenement %}
+                                                            {{ participation.evenement.nom }}
+                                                        {% else %}
+                                                            Événement inconnu
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        {{ participation.nombreDePlacesReservees }}
+                                                    </td>
+                                                    <td>
+                                                        {% if participation.evenement %}
+                                                            {{ participation.evenement.nombreDePlaces - participation.evenement.placesReservees }}
+                                                        {% else %}
+                                                            N/A
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <div class="no-participations">
+                                        <h3>Aucune participation trouvée</h3>
+                                        <p>Revenez plus tard pour découvrir vos participations.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+ {# Inclusion de Font Awesome pour les icônes #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block js %}
+  <!-- [Page Specific JS] start -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pages/dashboard-default.js') }}"></script>
+  <!-- [Page Specific JS] end -->
+
+  <!-- Required Js -->
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/popper.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/fonts/custom-font.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/pcoded.js') }}"></script>
+  <script src="{{ asset('assets/back/dist/assets/js/plugins/feather.min.js') }}"></script>
+
+
+  
+  
+  
+  
+  <script>layout_change('light');</script>
+  
+  
+  
+  
+  <script>change_box_container('false');</script>
+  
+  
+  
+  <script>layout_rtl_change('false');</script>
+  
+  
+  <script>preset_change("preset-1");</script>
+  
+  
+  <script>font_change("Public-Sans");</script>
+  <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupère tous les éléments de filtre
+    const filterInputs = document.querySelectorAll('#filterForm select, #filterForm input');
+    
+    // Ajoute un écouteur d'événement à chaque champ de filtre
+    filterInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            // Soumet automatiquement le formulaire quand une valeur change
+            document.getElementById('filterForm').submit();
+        });
+    });
+    
+    // Pour les champs date, on peut ajouter un délai pour éviter des soumissions trop fréquentes
+    const dateInputs = document.querySelectorAll('#filterForm input[type="date"]');
+    let submitTimeout;
+    
+    dateInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            // Annule le timeout précédent s'il existe
+            if (submitTimeout) {
+                clearTimeout(submitTimeout);
+            }
+            
+            // Définit un nouveau timeout (500ms de délai)
+            submitTimeout = setTimeout(() => {
+                document.getElementById('filterForm').submit();
+            }, 500);
+        });
+    });
+});
+// Variables pour le glissement
+let isDraggingTable = false;
+let startXTable, startYTable, initialXTable = 300, initialYTable = 180;
+
+const draggableTable = document.getElementById('draggableTable');
+
+// Position initiale
+draggableTable.style.left = initialXTable + 'px';
+draggableTable.style.top = initialYTable + 'px';
+
+// Événements
+draggableTable.addEventListener('mousedown', startDraggingTable);
+document.addEventListener('mousemove', dragTable);
+document.addEventListener('mouseup', stopDraggingTable);
+
+// Gestion tactile
+draggableTable.addEventListener('touchstart', (e) => {
+    startDraggingTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchmove', (e) => {
+    dragTable(e.touches[0]);
+});
+draggableTable.addEventListener('touchend', stopDraggingTable);
+
+function startDraggingTable(e) {
+    isDraggingTable = true;
+    startXTable = e.clientX - initialXTable;
+    startYTable = e.clientY - initialYTable;
+    draggableTable.style.transition = 'none';
+    draggableTable.classList.add('dragging');
+}
+
+function editCategorieDetails(id) {
+    fetch(`/categorie/${id}/edit-modal`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const modal = new bootstrap.Modal(document.getElementById('editCategorieModal'));
+            modal.show();
+            
+            // Nouveau code pour gérer la soumission
+            const form = document.getElementById('editForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (response.status === 422) {
+                            return response.text().then(html => {
+                                document.getElementById('editCategorieContent').innerHTML = html;
+                                const newForm = document.getElementById('editForm');
+                                if (newForm) {
+                                    newForm.addEventListener('submit', arguments.callee);
+                                }
+                            });
+                        }
+                        if (response.ok) {
+                            window.location.reload();
+                            modal.hide();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function handleEditSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        if (response.status === 422) { // Erreur de validation
+            document.getElementById('editCategorieContent').innerHTML = html;
+            const newForm = document.getElementById('editForm');
+            if (newForm) newForm.addEventListener('submit', handleEditSubmit);
+        } else if (response.ok) {
+            window.location.reload();
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
+}
+function dragTable(e) {
+    if (!isDraggingTable) return;
+    
+    const newX = e.clientX - startXTable;
+    const newY = e.clientY - startYTable;
+
+    // Limites de la fenêtre
+    const maxX = window.innerWidth - draggableTable.offsetWidth;
+    const maxY = window.innerHeight - draggableTable.offsetHeight;
+
+    initialXTable = Math.max(0, Math.min(newX, maxX));
+    initialYTable = Math.max(0, Math.min(newY, maxY));
+
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+
+function stopDraggingTable() {
+    isDraggingTable = false;
+    draggableTable.style.transition = 'transform 0.3s ease';
+    draggableTable.classList.remove('dragging');
+}
+
+function resetTablePosition() {
+    initialXTable = 300;
+    initialYTable = 180;
+    draggableTable.style.left = initialXTable + 'px';
+    draggableTable.style.top = initialYTable + 'px';
+}
+</script>
 <style>
+/* Style général du tableau */
+/* Modification des couleurs des boutons */
+/* Boutons */
+.btn-success, .btn-info {
+    background-color: rgb(250, 243, 243);
+    border: 2px solid rgb(250, 243, 243); /* Violet doux */
+    color: #B19CD9; /* Couleur des icônes et texte */
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover, .btn-info:hover {
+    background-color:rgb(195, 177, 229);
+    border-color: #B19CD9;
+    color: white;
+}
+
+/* Tableau */
+.table {
+    background-color:rgb(250, 243, 243); /* Noir */
+    color: white; /* Texte en blanc */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color:rgb(195, 177, 229); /* Noir plus clair pour l'en-tête */
+    color: white;
+}
+
+.table th, .table td {
+    border-color: #B19CD9; /* Bordures gris foncé */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(195, 177, 229); /* Survol gris foncé */
+}
+
+/* Icônes dans les boutons */
+.btn i {
+    color: inherit; /* Hérite de la couleur du bouton */
+}
+
+/* Adaptation des ombres */
+.shadow-sm {
+    box-shadow: 0 4px 12px #B19CD9!important;
+}
+ /* Couleurs personnalisées */
+        :root {
+            --primary-color: #6f42c1; /* Couleur principale (Violet) */
+            --secondary-color: #5e33b5; /* Couleur secondaire */
+            
+            --text-color: #ffffff; /* Couleur du texte */
+        }
+
+        /* Style personnalisé pour la liste des participations */
+        .participations-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .participations-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .participations-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .participations-table th {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 12px 15px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            font-weight: 600;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .participations-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+            color: #495057;
+        }
+
+        /* Style pour les lignes impaires */
+        .participations-table tr:nth-child(odd) {
+            background-color: #f8fafc;
+        }
+
+        /* Survol des lignes */
+        .participations-table tr:hover {
+            background-color: var(--hover-color);
+            color: var(--text-color);
+        }
+
+        .no-participations {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-size: 1.1rem;
+            border: 1px dashed #dee2e6;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            margin: 20px 0;
+        }
+
+        .btn-back {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: var(--hover-color);
+            color: var(--text-color);
+            transform: translateY(-1px);
+        }
+        
+/* Style pour les filtres */
+.filter-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(106, 13, 173, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.filter-card label {
+    color: var(--violet-fonce);
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.filter-card .form-select,
+.filter-card .form-control {
+    border: 1px solid var(--violet-pale);
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.filter-card .form-select:focus,
+.filter-card .form-control:focus {
+    border-color: var(--violet-clair);
+    box-shadow: 0 0 0 0.25rem rgba(106, 13, 173, 0.25);
+}
+
+.filter-card .btn-primary {
+    background: var(--violet-gradient);
+    border: none;
+}
+
+.filter-card .btn-secondary {
+    background: #f8f9fa;
+    color: var(--violet-fonce);
+    border: 1px solid var(--violet-pale);
+}
       /* Palette violette */
       :root {
           --violet-principal: #6a0dad;
@@ -163,538 +992,10 @@
           background: var(--violet-gradient);
           border-radius: 3px;
       }
-  </style>
-</head>
-<!-- [Head] end -->
-<!-- [Body] Start -->
-
-<body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
-  
-  <!-- [ Pre-loader ] start -->
-<div class="loader-bg">
-  <div class="loader-track">
-    <div class="loader-fill"></div>
-  </div>
-</div>
-<!-- [ Pre-loader ] End -->
- <!-- [ Sidebar Menu ] start -->
-<nav class="pc-sidebar">
-  <div class="navbar-wrapper">
-    
-        <!-- Logo placé dans public/img/GYM.png -->
-     <img src="{{ asset('img/GYM.png') }}" class="img-fluid logo-lg" alt="logo" style="display:block; width:200px; length:200px; margin-left:20px;">
-      </a>
-    </div>
-    <div class="navbar-content">
-      <ul class="pc-navbar">
-        <li class="pc-item">
-          <a href="../dashboard/index.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-            <span class="pc-mtext">Dashboard</span>
-          </a>
-        </li>
-
-        <li class="pc-item pc-caption">
-          <label>Gestion De Produits</label>
-          <i class="ti ti-dashboard"></i>
-        </li>
-         <li class="pc-item">
-          <a href="{{ path('app_categorie_index') }}" class="pc-link">
-          
-            <span class="pc-micon"><i class="ti ti-folder"></i>
-</span>
-            <span class="pc-mtext">Liste Des Categories</span>
-          </a>
-        </li>
-        <li class="pc-item">
-           <a href="{{ path('app_produits_index') }}" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-box"></i></i></span>
-            <span class="pc-mtext">Liste Des Produits</span>
-          </a>
-        </li>
-        <li class="pc-item">
-            <a href="{{ path('app_commande_index') }}" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-shopping-cart"></i></span>
-            <span class="pc-mtext">Liste Des Commandes</span>
-          </a>
-        </li>
-
-        <li class="pc-item pc-caption">
-          <label>Gestion Des Evenements</label>
-          <i class="ti ti-news"></i>
-        </li>
-         <li class="pc-item">
-            <a href="{{ path('app_evenement_index') }}" class="pc-link">
-              <span class="pc-micon"><i class="ti ti-calendar-event"></i>
-</span>
-              <span class="pc-mtext">Liste Des événements</span>
-            </a>
-          </li>
-          <li class="pc-item">
-            <a href="{{ path('app_participation_index') }}" class="pc-link">
-              <span class="pc-micon"><i class="ti ti-color-swatch"></i></span>
-              <span class="pc-mtext">Liste Des participations</span>
-            </a>
-          </li>
-
-        <li class="pc-item pc-caption">
-          <label>Other</label>
-          <i class="ti ti-brand-chrome"></i>
-        </li>
-        <li class="pc-item pc-hasmenu">
-          <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span class="pc-mtext">Menu
-              levels</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-          <ul class="pc-submenu">
-            <li class="pc-item"><a class="pc-link" href="#!">Level 2.1</a></li>
-            <li class="pc-item pc-hasmenu">
-              <a href="#!" class="pc-link">Level 2.2<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-              <ul class="pc-submenu">
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
-                <li class="pc-item pc-hasmenu">
-                  <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-                  <ul class="pc-submenu">
-                    <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
-                    <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="pc-item pc-hasmenu">
-              <a href="#!" class="pc-link">Level 2.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-              <ul class="pc-submenu">
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.1</a></li>
-                <li class="pc-item"><a class="pc-link" href="#!">Level 3.2</a></li>
-                <li class="pc-item pc-hasmenu">
-                  <a href="#!" class="pc-link">Level 3.3<span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-                  <ul class="pc-submenu">
-                    <li class="pc-item"><a class="pc-link" href="#!">Level 4.1</a></li>
-                    <li class="pc-item"><a class="pc-link" href="#!">Level 4.2</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li class="pc-item">
-          <a href="../other/sample-page.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-            <span class="pc-mtext">Sample page</span>
-          </a>
-        </li>
-      </ul>
-      <div class="card text-center">
-        <div class="card-body">
-          <img src="../assets/images/img-navbar-card.png" alt="images" class="img-fluid mb-2">
-          <h5>Upgrade To Pro</h5>
-          <p>To get more features and components</p>
-          <a href="https://codedthemes.com/item/berry-bootstrap-5-admin-template/" target="_blank"
-          class="btn btn-success">Buy Now</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-<!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
-<header class="pc-header" 
-        style="position: fixed; 
-               top: 0; 
-               left: 40; 
-              ">
-  <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
-<div class="me-auto pc-mob-drp">
-  <ul class="list-unstyled">
-    <!-- ======= Menu collapse Icon ===== -->
-    <li class="pc-h-item pc-sidebar-collapse">
-      <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
-        <i class="ti ti-menu-2"></i>
-      </a>
-    </li>
-    <li class="pc-h-item pc-sidebar-popup">
-      <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
-        <i class="ti ti-menu-2"></i>
-      </a>
-    </li>
-    <li class="dropdown pc-h-item d-inline-flex d-md-none">
-      <a
-        class="pc-head-link dropdown-toggle arrow-none m-0"
-        data-bs-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="false"
-        aria-expanded="false"
-      >
-        <i class="ti ti-search"></i>
-      </a>
-      <div class="dropdown-menu pc-h-dropdown drp-search">
-        <form class="px-3">
-          <div class="form-group mb-0 d-flex align-items-center">
-            <i data-feather="search"></i>
-            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
-          </div>
-        </form>
-      </div>
-    </li>
-    <li class="pc-h-item d-none d-md-inline-flex">
-      <form class="header-search">
-        <i data-feather="search" class="icon-search"></i>
-        <input type="search" class="form-control" placeholder="Search here. . .">
-      </form>
-    </li>
-  </ul>
-</div>
-<!-- [Mobile Media Block end] -->
-<div class="ms-auto">
-  <ul class="list-unstyled">
-    <li class="dropdown pc-h-item">
-      <a
-        class="pc-head-link dropdown-toggle arrow-none me-0"
-        data-bs-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="false"
-        aria-expanded="false"
-      >
-        <i class="ti ti-mail"></i>
-      </a>
-      <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
-        <div class="dropdown-header d-flex align-items-center justify-content-between">
-          <h5 class="m-0">Message</h5>
-          <a href="#!" class="pc-head-link bg-transparent"><i class="ti ti-x text-danger"></i></a>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative" style="max-height: calc(100vh - 215px)">
-          <div class="list-group list-group-flush w-100">
-            <a class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-                </div>
-                <div class="flex-grow-1 ms-1">
-                  <span class="float-end text-muted">3:00 AM</span>
-                  <p class="text-body mb-1">It's <b>Cristina danny's</b> birthday today.</p>
-                  <span class="text-muted">2 min ago</span>
-                </div>
-              </div>
-            </a>
-            <a class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img src="../assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar">
-                </div>
-                <div class="flex-grow-1 ms-1">
-                  <span class="float-end text-muted">6:00 PM</span>
-                  <p class="text-body mb-1"><b>Aida Burg</b> commented your post.</p>
-                  <span class="text-muted">5 August</span>
-                </div>
-              </div>
-            </a>
-            <a class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img src="../assets/images/user/avatar-3.jpg" alt="user-image" class="user-avtar">
-                </div>
-                <div class="flex-grow-1 ms-1">
-                  <span class="float-end text-muted">2:45 PM</span>
-                  <p class="text-body mb-1"><b>There was a failure to your setup.</b></p>
-                  <span class="text-muted">7 hours ago</span>
-                </div>
-              </div>
-            </a>
-            <a class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img src="../assets/images/user/avatar-4.jpg" alt="user-image" class="user-avtar">
-                </div>
-                <div class="flex-grow-1 ms-1">
-                  <span class="float-end text-muted">9:10 PM</span>
-                  <p class="text-body mb-1"><b>Cristina Danny </b> invited to join <b> Meeting.</b></p>
-                  <span class="text-muted">Daily scrum meeting time</span>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="text-center py-2">
-          <a href="#!" class="link-primary">View all</a>
-        </div>
-      </div>
-    </li>
-    <li class="dropdown pc-h-item header-user-profile">
-      <a
-        class="pc-head-link dropdown-toggle arrow-none me-0"
-        data-bs-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="false"
-        data-bs-auto-close="outside"
-        aria-expanded="false"
-      >
-        <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-        <span>Stebin Ben</span>
-      </a>
-      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
-        <div class="dropdown-header">
-          <div class="d-flex mb-1">
-            <div class="flex-shrink-0">
-              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
-            </div>
-            <div class="flex-grow-1 ms-3">
-              <h6 class="mb-1">Stebin Ben</h6>
-              <span>UI/UX Designer</span>
-            </div>
-            <a href="#!" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
-          </div>
-        </div>
-        <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link active"
-              id="drp-t1"
-              data-bs-toggle="tab"
-              data-bs-target="#drp-tab-1"
-              type="button"
-              role="tab"
-              aria-controls="drp-tab-1"
-              aria-selected="true"
-              ><i class="ti ti-user"></i> Profile</button
-            >
-          </li>
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link"
-              id="drp-t2"
-              data-bs-toggle="tab"
-              data-bs-target="#drp-tab-2"
-              type="button"
-              role="tab"
-              aria-controls="drp-tab-2"
-              aria-selected="false"
-              ><i class="ti ti-settings"></i> Setting</button
-            >
-          </li>
-        </ul>
-        <div class="tab-content" id="mysrpTabContent">
-          <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-edit-circle"></i>
-              <span>Edit Profile</span>
-            </a>
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-user"></i>
-              <span>View Profile</span>
-            </a>
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-clipboard-list"></i>
-              <span>Social Profile</span>
-            </a>
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-wallet"></i>
-              <span>Billing</span>
-            </a>
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-power"></i>
-              <span>Logout</span>
-            </a>
-          </div>
-          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-help"></i>
-              <span>Support</span>
-            </a>
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-user"></i>
-              <span>Account Settings</span>
-            </a>
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-lock"></i>
-              <span>Privacy Center</span>
-            </a>
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-messages"></i>
-              <span>Feedback</span>
-            </a>
-            <a href="#!" class="dropdown-item">
-              <i class="ti ti-list"></i>
-              <span>History</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-</div>
- </div>
- </header>
-
-<!-- [ Header ] end -->
-{% block stylesheets %}
-    <style>
-        /* Couleurs personnalisées */
-        :root {
-            --primary-color: #6f42c1; /* Couleur principale (Violet) */
-            --secondary-color: #5e33b5; /* Couleur secondaire */
-            
-            --text-color: #ffffff; /* Couleur du texte */
-        }
-
-        /* Style personnalisé pour la liste des participations */
-        .participations-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .participations-title {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 25px;
-            border-bottom: 1px solid #e9ecef;
-            padding-bottom: 10px;
-        }
-
-        .participations-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border: 1px solid #e9ecef;
-        }
-
-        .participations-table th {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            padding: 12px 15px;
-            text-align: left;
-            position: sticky;
-            top: 0;
-            font-weight: 600;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .participations-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e9ecef;
-            vertical-align: top;
-            color: #495057;
-        }
-
-        /* Style pour les lignes impaires */
-        .participations-table tr:nth-child(odd) {
-            background-color: #f8fafc;
-        }
-
-        /* Survol des lignes */
-        .participations-table tr:hover {
-            background-color: var(--hover-color);
-            color: var(--text-color);
-        }
-
-        .no-participations {
-            text-align: center;
-            padding: 40px;
-            color: #6c757d;
-            font-size: 1.1rem;
-            border: 1px dashed #dee2e6;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-            margin: 20px 0;
-        }
-
-        .btn-back {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-
-        .btn-back:hover {
-            background-color: var(--hover-color);
-            color: var(--text-color);
-            transform: translateY(-1px);
-        }
     </style>
-{% endblock %}
+    {% endblock %}
 
-{% block body %}
-    <div class="pc-container">
-        <div class="pc-content">
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <h1 class="mb-0">Liste des participations</h1>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
+</body>
+<!-- [Body] end -->
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="participations-card">
-                                {% if participations is not empty %}
-                                    <table class="participations-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Nom et Prénom d'utilisateur</th>
-                                                <th>Événement</th>
-                                                <th>Places réservées</th>
-                                                <th>Places restantes</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for participation in participations %}
-                                                <tr>
-                                                    <td>
-                                                        {% if participation.utilisateur %}
-                                                            {{ participation.utilisateur.prenom }} {{ participation.utilisateur.nom }}
-                                                        {% else %}
-                                                            Utilisateur inconnu
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        {% if participation.evenement %}
-                                                            {{ participation.evenement.nom }}
-                                                        {% else %}
-                                                            Événement inconnu
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        {{ participation.nombreDePlacesReservees }}
-                                                    </td>
-                                                    <td>
-                                                        {% if participation.evenement %}
-                                                            {{ participation.evenement.nombreDePlaces - participation.evenement.placesReservees }}
-                                                        {% else %}
-                                                            N/A
-                                                        {% endif %}
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                {% else %}
-                                    <div class="no-participations">
-                                        <h3>Aucune participation trouvée</h3>
-                                        <p>Revenez plus tard pour découvrir vos participations.</p>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+</html>

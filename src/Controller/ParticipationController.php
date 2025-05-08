@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Evenement;
 use App\Entity\User;
 use App\Entity\Statut;
@@ -11,26 +12,72 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
+use Psr\Log\LoggerInterface;
+use App\Service\MailerService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/participation')]
 class ParticipationController extends AbstractController
 {
+  
+    private LoggerInterface $logger; 
+    private MailerService $mailerService;
  
-   #[Route('/', name: 'app_participation_index', methods: ['GET'])]
-public function index(ParticipationRepository $participationRepository): Response
-{
-    $participations = $participationRepository->findAllWithUserAndEvent();
+    #[Route('/', name: 'app_participation_index', methods: ['GET'])]
+public function index(
+    ParticipationRepository $participationRepository,
+    Request $request,
+    EntityManagerInterface $entityManager
+): Response {
+    $filters = [
+        'user' => $request->query->get('user'),
+        'event' => $request->query->get('event'),
+        'dateFrom' => $request->query->get('dateFrom'),
+        'dateTo' => $request->query->get('dateTo'),
+    ];
+
+    $participations = $participationRepository->findWithFilters($filters);
+    $user = $this->getUser();
+    // Récupérer tous les utilisateurs et événements pour les filtres
+    $users = $entityManager->getRepository(User::class)->findAll();
+    $events = $entityManager->getRepository(Evenement::class)->findAll();
 
     return $this->render('participation/index.html.twig', [
-        'participations' => $participations, 
-        'evenement' => null
+        'participations' => $participations,
+        'users' => $users,
+        'events' => $events,
+        'currentFilters' => $filters,
+        'user' => $user,
     ]);
 }
 
-#[Route('/new/{eventId}', name: 'app_participation_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager, int $eventId): Response
+
+public function __construct(LoggerInterface $logger, MailerService $mailerService) // Injecter MailerService
 {
+    $this->logger = $logger;
+    $this->mailerService = $mailerService; // Initialisation de votre service
+}
+
+#[Route('/new/{eventId}', name: 'app_participation_new', methods: ['GET', 'POST'])]
+
+public function new(
+    Request $request, 
+    EntityManagerInterface $entityManager, 
+    int $eventId,
+    LoggerInterface $logger
+): Response {
+    /** @var User $user */
+    $user = $this->getUser();
+    
+    // Vérification que l'utilisateur a bien un email
+    if (!$user->getEmail()) {
+        $this->addFlash('error', 'Votre profil utilisateur ne contient pas d\'email valide.');
+        return $this->redirectToRoute('app_profile_edit');
+    }
+
     $evenement = $entityManager->getRepository(Evenement::class)->find($eventId);
     
     if (!$evenement) {
@@ -38,60 +85,73 @@ public function new(Request $request, EntityManagerInterface $entityManager, int
     }
 
     $participation = new Participation();
-    $user = $this->getUser() ?: $this->getCurrentUser($entityManager);
-    $participation->setUtilisateur($user);
+    $participation->setUser($user);
     $participation->setEvenement($evenement);
 
     $form = $this->createForm(ParticipationType::class, $participation);
     $form->handleRequest($request);
 
-
     if ($form->isSubmitted() && $form->isValid()) {
-        $placesDemandees = $participation->getNombreDePlacesReservees();
-
-        if ($evenement->getNombreDePlaces() !== null) {
+        try {
+            $placesDemandees = $participation->getNombreDePlacesReservees();
             $placesDisponibles = $evenement->getNombreDePlaces() - $evenement->getPlacesReservees();
 
             if ($placesDemandees > $placesDisponibles) {
-                $this->addFlash('error', 'Pas assez de places disponibles. Il reste '.$placesDisponibles.' places.');
+                $this->addFlash('error', 'Pas assez de places disponibles. Il reste ' . $placesDisponibles . ' places.');
                 return $this->redirectToRoute('app_evenement_show', ['id' => $evenement->getId()]);
             }
-            
-            // Diminuer le nombre de places disponibles
+
+            // Mise à jour des places
             $evenement->setNombreDePlaces($evenement->getNombreDePlaces() - $placesDemandees);
 
-            // Vérifier si le nombre de places est à zéro et changer le statut
-            if ($evenement->getNombreDePlaces() <= 0) {
+            if ($evenement->getNombreDePlaces() <= $evenement->getPlacesReservees()) {
                 $evenement->setStatut(Statut::COMPLET->value);
-            } else {
-                // S'il reste encore des places, réinitialiser à A_VENIR si applicable
-                if ($evenement->getStatut() === Statut::COMPLET->value) {
-                    $evenement->setStatut(Statut::A_VENIR->value);
-                }
+            } else if ($evenement->getStatut() === Statut::COMPLET->value) {
+                $evenement->setStatut(Statut::A_VENIR->value);
             }
+
+            // Persister les entités
+            $entityManager->persist($participation);
+            $entityManager->persist($evenement);
+            $entityManager->flush();
+
+            // Envoi de l'email de confirmation
+            try {
+                $this->mailerService->sendEmail(
+                    $user->getEmail(),
+                    'Confirmation de participation - ' . $evenement->getNom(),
+                    $this->renderView('emails/participation_confirmation.html.twig', [
+                        'user' => $user,
+                        'evenement' => $evenement,
+                        'placesReservees' => $placesDemandees,
+                        'date' => new \DateTime()
+                    ])
+                );
+                $this->addFlash('success', 'Confirmation envoyée par email');
+            } catch (\Exception $e) {
+                $logger->error('Erreur envoi email: '.$e->getMessage());
+                $this->addFlash('warning', 'Participation enregistrée mais échec d\'envoi du mail');
+            }
+
+            return $this->redirectToRoute('app_client_events', ['id' => $evenement->getId()]);
+            
+        } catch (\Exception $e) {
+            $logger->error('Erreur participation: '.$e->getMessage());
+            $this->addFlash('error', 'Une erreur technique est survenue');
         }
-
-        // Persister la participation D'ABORD
-        $entityManager->persist($participation);
-        // Puis, persister l'événement pour mettre à jour le statut
-        $entityManager->persist($evenement); 
-        $entityManager->flush(); // Flushing une seule fois après cela
-        $this->addFlash('success', 'Votre participation a été enregistrée avec succès');
-
-        return $this->redirectToRoute('app_client_events', ['id' => $evenement->getId()]);
     }
 
     return $this->render('participation/new.html.twig', [
         'participation' => $participation,
         'form' => $form->createView(),
-        'evenement' => $evenement
+        'evenement' => $evenement,
+        'user' => $user,
     ]);
 }
-  
-
-    #[Route('/{id}/edit', name: 'app_participation_edit', methods: ['GET', 'POST'])]
+   #[Route('/{id}/edit', name: 'app_participation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
         $form = $this->createForm(ParticipationType::class, $participation);
         $form->handleRequest($request);
 
@@ -104,8 +164,10 @@ public function new(Request $request, EntityManagerInterface $entityManager, int
         return $this->render('participation/edit.html.twig', [
             'participation' => $participation,
             'form' => $form,
+            'user' => $user,
         ]);
     }
+   
 
     #[Route('/{id}', name: 'app_participation_delete', methods: ['POST'])]
     public function delete(Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
@@ -118,55 +180,21 @@ public function new(Request $request, EntityManagerInterface $entityManager, int
         return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    private function getCurrentUser(EntityManagerInterface $entityManager): User
-{
-    // Check if a user with the specified email already exists
-    $existingUser = $entityManager->getRepository(User::class)->findOneBy([
-        'email' => 'idieya56@gmail.com' // Checking against the email to avoid duplicates
-    ]);
-
-    if ($existingUser) {
-        // If the user exists, return that user
-        return $existingUser;
-    }
-
-    // If no user exists, create a new one
-    $user = new User();
-    $user->setNom('Utilisateur Test');
-    $user->setPrenom('Test');
-    $user->setEmail('idieya56@gmail.com');
-    $user->setPassword(password_hash('motdepasse', PASSWORD_DEFAULT)); // Hash the password
-    $user->setRole('sportif');
-    $user->setTelephone('0123456789'); // Assuming other fields are not required for this example
-
-    // Persist the new user
-    $entityManager->persist($user);
-    $entityManager->flush();
-
-    return $user;
-}
-#[Route('/mes-participations', name: 'app_mes_participations', methods: ['GET'])]
-public function mesParticipations(ParticipationRepository $participationRepository, EntityManagerInterface $entityManager): Response
-{
-    // Obtenez l'utilisateur actuellement authentifié
-    $user = $this->getUser();
     
-    // Si l'utilisateur n'est pas authentifié, utilisez getCurrentUser() pour obtenir un utilisateur par défaut
-    if (!$user) {
-        $user = $this->getCurrentUser($entityManager);
-    }
+#[Route('/mes-participations', name: 'app_mes_participations', methods: ['GET'])]
 
-    // Récupérez les participations de l'utilisateur
-    $participations = $participationRepository->findBy(['utilisateur' => $user]);
-
-    // Vérifiez si l'utilisateur a des participations
-    if (!$participations) {
-        $this->addFlash('info', 'Aucune participation trouvée pour cet utilisateur.');
-        return $this->redirectToRoute('app_participation_index'); // Redirigez ou renvoyez à une autre action
-    }
+public function mesParticipations(ParticipationRepository $participationRepository): Response
+{
+    $user = $this->getUser();
+    $participations = $participationRepository->findBy([
+        'user' => $this->getUser()
+    ]);
 
     return $this->render('participation/mes_participations.html.twig', [
-        'participations' => $participations,
+        'participations' => $participations ?? []
     ]);
 }
+
+
+
 }

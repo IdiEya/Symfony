@@ -4,9 +4,9 @@ require __DIR__ . '/vendor/autoload.php';
 
 use App\Service\SmsNotifier;
 
-
-$token = '9d5b158fa1f7bcd2cb665872ea0d5bf5';
-$from = '+18647668179'; // ex : '+1415XXXXXXX'
+$sid = '';
+$token = '';
+$from = ''; // ex : '+1415XXXXXXX'
 
 $smsNotifier = new SmsNotifier($sid, $token, $from);
 

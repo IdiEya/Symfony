@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('assets/css/signup.css') }}">
+    <title>{{ 'Sign Up - CARVILLA'|trans }}</title>
+</head>
+<body>
+
+    
+    <!-- Signup Container -->
+    <div class="signup-container">
+        <h2 class="signup-title">{{ 'Create Your Account'|trans }}</h2>
+        
+        <form action="{{ path('app_register') }}" method="post" enctype="multipart/form-data">
+            <!-- Personal Information -->
+            <h3 class="section-title">{{ 'Personal Information'|trans }}</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="prenom" class="form-label required">{{ 'First Name'|trans }}</label>
+                    <input type="text" id="prenom" name="prenom" class="form-input" placeholder="{{ 'Enter your first name'|trans }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nom" class="form-label required">{{ 'Last Name'|trans }}</label>
+                    <input type="text" id="nom" name="nom" class="form-input" placeholder="{{ 'Enter your last name'|trans }}" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email" class="form-label required">{{ 'Email Address'|trans }}</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="{{ 'Enter your email'|trans }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telephone" class="form-label required">{{ 'Phone Number'|trans }}</label>
+                    <input type="tel" id="telephone" name="telephone" class="form-input" placeholder="{{ 'Enter your phone number'|trans }}" required>
+                </div>
+            </div>
+            
+            <!-- Account Security -->
+            <h3 class="section-title">{{ 'Account Security'|trans }}</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password" class="form-label required">{{ 'Password'|trans }}</label>
+                    <input type="password" id="password" name="password" class="form-input" placeholder="{{ 'Create a password'|trans }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password" class="form-label required">{{ 'Confirm Password'|trans }}</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-input" placeholder="{{ 'Confirm your password'|trans }}" required>
+                </div>
+            </div>
+            
+            <!-- Additional Information -->
+            <h3 class="section-title">{{ 'Additional Information'|trans }}</h3>
+            
+            <div class="form-group">
+                <label for="adresse" class="form-label">{{ 'Address'|trans }} <span class="optional">({{ 'Optional'|trans }})</span></label>
+                <textarea id="adresse" name="adresse" class="form-textarea" placeholder="{{ 'Enter your address'|trans }}"></textarea>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="specialite" class="form-label">{{ 'Specialty'|trans }} <span class="optional">({{ 'Optional'|trans }})</span></label>
+                    <input type="text" id="specialite" name="specialite" class="form-input" placeholder="{{ 'Your specialty or area of interest'|trans }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="photo" class="form-label">{{ 'Profile Photo'|trans }} <span class="optional">({{ 'Optional'|trans }})</span></label>
+                    <div class="file-input-wrapper">
+                        <label for="photo" class="file-input-label">{{ 'Choose File'|trans }}</label>
+                        <input type="file" id="photo" name="photo" class="file-input" accept="image/*">
+                        <span id="file-name" class="file-name"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="signup-btn">{{ 'Create Account'|trans }}</button>
+            
+            <div class="login-link">
+                {{ 'Already have an account?'|trans }} <a href="{{ path('app_login') }}">{{ 'Log in here'|trans }}</a>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Footer -->
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">↑</a>
+    <script src="{{ asset('assets/js/signup.js') }}"></script>
+</body>
+</html>

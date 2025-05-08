@@ -5,6 +5,10 @@ parameters:
     twilio_sid: '%env(TWILIO_SID)%'
     twilio_token: '%env(TWILIO_TOKEN)%'
     twilio_from: '%env(TWILIO_FROM)%'
+    profile_photos_directory: '%kernel.project_dir%/public/uploads/profiles'
+    gym_images_directory: '%kernel.project_dir%/public/uploads/gyms'
+    STRIPE_PUBLIC_KEY: '%env(STRIPE_PUBLIC_KEY)%'
+    STRIPE_SECRET_KEY: '%env(STRIPE_SECRET_KEY)%'
 
 services:
     App\Service\SmsNotifier:
@@ -13,7 +17,7 @@ services:
             $token: '%twilio_token%'
             $from: '%twilio_from%'
            
-
+   
     _defaults:
         autowire: true
         autoconfigure: true

@@ -1,0 +1,218 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ gym.nom }}{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #faf9ff;
+        margin: 0;
+        padding: 20px;
+        color: #444;
+    }
+    .form-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 15px rgba(92, 64, 111, 0.1);
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    h1 {
+        color: #5C406F;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 1.6rem;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #5C406F;
+    }
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #f3edff;
+        border-radius: 6px;
+        background-color: #fbf8ff;
+    }
+    .form-control:focus {
+        outline: none;
+        border-color: #9D77B8;
+    }
+    .map-container {
+        height: 250px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #f3edff;
+        margin: 15px 0;
+    }
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 25px;
+    }
+    .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        min-width: 100px;
+        text-align: center;
+        border: none;
+    }
+    .btn-secondary {
+        background-color: #f3edff;
+        color: #5C406F;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, #88659F, #9D77B8);
+        color: white;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #9D77B8, #A882D4);
+    }
+    .form-help {
+        font-size: 0.8rem;
+        color: #888;
+        margin-top: 5px;
+    }
+    .current-photo img {
+        max-width: 200px;
+        max-height: 150px;
+        border-radius: 6px;
+        margin-top: 10px;
+    }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <h1>Modifier {{ gym.nom }}</h1>
+
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.nom, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.nom) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.latitude, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.latitude, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.latitude) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.longitude, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.longitude, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.longitude) }}
+            <div class="form-help">Cliquez sur la carte pour modifier la position</div>
+        </div>
+
+        <div class="map-container" id="map"></div>
+
+        <div class="form-group">
+            {{ form_label(form.imageFile, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.imageFile) }}
+            <div class="form-help">Formats acceptés : JPG, PNG (max 2Mo)</div>
+            
+            {% if gym.photo %}
+                <div class="current-photo">
+                    <p>Photo actuelle :</p>
+                    <img src="{{ asset('uploads/gyms/' ~ gym.photo) }}" 
+                         onerror="this.src='{{ asset('images/default-gym.jpg') }}'">
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.services, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.services, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.services) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.horaires, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.horaires, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.horaires) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.contact, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.contact, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.contact) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.prixMensuel, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.prixMensuel, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.prixMensuel) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.prixTrimestriel, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.prixTrimestriel, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.prixTrimestriel) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.prixSemestriel, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.prixSemestriel, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.prixSemestriel) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.prixAnnuel, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.prixAnnuel, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.prixAnnuel) }}
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ path('app_gym_index') }}" class="btn btn-secondary">
+                Annuler
+            </a>
+            <button type="submit" class="btn btn-primary">
+                Enregistrer
+            </button>
+        </div>
+    {{ form_end(form) }}
+</div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const map = L.map('map').setView([{{ initial_lat }}, {{ initial_lng }}], 13);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    let marker = L.marker([{{ initial_lat }}, {{ initial_lng }}]).addTo(map);
+
+    map.on('click', function(e) {
+        const lat = e.latlng.lat.toFixed(6);
+        const lng = e.latlng.lng.toFixed(6);
+
+        document.getElementById('{{ form.latitude.vars.id }}').value = lat;
+        document.getElementById('{{ form.longitude.vars.id }}').value = lng;
+
+        if (marker) {
+            marker.setLatLng(e.latlng);
+        } else {
+            marker = L.marker(e.latlng).addTo(map);
+        }
+    });
+});
+</script>
+{% endblock %}
